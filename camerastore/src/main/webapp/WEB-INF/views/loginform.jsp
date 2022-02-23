@@ -50,6 +50,7 @@
         <div class="clearfix">
             <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
             <a href="/account/passwordMail" class="float-right">Forgot Password?</a>
+            <h1>${accounts.password}</h1>
         </div>
     </form>
     <p class="text-center"><a href="/account/register">Create an Account</a></p>
