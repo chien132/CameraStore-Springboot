@@ -21,6 +21,7 @@ public class Account implements Serializable {
     private String email;
     private String fullname;
     private String photo;
+    private String phone;
     @NotNull
     private boolean admin;
 

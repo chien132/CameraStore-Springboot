@@ -1,60 +1,98 @@
+<%@ page pageEncoding="utf-8"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Simple Login Form</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <style>
-        .login-form {
-            width: 340px;
-            margin: 50px auto;
-            font-size: 15px;
-        }
-        .login-form form {
-            margin-bottom: 15px;
-            background: #f7f7f7;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-        }
-        .login-form h2 {
-            margin: 0 0 15px;
-        }
-        .form-control, .btn {
-            min-height: 38px;
-            border-radius: 2px;
-        }
-        .btn {
-            font-size: 15px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="resources/semantic/semantic.min.js"></script>
+  <style>
+    body>.grid {
+      height: 100%;
+    }
+
+    .column {
+      max-width: 450px;
+    }
+
+    .error {
+      color: red;
+      text-align: left;
+      width: 100%;
+    }
+  </style>
+  <script>
+    $(document).ready(function () {
+      $(".ui.form").form({
+        fields: {
+          email: {
+            identifier: "username",
+            rules: [{
+              type: "empty",
+              prompt: "Hãy nhập username",
+            }, ],
+          },
+          password: {
+            identifier: "password",
+            rules: [{
+                type: "empty",
+                prompt: "Hãy nhập mật khẩu",
+              },
+              {
+                type: "length[3]",
+                prompt: "Mật khẩu phải có ít nhất 3 ký tự",
+              },
+            ],
+          },
+        },
+      });
+    });
+  </script>
 </head>
-<body>
-<div class="login-form">
-    <form action="/account/login" method="post">
-        <h2 class="text-center">Log in</h2>
-        <div class="form-group">
-            <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+
+<body id="homelogin">
+  <jsp:include page="header.jsp" />
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <form:form action="login" modelAttribute="account" class="ui large form">
+        <div class="ui stacked secondary segment">
+          <h2 class="ui image header">
+            <div class="content">Đăng nhập</div>
+          </h2>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <form:input type="text" path="username" placeholder="Enter username" />
+            </div>
+            <i class="error">
+              <form:errors path="username"></form:errors>
+            </i>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <form:input path="password" value="${account.password}" type="password" placeholder="Enter password" />
+            </div>
+            <i class="error">
+              <form:errors path="password"></form:errors>
+            </i>
+          </div>
+          <div class="ui fluid large teal submit button">Đăng nhập</div>
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>
-        <div class="clearfix">
-            <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
-            <a href="/account/passwordMail" class="float-right">Forgot Password?</a>
-            <h1>${accounts.password}</h1>
-        </div>
-    </form>
-    <p class="text-center"><a href="/account/register">Create an Account</a></p>
-    <b><i>${message}${param.error}</i></b>
-</div>
+
+        <div class="ui error message"></div>
+      </form:form>
+
+      <div class="ui message">
+        Bạn chưa có tài khoản?
+        <a href="register"> Đăng ký</a>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
