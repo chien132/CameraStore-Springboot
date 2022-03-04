@@ -3,6 +3,7 @@ package com.chien.camerastore.customercontroller;
 import com.chien.camerastore.dao.*;
 import com.chien.camerastore.model.Brand;
 import com.chien.camerastore.model.Category;
+import com.chien.camerastore.model.Product;
 import com.chien.camerastore.service.FileUploadService;
 import com.chien.camerastore.service.SessionService;
 import org.hibernate.SessionFactory;
@@ -37,6 +38,8 @@ public class HomeController {
     @Autowired
     private BrandDAO brandDAO;
     @Autowired
+    private ProductDAO productDAO;
+    @Autowired
     private OrderDAO orderDAO;
     @Autowired
     private OrderDetailDAO orderDetailDAO;
@@ -51,10 +54,16 @@ public class HomeController {
         return brandDAO.findAll();
     }
 
+    @ModelAttribute("products")
+    public List<Product> products() {
+        return productDAO.findAll();
+    }
+
     @RequestMapping("")
     public String root() {
         return "redirect:/index";
     }
+
     @RequestMapping("index")
     public String index() {
         return "index";
