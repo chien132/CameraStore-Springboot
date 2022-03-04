@@ -30,17 +30,17 @@ import java.util.regex.Pattern;
 @Controller
 public class AccountController {
     @Autowired
-    SessionFactory factory;
+    private SessionFactory factory;
     @Autowired
-    SessionService session;
+    private SessionService session;
     @Autowired
-    ServletContext context;
+    private ServletContext context;
     @Autowired
-    AccountDAO accountDAO;
+    private AccountDAO accountDAO;
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
     @Autowired
-    BrandDAO brandDAO;
+    private BrandDAO brandDAO;
 
     @ModelAttribute("categories")
     public List<Category> categories() {

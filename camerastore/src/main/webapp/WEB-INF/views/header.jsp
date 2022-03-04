@@ -24,6 +24,10 @@
 			-webkit-background-size: cover;
 			background-attachment: fixed;
 		}
+
+		.spacer {
+			height: 50px;
+		}
 	</style>
 </head>
 
@@ -38,7 +42,7 @@
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				<c:forEach var="cate" items="${categories}">
-					<div class="item"><a href="category/${cate.id}">${cate.name}</a></div>
+					<a class="item" href="category/${cate.id}">${cate.name}</a>
 				</c:forEach>
 			</div>
 		</div>
@@ -47,10 +51,13 @@
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				<c:forEach var="brand" items="${brands}">
-					<div class="item"><a href="brand/${brand.id}">${brand.name}</a> </div>
+					<a class="item" href="brand/${brand.id}">${brand.name}</a>
 				</c:forEach>
 			</div>
 		</div>
+
+
+
 		<div class="ui search">
 			<div class="ui icon input">
 				<input class="prompt" type="text" placeholder="Tìm kiếm . . .">
@@ -68,8 +75,33 @@
 				</c:when>
 				<c:when test="${curaccount!=null}">
 					<a class="item"><i class="opencart icon"> </i>Cart <div class="ui green label"> 2 </div> </a>
-					<a class="item"><img style="max-width: 1.5vw" src=${curaccount.photo} /> ${curaccount.username}</a>
-					<a href="logout" class="item">Đăng xuất</a>
+
+					<div class="item ui pointing dropdown link">
+						<span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo} />
+							${curaccount.username}</span>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+
+							<a class="item">Tài khoản</a>
+							<a class="item">Đơn hàng</a>
+							<a href="logout" class="item">Đăng xuất</a>
+
+							<div class="item">
+								<i class="dropdown left icon"></i>
+								<span class="text">Menu</span>
+								<div class="menu">
+									<div class="item">1</div>
+									<div class="item">2</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<script>
+						$('.ui.dropdown')
+							.dropdown();
+					</script>
+
 				</c:when>
 			</c:choose>
 		</div>
