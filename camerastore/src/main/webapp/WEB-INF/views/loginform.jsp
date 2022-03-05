@@ -57,7 +57,7 @@
                         <form:errors path="password"></form:errors>
                     </i>
                 </div>
-                <div class="ui fluid large teal submit button">Đăng nhập</div>
+                <button class="ui fluid large teal submit button">Đăng nhập</button>
             </div>
 
             <div class="ui error message"></div>
@@ -69,33 +69,33 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $(".ui.form").form({
-            fields: {
-                email: {
-                    identifier: "username",
-                    rules: [{
-                        type: "empty",
-                        prompt: "Hãy nhập username",
-                    },],
-                },
-                password: {
-                    identifier: "password",
-                    rules: [{
-                        type: "empty",
-                        prompt: "Hãy nhập mật khẩu",
-                    },
-                        {
-                            type: "length[3]",
-                            prompt: "Mật khẩu phải có ít nhất 3 ký tự",
-                        },
-                    ],
-                },
-            },
-        });
-    });
-</script>
+<%--<script>--%>
+<%--    $(document).ready(function () {--%>
+<%--        $(".ui.form").form({--%>
+<%--            fields: {--%>
+<%--                email: {--%>
+<%--                    identifier: "username",--%>
+<%--                    rules: [{--%>
+<%--                        type: "empty",--%>
+<%--                        prompt: "Hãy nhập username",--%>
+<%--                    },],--%>
+<%--                },--%>
+<%--                password: {--%>
+<%--                    identifier: "password",--%>
+<%--                    rules: [{--%>
+<%--                        type: "empty",--%>
+<%--                        prompt: "Hãy nhập mật khẩu",--%>
+<%--                    },--%>
+<%--                        {--%>
+<%--                            type: "length[3]",--%>
+<%--                            prompt: "Mật khẩu phải có ít nhất 3 ký tự",--%>
+<%--                        },--%>
+<%--                    ],--%>
+<%--                },--%>
+<%--            },--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
 </body>
 
 </html>

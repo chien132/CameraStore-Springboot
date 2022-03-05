@@ -1,6 +1,7 @@
 <%@ page pageEncoding="utf-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f" %>
 <!DOCTYPE html>
 <html>
 
@@ -42,6 +43,7 @@
 <!-- cards -->
 <jsp:include page="filter.jsp"/>
 <div class="ui container bg_rgba">
+    <button class="positive ui button right floated">Positive Button</button>
     <table id="mytable"
            class="ui celled table responsive nowrap unstackable"
            style="width: 100%">
@@ -62,16 +64,24 @@
         <tbody>
         <c:forEach var="i" items="${products}">
             <tr>
-                    <%--                <td><img style="max-width: 33px;" alt=""--%>
-                    <%--                         src="resources/images/avatar/${i.username}.png"></td>--%>
                 <td>${i.id}</td>
+                <td><img style="max-width: 33px;" alt=""
+                         src=${i.image}></td>
                 <td>${i.name}</td>
-                    <%--                <td>${i.cmnd}</td>--%>
-                    <%--                <td>${i.dienThoai}</td>--%>
-                    <%--                <td>${i.email}</td>--%>
+                <td>${i.description}</td>
+                <td><f:formatNumber type="currency"
+                                    maxFractionDigits="0" currencySymbol="" value="${i.price}"/>₫
+                </td>
+                <td>${i.discount}</td>
                     <%--                <td>${i.role.name}<c:if test="${i.role.id==1}"> #${i.chuTro.id}</c:if>--%>
                     <%--                    <c:if test="${i.role.id==2}"> #${i.khachThue.id}</c:if></td>--%>
-                    <%--                <td>${i.ngayDangKy}.</td>--%>
+                <td>${i.category.name}</td>
+                <td>${i.brand.name}</td>
+                <td>${i.quantity}</td>
+                <td>
+                    <button class="ui left attached primary button">Sửa</button>
+                    <button class="ui right attached negative button">Xóa</button>
+                </td>
                     <%--                <td style="text-align: center;"><a--%>
                     <%--                        href="admin/editaccount/${i.username}.htm"><button--%>
                     <%--                        class="positive ui button"--%>
@@ -108,118 +118,33 @@
         </tfoot>
     </table>
 
-    <div class="ui four column grid">
-        <!-- <div class="row"> -->
-        <div class="column">
-            <div class="ui card">
-                <div class="image">
-                    <a class="ui red right ribbon label">-10%</a>
-                    <img src="resources\images\product\p1\p1.jpg"/>
-                </div>
-                <div class="content">
-                    <a class="header">Fujifilm X-T3 + 18-55mm f2.8-4</a>
-                    <div class="description">
-                        Ước gì có một em
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a class="ui teal tag label">26.000.000đ</a>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui card">
-                <div class="image">
-                    <a class="ui red right ribbon label">-10%</a>
-                    <img src="resources\images\product\p1\p1.jpg"/>
-                </div>
-                <div class="content">
-                    <a class="header">Fujifilm X-T3 + 18-55mm f2.8-4</a>
-                    <div class="description">
-                        Ước gì có một em
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a class="ui teal tag label">21.000.000đ</a>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui card">
-                <div class="image">
-                    <a class="ui red right ribbon label">-10%</a>
-                    <img src="resources\images\product\p1\p1.jpg"/>
-                </div>
-                <div class="content">
-                    <a class="header">Fujifilm X-T3 + 18-55mm f2.8-4</a>
-                    <div class="description">
-                        Ước gì có một em
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a class="ui teal tag label">21.000.000đ</a>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui card">
-                <div class="image">
-                    <a class="ui red right ribbon label">-10%</a>
-                    <img src="resources\images\product\p1\p1.jpg"/>
-                </div>
-                <div class="content">
-                    <a class="header">Fujifilm X-T3 + 18-55mm f2.8-4</a>
-                    <div class="description">
-                        Ước gì có một em
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a class="ui teal tag label">21.000.000đ</a>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui card">
-                <div class="image">
-                    <a class="ui red right ribbon label">-10%</a>
-                    <img src="resources\images\product\p1\p1.jpg"/>
-                </div>
-                <div class="content">
-                    <a class="header">Fujifilm X-T3 + 18-55mm f2.8-4</a>
-                    <div class="description">
-                        Ước gì có một em
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a class="ui teal tag label">21.000.000đ</a>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui card">
-                <div class="image">
-                    <a class="ui red right ribbon label">-10%</a>
-                    <img src="resources\images\product\p1\p1.jpg"/>
-                </div>
-                <div class="content">
-                    <a class="header">Fujifilm X-T3 + 18-55mm f2.8-4</a>
-                    <div class="description">
-                        Ước gì có một em
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a class="ui teal tag label">21.000.000đ</a>
-                </div>
-            </div>
-        </div>
-        <!-- </div> -->
+    <%--    <div class="ui four column grid">--%>
+    <%--        <!-- <div class="row"> -->--%>
+    <%--        <c:forEach var="p" items="${products}">--%>
+    <%--            <div class="column">--%>
+    <%--                <div class="ui card">--%>
+    <%--                    <div class="image">--%>
+    <%--                        <a class="ui red right ribbon label">${p.discount*100}%</a>--%>
+    <%--                        <img src=${p.image}/>--%>
+    <%--                    </div>--%>
+    <%--                    <div class="content">--%>
+    <%--                        <a class="header">${p.name}</a>--%>
+    <%--                        <div class="description"> ${p.description} </div>--%>
+    <%--                    </div>--%>
+    <%--                    <div class="extra content">--%>
+    <%--                        <a class="ui teal tag label"><f:formatNumber maxFractionDigits="0" type="currency"--%>
+    <%--                                                                     currencySymbol="" value="${p.price}"/> ₫ </a>--%>
+    <%--                    </div>--%>
+    <%--                </div>--%>
+    <%--            </div>--%>
+    <%--        </c:forEach>--%>
+    <%--        <!-- </div> -->--%>
 
-    </div>
+    <%--    </div>--%>
 </div>
 
 <div class="spacer"></div>
 
-<p>images from Mrprice.com website</p>
 <jsp:include page="footer.jsp"/>
 </body>
 
