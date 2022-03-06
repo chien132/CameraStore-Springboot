@@ -15,6 +15,7 @@ public class Account implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Username không được trống!")
+    @Column(unique = true)
     private String username;
     @NotBlank(message = "Mật khẩu không được trống!")
     private String password;

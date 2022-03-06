@@ -118,8 +118,13 @@ public class AccountController {
     public String register(Model model, @ModelAttribute("account") Account account, BindingResult errors) {
         if (account.getUsername().trim().isEmpty()) {
             errors.rejectValue("username", "account", "Hãy nhập username !");
-        } else if (account.getUsername().trim().contains(" ") || account.getUsername().contains("'")) {
-            errors.rejectValue("username", "account", "Username không được chứa ký tự đặc biệt !");
+        } else {
+            Pattern VALID_USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]+$",
+                    Pattern.CASE_INSENSITIVE);
+            Matcher matcher = VALID_USERNAME_REGEX.matcher(account.getUsername());
+            if (!matcher.find()) {
+                errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
+            }
         }
         if (account.getPassword().trim().isEmpty()) {
             errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");

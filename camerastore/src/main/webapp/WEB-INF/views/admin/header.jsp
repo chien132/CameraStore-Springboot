@@ -36,6 +36,22 @@
         .imgrad {
             max-width: 1.5vw;
         }
+
+        .bg_rgba {
+            background-color: rgb(255, 255, 255);
+            background-blend-mode: lighten;
+            /* width: 200px; */
+            /* height: 200px; */
+            /* border: 1px solid black; */
+        }
+
+        @media only screen and (min-width: 1200px) {
+            .ui.container {
+                width: 95%;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
     </style>
 </head>
 
@@ -49,16 +65,16 @@
         Tài khoản
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="">Danh sách</a>
-            <a class="item" href="">Thêm mới</a>
+            <a class="item" href="/admin/accounts">Danh sách</a>
+            <a class="item" href="/admin/addaccount">Thêm mới</a>
         </div>
     </div>
     <div class="ui simple dropdown item">
         Sản phẩm
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="">Danh sách</a>
-            <a class="item" href="">Thêm mới</a>
+            <a class="item" href="/admin/products">Danh sách</a>
+            <a class="item" href="/admin/addproduct">Thêm mới</a>
         </div>
     </div>
 
@@ -77,8 +93,6 @@
                             ${curaccount.username}</span>
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item">Tài khoản</a>
-                <a class="item">Đơn hàng</a>
                 <a href="logout" class="item">Đăng xuất</a>
 
                 <div class="item">
