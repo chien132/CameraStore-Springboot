@@ -43,15 +43,17 @@
         <div class="ten wide centered column">
 
             <form:form class="ui large form"
-                       action="admin/${action}account" modelAttribute="account"
+                       action="admin/account/${action}" modelAttribute="account"
                        enctype="multipart/form-data" method="post">
                 <div class="ui segment" style="font-size: inherit">
 
                     <div class="field">
                         <label style="float: left;">Avatar</label>
                         <div class="ui left input">
-                            <input id="imageinput" onchange="readURL(this,'${account.photo}');" name="photoinput" type="file" accept="image/*"
+                            <input id="imageinput" onchange="readURL(this,'${account.photo}');" name="photoinput"
+                                   type="file" accept="image/*"
                                    class="form-control" title="Chọn một ảnh"/>
+                            <form:input path="photo" hidden="true"/>
                         </div>
                     </div>
 

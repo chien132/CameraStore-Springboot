@@ -22,12 +22,12 @@
 <div class="ui container pad-top-30 pad-bottom-30">
     <div class="center aligned segment">
         <div class="ui horizontal divider">
-            <h1 style="color: white;">Quản lý tài khoản</h1>
+            <h2 style="color: white;">Quản lý tài khoản</h2>
         </div>
     </div>
 </div>
 
-<div class="spacer"></div>
+<%--<div class="spacer"></div>--%>
 
 <!-- cards -->
 <div class="ui container bg_rgba">
@@ -49,7 +49,7 @@
         <c:forEach var="i" items="${accounts}">
             <tr>
                 <td>${i.username}</td>
-                <td><img style="max-width: 33px;" alt=""
+                <td><img style="max-width: 3.75vh;" alt=""
                          src=${i.photo}></td>
                 <td>${i.fullname}</td>
                 <td>${i.email}</td>
@@ -57,10 +57,9 @@
                 <td><c:if test="${i.admin}"> Admin</c:if>
                     <c:if test="${!i.admin}"> User</c:if></td>
                 <td>
-                    <a href="admin/editaccount/${i.id}">
+                    <a href="admin/account/edit/${i.id}">
                         <button class="ui left attached primary button centered">Sửa</button>
                     </a>
-                        <%--                    <a href="admin/deleteaccount/${i.id}">--%>
                     <button class="ui right attached negative button centered"
                             onclick="showModal(${i.id},'${i.username}')">Xóa
                     </button>
@@ -92,8 +91,8 @@
     function showModal(id, username) {
 
         $('#usernamep').html('Bạn có chắc chắn xóa tài khoản "' + username + '"')
-        // $('#delbtn').onclick = document.location.href('admin/deleteaccount/' + id);
-        document.getElementById('delbtn').setAttribute("href", 'admin/deleteaccount/' + id);
+        // $('#delbtn').onclick = document.location.href('admin/account/delete/' + id);
+        document.getElementById('delbtn').setAttribute("href", 'admin/account/delete/' + id);
         $('#deleteconfirm').modal('show')
     //    .modal('setting', 'transition', 20)
     }

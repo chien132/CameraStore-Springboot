@@ -12,7 +12,8 @@ import java.util.List;
 @Entity
 @Table
 public class Account implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Username không được trống!")
     @Column(unique = true)
@@ -26,6 +27,14 @@ public class Account implements Serializable {
     @NotNull
     private boolean admin;
 
-@OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account")
     private List<Order> orders;
+
+    public int getOrderSize() {
+        int size = 0;
+        for (Order i : orders) {
+            size++;
+        }
+        return size;
+    }
 }

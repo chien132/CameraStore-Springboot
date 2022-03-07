@@ -27,6 +27,7 @@
             background-size: cover;
             -webkit-background-size: cover;
             background-attachment: fixed;
+            max-height: 98%;
         }
 
         .spacer {

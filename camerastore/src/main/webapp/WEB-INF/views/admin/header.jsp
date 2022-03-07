@@ -27,6 +27,7 @@
             background-size: cover;
             -webkit-background-size: cover;
             background-attachment: fixed;
+            max-height: 98%;
         }
 
         .spacer {
@@ -65,16 +66,16 @@
         Tài khoản
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/accounts">Danh sách</a>
-            <a class="item" href="/admin/addaccount">Thêm mới</a>
+            <a class="item" href="/admin/account/view">Danh sách</a>
+            <a class="item" href="/admin/account/add">Thêm mới</a>
         </div>
     </div>
     <div class="ui simple dropdown item">
         Sản phẩm
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/products">Danh sách</a>
-            <a class="item" href="/admin/addproduct">Thêm mới</a>
+            <a class="item" href="/admin/product/view">Danh sách</a>
+            <a class="item" href="/admin/product/add">Thêm mới</a>
         </div>
     </div>
 
