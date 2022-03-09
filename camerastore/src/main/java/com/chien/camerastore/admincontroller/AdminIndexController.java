@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/admin/")
 public class AdminIndexController {
 
+
     @Autowired
     private ProductDAO productDAO;
 

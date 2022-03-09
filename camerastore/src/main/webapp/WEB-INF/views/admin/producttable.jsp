@@ -45,7 +45,7 @@
             <th>Loại</th>
             <th>Hãng</th>
             <th>Số lượng</th>
-            <th>Action</th>
+            <th>Thao tác</th>
         </tr>
         </thead>
         <tbody style="text-align: center;">
@@ -55,7 +55,7 @@
                 <td><img style="max-width: 3.75vh;" alt=""
                          src=${i.image}></td>
                 <td>${i.name}</td>
-                <td>${i.description}</td>
+                <td style="text-align: left;">${i.description}</td>
                 <td><f:formatNumber type="currency"
                                     maxFractionDigits="0" currencySymbol="" value="${i.price}"/>₫
                 </td>

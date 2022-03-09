@@ -15,7 +15,7 @@
     <jsp:include page="header.jsp"/>
     <style>
         .ck.ck-editor {
-            width: 55.25vw;
+            width: 56vw;
         }
 
         .ck-editor__editable {
@@ -45,7 +45,7 @@
 
     <div class="ui grid" style="width: 100%; margin-top: 5px">
         <div class="six wide column">s
-            <img onclick="$('#imageinput').click()" id="viewimage"
+            <img class="ui huge rounded image" onclick="$('#imageinput').click()" id="viewimage"
                  style="max-width: -webkit-fill-available; max-height: 70vh;object-fit: contain"
                  src="${product.image}"/>
         </div>
@@ -53,7 +53,7 @@
 
             <form:form class="ui large form"
                        action="admin/product/${action}" modelAttribute="product"
-                       enctype="multipart/form-data" method="post">
+                       enctype="multipart/form-data" method="post" onsubmit="return checkimg('${action}');">
                 <div class="ui segment" style="font-size: inherit">
 
                         <%--                    <div class="field">--%>
@@ -66,25 +66,36 @@
                         <%--                        </div>--%>
                         <%--                    </div>--%>
 
-                    <div class="field"><i class="user icon"></i>
-                        <label>Tên sản phẩm<b
+                    <div class="fields">
+                        <div class="ten wide field">
+                            <label>Tên sản phẩm<b
+                                    style="color: red;">*</b></label>
+                            <div class="ui left input">
+                                <form:input path="name" value="${product.name}"
+                                            type="text" placeholder="Tên sản phẩm" required="true"/>
+                                <i><form:errors style="color: red;font-size: 15px;"
+                                                path="name"/></i>
+                            </div>
+                        </div>
+                        <div class="three wide field"><label>Hãng sản xuất<b
                                 style="color: red;">*</b></label>
-                        <div class="ui left input">
-                            <form:input path="name" value="${product.name}"
-                                        type="text" placeholder="Tên sản phẩm"/>
-                            <i><form:errors style="color: red;font-size: 15px;"
-                                            path="name"/></i>
+                            <form:select path="brand.id" items="${brands}" itemLabel="name" itemValue="id"/>
+                        </div>
+                        <div class="three wide field"><label>Phân loại<b
+                                style="color: red;">*</b></label>
+                            <form:select path="category.id" items="${categories}" itemLabel="name" itemValue="id"/>
                         </div>
                     </div>
-
+                    <form:input path="id" hidden="true"/>
                     <div class="fields">
                         <div class="eight wide field">
-                            <label style="float: left;">Giá tiền<b
+                            <label style="float: left;">Đơn giá<b
                                     style="color: red;">*</b></label>
                             <div class="ui left input">
                                 <!-- 	<i class="lock icon"></i> -->
                                 <form:input path="price" value="${product.price}"
-                                            type="number" min="0" step="10000" placeholder="Giá tiền"/>
+                                            type="number" min="10000" step="5000" placeholder="Giá tiền"
+                                            required="true"/>
                                 <form:errors style="color: red;font-size: 15px;"
                                              path="price"/>
                             </div>
@@ -94,7 +105,8 @@
                         <div class="four wide field">
                             <label style="float: left;">Giảm giá </label>
                             <div class="ui left input">
-                                <form:input path="discount" type="number" min="0" max="100" placeholder="Giảm giá"/>
+                                <form:input path="discount" type="number" min="0" max="100" placeholder="Giảm giá"
+                                            required="true"/>
                                 <form:errors style="color: red;font-size: 15px;"
                                              path="discount"/>
                             </div>
@@ -103,7 +115,7 @@
                             <label style="float: left;">Số lượng tồn</label>
                             <div class="ui left input">
                                 <form:input path="quantity" value="${product.quantity}" type="number" min="0" step="1"
-                                            placeholder="Số lượng tồn"/>
+                                            placeholder="Số lượng tồn" required="true"/>
                                 <form:errors style="color: red;font-size: 15px;"
                                              path="quantity"/>
                             </div>
@@ -150,11 +162,22 @@
     //         console.error(error);
     //     });
     //
-    // // Assuming there is a <button id="submit">Submit</button> in your application.
+
+    function checkimg(action) {
+        var file = document.getElementById("imageinput");
+        if (file.files.length > 0 || action == 'edit') {
+            return true;
+        } else {
+            alert("Hãy chọn ảnh cho sản phẩm");
+            return false;
+        }
+    }
+
     // document.querySelector('#submit').addEventListener('click', () => {
-    //     const editorData = editor.getData();
-    //
-    //     // ...
+    //     let imageinput=$('#imageinput');
+    //     if (!(imageinput.files && imageinput.files[0])){
+    //         alert("Hãy chọn ảnh cho sản phẩm");
+    //     }
     // });
 </script>
 </body>

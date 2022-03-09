@@ -1,6 +1,7 @@
 package com.chien.camerastore.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,7 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table
 public class Account implements Serializable {
@@ -29,6 +31,13 @@ public class Account implements Serializable {
 
     @OneToMany(mappedBy = "account")
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "account")
+//    @JoinColumns({
+//            @JoinColumn(name = "account_id",referencedColumnName = "id"),
+//            @JoinColumn(name = "product_id",referencedColumnName = "id")
+//    })
+    List<CartItem> cartItem;
 
     public int getOrderSize() {
         int size = 0;

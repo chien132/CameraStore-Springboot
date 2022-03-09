@@ -1,12 +1,14 @@
 package com.chien.camerastore.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table
 public class Product {
@@ -20,14 +22,16 @@ public class Product {
     private String description;
     private String image;
     private int discount;
-    @NotBlank
     @Min(0)
     private int quantity;
 
-    @ManyToOne @JoinColumn(name = "cate_id")
+    @ManyToOne
+    @JoinColumn(name = "cate_id", referencedColumnName = "id")
     private Category category;
-    @ManyToOne @JoinColumn(name = "brand_id")
+    @ManyToOne
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand;
 
-
+    @OneToMany(mappedBy = "product")
+    List<CartItem> cartItem;
 }

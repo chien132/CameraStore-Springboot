@@ -1,11 +1,13 @@
 package com.chien.camerastore.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table
 public class OrderDetail {

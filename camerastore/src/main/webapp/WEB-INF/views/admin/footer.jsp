@@ -48,7 +48,7 @@
             buttons: ['colvis']
         });
         table.buttons().container().appendTo(
-            $('div.eight.column:eq(0)', table.table()
+            $('.ui.container.bg_rgba', table.table()
                 .container()));
     });
 </script>

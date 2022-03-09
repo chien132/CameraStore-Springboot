@@ -1,12 +1,16 @@
 package com.chien.camerastore.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table
 public class Category {
@@ -16,7 +20,8 @@ public class Category {
     @NotBlank(message = "Loại mặt hàng không được để trống!")
     private String name;
 
-//    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "category")
+    //    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 }

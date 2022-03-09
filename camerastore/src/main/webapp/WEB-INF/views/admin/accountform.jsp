@@ -37,7 +37,7 @@
 
     <div class="ui grid" style="width: 100%; margin-top: 5px">
         <div class="six wide column">s
-            <img onclick="$('#imageinput').click()" id="viewimage"
+            <img class="ui huge rounded image" onclick="$('#imageinput').click()" id="viewimage"
                  style="max-width: -webkit-fill-available; max-height: 70vh;object-fit: contain" src=${account.photo}/>
         </div>
         <div class="ten wide centered column">
@@ -56,7 +56,7 @@
                             <form:input path="photo" hidden="true"/>
                         </div>
                     </div>
-
+                    <form:input path="id" hidden="true"/>
                     <div class="field"><i class="user icon"></i>
                         <label>Username<b
                                 style="color: red;">*</b></label>
@@ -68,7 +68,7 @@
                             </c:if>
                             <c:if test="${action=='add'}">
                                 <form:input path="username" value="${account.username}"
-                                            type="text" placeholder="Tài khoản"/>
+                                            type="text" placeholder="Tài khoản" required="true"/>
                             </c:if>
                             <i><form:errors style="color: red;font-size: 15px;"
                                             path="username"/></i>
@@ -81,7 +81,7 @@
                         <div class="ui left input">
                             <!-- 	<i class="lock icon"></i> -->
                             <form:input path="password" value="${account.password}"
-                                        type="password" placeholder="Mật khẩu"/>
+                                        type="password" placeholder="Mật khẩu" required="true"/>
                             <form:errors style="color: red;font-size: 15px;"
                                          path="password"/>
                         </div>

@@ -18,8 +18,12 @@
     <%--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
     <script src="resources/semantic/jquery-3.6.0.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css"/>
+
+
     <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>
     <script type="text/javascript" src="resources/datatables/datatables.min.js"></script>
+
+
     <script src="resources/semantic/semantic.min.js" type="text/javascript"></script>
     <style>
         #homelogin {
@@ -76,6 +80,23 @@
         <div class="menu">
             <a class="item" href="/admin/product/view">Danh sách</a>
             <a class="item" href="/admin/product/add">Thêm mới</a>
+        </div>
+    </div>
+    <div class="ui simple dropdown item">
+        Phân loại & Hãng sản xuất
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <a class="item" href="/admin/catebrand/view">Danh sách</a>
+            <a id="addcatelink" class="item" href="/admin/catebrand/addcate">Thêm phân loại</a>
+            <a id="addbrandlink" class="item" href="/admin/catebrand/addbrand">Thêm hãng sản xuất</a>
+        </div>
+    </div>
+    <div class="ui simple dropdown item">
+        Đơn hàng
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <a class="item" href="/admin/order/view">Danh sách</a>
+            <a class="item" href="/admin/order/add">Thêm mới</a>
         </div>
     </div>
 

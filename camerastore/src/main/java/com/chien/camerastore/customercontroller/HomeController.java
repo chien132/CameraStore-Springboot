@@ -1,9 +1,7 @@
 package com.chien.camerastore.customercontroller;
 
 import com.chien.camerastore.dao.*;
-import com.chien.camerastore.model.Brand;
-import com.chien.camerastore.model.Category;
-import com.chien.camerastore.model.Product;
+import com.chien.camerastore.model.*;
 import com.chien.camerastore.service.FileUploadService;
 import com.chien.camerastore.service.SessionService;
 import org.hibernate.SessionFactory;
@@ -20,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -43,6 +42,8 @@ public class HomeController {
     private OrderDAO orderDAO;
     @Autowired
     private OrderDetailDAO orderDetailDAO;
+    @Autowired
+    private CartItemDAO cartItemDAO;
 
     @ModelAttribute("categories")
     public List<Category> categories() {
@@ -57,6 +58,14 @@ public class HomeController {
     @ModelAttribute("products")
     public List<Product> products() {
         return productDAO.findAll();
+    }
+
+    @ModelAttribute("cartitems")
+    public List<CartItem> cartItems() {
+        Account curAccount = session.get("curaccount");
+        if (curAccount != null)
+            return cartItemDAO.findAllByAccount_Id(curAccount.getId());
+        else return Collections.emptyList();
     }
 
     @RequestMapping("")

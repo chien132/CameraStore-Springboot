@@ -78,9 +78,15 @@
                 <a href="register" class="item">Đăng ký</a>
             </c:when>
             <c:when test="${curaccount!=null}">
-                <a class="item"><i class="opencart icon"> </i>Cart
-                    <div class="ui green label"> 2</div>
-                </a>
+                <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="opencart icon"> </i>Cart
+                    <div class="ui green label"> ${cartitems.size()}</div>
+                        <%--                    <div class="menu">--%>
+                        <%--                        <c:forEach items="${cartitems}" var="i">--%>
+                        <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
+                        <%--                                                 src="${i.product.image}">${i.amount}x ${i.product.name}</a>--%>
+                        <%--                        </c:forEach>--%>
+                        <%--                    </div>--%>
+                </div>
 
                 <div class="item ui pointing dropdown link">
 						<span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
@@ -115,7 +121,7 @@
 
 <p></p>
 <p></p>
-
+<jsp:include page="cart.jsp"/>
 
 </body>
 

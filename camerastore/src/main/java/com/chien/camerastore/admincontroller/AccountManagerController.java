@@ -89,12 +89,12 @@ public class AccountManagerController {
                         re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                     } else {
                         try {
-                            String filename = StringUtils.cleanPath(photo.getOriginalFilename());
+                            String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename());
                             String uploadDir = "src/main/webapp/resources/images/avatar/";
                             FileUploadService.saveFile(uploadDir, filename, photo);
                             account.setPhoto("resources/images/avatar/" + filename);
                         } catch (Exception e) {
-                            re.addFlashAttribute("message", "Save file error: " + e);
+                            re.addFlashAttribute("message", "Lỗi lưu ảnh: " + e);
                             return "redirect:/admin/account/add";
                         }
                     }
@@ -148,7 +148,7 @@ public class AccountManagerController {
         }
         if (!errors.hasErrors()) {
             Account dbAccount = accountDAO.findByUsername(account.getUsername());
-            account.setId(dbAccount.getId());
+//            account.setId(dbAccount.getId());
             if (dbAccount != null) {
                 try {
                     if (photo.getOriginalFilename().isEmpty()) {
@@ -157,7 +157,7 @@ public class AccountManagerController {
                         re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                     } else {
                         try {
-                            String filename = StringUtils.cleanPath(photo.getOriginalFilename());
+                            String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename());
                             String uploadDir = "src/main/webapp/resources/images/avatar/";
                             FileUploadService.saveFile(uploadDir, filename, photo);
                             account.setPhoto("resources/images/avatar/" + filename);
