@@ -14,11 +14,16 @@
     <%--  <script src="resources/semantic/semantic.min.js"></script>--%>
     <style>
         .bg_rgba {
-            background-color: rgba(150, 150, 150, 0.2);
+            background-color: rgba(150, 150, 150, 0.5);
             background-blend-mode: lighten;
             /* width: 200px; */
             /* height: 200px; */
             /* border: 1px solid black; */
+        }
+
+        .ui.right.floated.teal.tag.label,
+        .ui.orange.right.ribbon.label {
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -31,7 +36,7 @@
 <div class="ui container pad-top-30 pad-bottom-30">
     <div class="center aligned segment">
         <div class="ui horizontal divider">
-            <h2 style="color: white;">Monthly Specials</h2>
+            <h2 style="color: white;">Sản phẩm</h2>
         </div>
     </div>
 </div>
@@ -40,30 +45,40 @@
 
 <!-- cards -->
 <%--<jsp:include page="filter.jsp"/>--%>
-<div class="ui container bg_rgba">
+<div class="ui container ">
 
+    <jsp:include page="filter.jsp"/>
 
-    <div class="ui four column grid">
-        <!-- <div class="row"> -->
-        <c:forEach var="p" items="${products}">
-            <div class="column">
-                <div class="ui card">
-                    <div class="image">
-                        <a class="ui red right ribbon label">${p.discount*100}%</a>
-                        <img style="max-height: 18vh;object-fit: scale-down" src=${p.image}/>
+    <div class="ui two column grid">
+        <div class="four wide column"></div>
+        <div class="twelve wide column bg_rgba">
+            <div class="ui four column grid">
+                <!-- <div class="row"> -->
+                <c:forEach var="p" items="${products.content}">
+                    <div class="column">
+                        <div class="ui card">
+                            <div class="image">
+                                <c:if test="${p.discount!=0}">
+                                    <div class="ui orange right ribbon label">-${p.discount}%</div>
+                                </c:if>
+                                <img style="max-height: 18vh;object-fit: scale-down" src=${p.image}/>
+                            </div>
+                            <div class="content">
+                                <a class="header">${p.name}</a>
+                                    <%--                        <div class="description"> ${p.description} </div>--%>
+                            </div>
+                            <div class="extra content">
+                                <a href="/cart/additem/${p.id}/1?ret=index" class="ui right floated teal tag label">
+                                    <f:formatNumber maxFractionDigits="0" type="currency" currencySymbol=""
+                                                    value="${p.price}"/> ₫ </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="content">
-                        <a class="header">${p.name}</a>
-<%--                        <div class="description"> ${p.description} </div>--%>
-                    </div>
-                    <div class="extra content">
-                        <a class="ui right floated teal tag label"><f:formatNumber maxFractionDigits="0" type="currency"
-                                                                     currencySymbol="" value="${p.price}"/> ₫ </a>
-                    </div>
-                </div>
+                </c:forEach>
+
             </div>
-        </c:forEach>
 
+        </div>
     </div>
 </div>
 

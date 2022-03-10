@@ -33,6 +33,14 @@
         .spacer {
             height: 50px;
         }
+
+        @media only screen and (min-width: 1200px) {
+            .ui.container {
+                width: 90%;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
     </style>
 </head>
 
@@ -79,7 +87,7 @@
             </c:when>
             <c:when test="${curaccount!=null}">
                 <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="opencart icon"> </i>Cart
-                    <div class="ui green label"> ${cartitems.size()}</div>
+                    <div class="ui green label"> ${cartcount}</div>
                         <%--                    <div class="menu">--%>
                         <%--                        <c:forEach items="${cartitems}" var="i">--%>
                         <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
@@ -121,7 +129,7 @@
 
 <p></p>
 <p></p>
-<jsp:include page="cart.jsp"/>
+<jsp:include page="cartmodal.jsp"/>
 
 </body>
 

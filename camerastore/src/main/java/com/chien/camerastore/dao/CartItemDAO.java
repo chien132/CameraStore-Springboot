@@ -11,4 +11,8 @@ public interface CartItemDAO extends JpaRepository<CartItem, CartItemId> {
 
     List<CartItem> findAllByProduct_Id(int id);
 
+    List<CartItem> findAllById(CartItemId id);
+
+    void deleteAllByAccount_Id(int id);
+
 }
