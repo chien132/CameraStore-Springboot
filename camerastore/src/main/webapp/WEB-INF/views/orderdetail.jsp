@@ -42,11 +42,12 @@
     </div>
 </div>
 
+<div class="spacer"></div>
 
 <!-- cards -->
 <%--<jsp:include page="filter.jsp"/>--%>
 <div class="ui container">
-    <div class="ui two column grid segment"style="height: 85vh">
+    <div class="ui two column grid segment">
         <div class="eight wide column">
             <%--            style="height: 80vh"--%>
             <div class="ui segment">

@@ -14,15 +14,16 @@
 <div class="CartContainer ui modal" id="cartmodal">
     <div class="Header">
         <h1>Giỏ hàng</h1>
-        <h5 class="Action"><a class="mycustoma" href="/cart/deleteall"> Xóa tất cả</a></h5>
+        <div class="items">${cartcount} mặt hàng</div>
+        <a style="font-size: 1.3rem;color: #e83f3f" class="mycustoma" href="/cart/deleteall"> Xóa tất cả</a>
     </div>
-    <div class="overflowcart">
+    <div style="overflow:scroll;max-height:62vh">
         <c:forEach items="${cartitems}" var="i">
             <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
             <%--                                                 src="${i.product.image}">${i.amount}x ${i.product.name}</a>--%>
             <div class="Cart-Items pad">
                 <div class="image-box">
-                    <img src="${i.product.image}" style={{ height="120px" }}/>
+                    <img src="${i.product.image}" style="height:120px"/>
                 </div>
                 <div class="about">
                     <h3 class="title">${i.product.name}</h3>
@@ -38,11 +39,28 @@
                     </a>
                 </div>
                 <div class="prices">
-                    <div class="amount"><f:formatNumber type="currency" currencySymbol=""
-                                                        maxFractionDigits="0">${i.product.price*(100-i.product.discount)/100}</f:formatNumber>đ
+                    <div class="amount">
+                        <c:if test="${i.product.discount==0}"><f:formatNumber type="currency"
+                                                                              currencySymbol=""
+                                                                              maxFractionDigits="0">${i.product.price}</f:formatNumber>đ
+                        </c:if>
+                        <c:if test="${i.product.discount!=0}">
+                            <div style="text-decoration: line-through;color: gray"><f:formatNumber type="currency"
+                                                                                                   currencySymbol=""
+                                                                                                   maxFractionDigits="0">${i.product.price}</f:formatNumber>đ
+                            </div>
+                            <div style="text-decoration: wavy;"><f:formatNumber type="currency"
+                                                                                currencySymbol=""
+                                                                                maxFractionDigits="0">${i.product.price*(100-i.product.discount)/100}</f:formatNumber>đ
+                            </div>
+                        </c:if>
                     </div>
-                    <div class="save"><u>Tiết kiệm <f:formatNumber type="currency" currencySymbol=""
-                                                                   maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ</u>
+
+                    <div class="save">
+                        <c:if test="${i.product.discount!=0}"><u style="color: #e32e32">-<f:formatNumber type="currency"
+                                                                                                         currencySymbol=""
+                                                                                                         maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ</u>
+                        </c:if>
                     </div>
                     <div class="remove"><u><a class="mycustoma" href="/cart/deleteitem/${i.id.productid}"> Xóa</a></u>
                     </div>
@@ -58,15 +76,14 @@
         <div class="description">
             <div>
                 <div class="Subtotal">Tổng</div>
-                <div class="items">${cartcount} mặt hàng</div>
             </div>
             <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
                                                       maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ
             </div>
         </div>
-        <a href="/cart/view">
+        <c:if test="${cartcount>0}"><a href="/cart/view">
             <div class="ui big green button">Thanh toán</div>
-        </a>
+        </a></c:if>
     </div>
 </div>
 <script>
@@ -74,12 +91,12 @@
         let alist = document.getElementsByClassName("mycustoma")
         for (let i = 0; i < alist.length; i++) {
             let prehref = alist[i].href;
-            console.log(i)
-            console.log(prehref)
+            // console.log(i)
+            // console.log(prehref)
             // prehref = prehref.substring(0, prehref.indexOf("?ret="));
             // console.log(prehref)
             alist[i].href = prehref + window.location.href.replace("http://localhost:8080/", "?ret=");
-            console.log(alist[i].href)
+            // console.log(alist[i].href)
         }
     })
 </script>

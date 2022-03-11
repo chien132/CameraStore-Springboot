@@ -86,7 +86,7 @@
                 <a href="register" class="item">Đăng ký</a>
             </c:when>
             <c:when test="${curaccount!=null}">
-                <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="opencart icon"> </i>Cart
+                <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="opencart icon"> </i>Giỏ hàng
                     <div class="ui green label"> ${cartcount}</div>
                         <%--                    <div class="menu">--%>
                         <%--                        <c:forEach items="${cartitems}" var="i">--%>
@@ -102,8 +102,8 @@
                     <i class="dropdown icon"></i>
                     <div class="menu">
 
-                        <a class="item">Tài khoản</a>
-                        <a class="item">Đơn hàng</a>
+                        <a href="account/" class="item">Tài khoản</a>
+                        <a href="order/viewall" class="item">Đơn hàng</a>
                         <a href="logout" class="item">Đăng xuất</a>
 
                         <div class="item">

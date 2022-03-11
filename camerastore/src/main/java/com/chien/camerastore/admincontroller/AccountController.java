@@ -104,8 +104,7 @@ public class AccountController {
         Account account = session.get("curaccount");
         session.remove("curaccount");
         if (session.get("security-uri") != null) session.remove("security-uri");
-        System.out.println(account.getUsername() + " logged out");
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
     @GetMapping("register")
