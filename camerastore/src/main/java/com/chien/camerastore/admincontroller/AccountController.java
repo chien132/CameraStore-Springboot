@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +56,14 @@ public class AccountController {
     @GetMapping("login")
     public String login(Model model) {
         model.addAttribute("account", new Account());
+        return "loginform";
+    }
+
+    @GetMapping(value = "login", params = {"error"})
+    public String loginFromAuthencation(@PathParam("error") String error, Model model) {
+        model.addAttribute("account", new Account());
+        model.addAttribute("message", error);
+        System.out.println(error);
         return "loginform";
     }
 
