@@ -16,12 +16,14 @@
 
     <%--    <script src="resources/semantic/jquery-3.1.1.min.js"--%>
     <%--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
-    <script src="resources/semantic/jquery-3.6.0.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>
-    <script type="text/javascript" src="resources/datatables/datatables.min.js"></script>
+<%--    <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>--%>
     <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css"/>
-    <script src="resources/semantic/semantic.min.js" type="text/javascript"></script>
     <style>
+        html {
+            /*position: relative;*/
+            min-height: 100%;
+            /*height: unset;*/
+        }
         #homelogin {
             background: url(resources/images/fujibg.jpg) center top no-repeat;
             background-size: cover;
@@ -116,12 +118,6 @@
                         </div>
                     </div>
                 </div>
-
-                <script>
-                    $('.ui.dropdown')
-                        .dropdown();
-                </script>
-
             </c:when>
         </c:choose>
     </div>

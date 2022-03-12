@@ -86,20 +86,5 @@
         </a></c:if>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        let alist = document.getElementsByClassName("mycustoma")
-        for (let i = 0; i < alist.length; i++) {
-            let prehref = alist[i].href;
-            // console.log(i)
-            // console.log(prehref)
-            // prehref = prehref.substring(0, prehref.indexOf("?ret="));
-            // console.log(prehref)
-            alist[i].href = prehref + window.location.href.replace("http://localhost:8080/", "?ret=");
-            // console.log(alist[i].href)
-        }
-    })
-</script>
 </body>
-
 </html>

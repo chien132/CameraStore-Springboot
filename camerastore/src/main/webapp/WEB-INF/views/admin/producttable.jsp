@@ -12,11 +12,20 @@
     <%--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
     <%--    <script src="resources/semantic/semantic.min.js"></script>--%>
     <jsp:include page="header.jsp"/>
+    <style>
+        td.descriptiontd {
+            /*text-align: left;*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
 </head>
 <body id="homelogin">
-
 <div class="spacer"></div>
-
 
 <!-- header -->
 <div class="ui container pad-top-30 pad-bottom-30">
@@ -30,7 +39,7 @@
 <%--<div class="spacer"></div>--%>
 
 <!-- cards -->
-<div class="ui container bg_rgba">
+<div class="ui container bg_rgba" style="width: 95%;height:90%;overflow: scroll">
     <table id="mytable"
            class="ui celled table responsive nowrap unstackable"
            style="width: 100%">
@@ -55,7 +64,7 @@
                 <td><img style="max-width: 3.75vh;" alt=""
                          src=${i.image}></td>
                 <td>${i.name}</td>
-                <td style="text-align: left;">${i.description}</td>
+                <td class="descriptiontd">${i.description}</td>
                 <td><f:formatNumber type="currency"
                                     maxFractionDigits="0" currencySymbol="" value="${i.price}"/>₫
                 </td>
@@ -93,6 +102,8 @@
     </div>
 </div>
 
+<jsp:include page="footer.jsp"/>
+<jsp:include page="../datatable.jsp"/>
 <script type="text/javascript">
     function showModal(id, name) {
         $('#usernamep').html('Bạn có chắc chắn xóa sản phẩm "' + name + '"')
@@ -102,7 +113,5 @@
         //    .modal('setting', 'transition', 20)
     }
 </script>
-<div class="spacer"></div>
-<jsp:include page="footer.jsp"/>
 </body>
 </html>

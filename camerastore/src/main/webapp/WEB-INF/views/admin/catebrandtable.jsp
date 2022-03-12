@@ -34,10 +34,10 @@
     </div>
 </div>
 
-<div class="spacer"></div>
+<%--<div class="spacer"></div>--%>
 
 <!-- cards -->
-<div class="ui container bg_rgba">
+<div class="ui container bg_rgba" style="width: 95%;height:90%;overflow: scroll">
     <div class="ui grid">
         <table id="mycatetable"
                class="ui seven wide column celled table responsive nowrap unstackable">
@@ -177,7 +177,7 @@
     // $('#mycatetable').DataTable();
 
 </script>
-<div class="spacer"></div>
 <jsp:include page="footer.jsp"/>
+<%--<jsp:include page="../datatable.jsp"/>--%>
 </body>
 </html>

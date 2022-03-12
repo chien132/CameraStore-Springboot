@@ -13,46 +13,37 @@
         <div class="ui cancel blue inverted button">OK</div>
     </div>
 </div>
+
+<script type="text/javascript" src="resources/semantic/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="resources/semantic/semantic.min.js"></script>
+
 <script>
-    function readURL(input,defaultimg) {
+    $(document).ready(function () {
+        // - MESSAGES
+        if (${message!=null}) {
+            $('#messagemodal').modal('show');
+        }
+
+        //UI
+        $('.ui.checkbox')
+            .checkbox()
+        ;
+        $('.ui.dropdown')
+            .dropdown();
+
+    });
+
+    function readURL(input, defaultimg) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#viewimage').attr('src', e.target.result)//.width(600)
             };
             reader.readAsDataURL(input.files[0]);
-        }else{
+        } else {
             $('#viewimage').attr('src', defaultimg)//.width(600)
-
         }
     }
-
-    $(document).ready(function () {
-
-        if (${message!=null}) {
-            $('#messagemodal').modal('show');
-        }
-        $('.ui.checkbox')
-            .checkbox()
-        ;
-        // // - MESSAGES
-        // $('#messagemodal').on('click', function () {
-        //     $(this).closest('#messagemodal').transition('fade');
-        // });
-        // - DATATABLES
-        // $(document).ready(function () {
-        //     $('#mytable').DataTable();
-        // });
-        var table = $('#mytable').DataTable({
-            lengthChange: false,
-            buttons: ['colvis']
-        });
-        table.buttons().container().appendTo(
-            $('.ui.container.bg_rgba', table.table()
-                .container()));
-    });
 </script>
-
 </body>
-
 </html>

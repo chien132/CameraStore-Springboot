@@ -140,25 +140,6 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("cart/view")
-    public String viewCart(Model model, RedirectAttributes re) {
-        Account curAccount = session.get("curaccount");
-        if (cartItemDAO.findAllByAccount_Id(curAccount.getId()).isEmpty()) {
-            re.addFlashAttribute("message", "Giỏ hàng trống, hãy thêm sản phẩm!");
-            return "redirect:/index";
-        }
-        Order order = new Order();
-        order.setAccount(curAccount);
-        order.setAddress(curAccount.getAddress());
-        order.setEmail(curAccount.getEmail());
-        order.setFullname(curAccount.getFullname());
-        order.setPhone(curAccount.getPhone());
-        model.addAttribute("order", order);
-        model.addAttribute("action", "add");
-        return "cart";
-    }
-
-
 
 //    @PostMapping("uploadimg")
 //    public String uploadimg(@RequestParam("image")MultipartFile image) throws IOException{

@@ -16,16 +16,17 @@
 
     <%--    <script src="resources/semantic/jquery-3.1.1.min.js"--%>
     <%--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
-    <script src="resources/semantic/jquery-3.6.0.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css"/>
+    <%--    <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>--%>
 
 
-    <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>
-    <script type="text/javascript" src="resources/datatables/datatables.min.js"></script>
-
-
-    <script src="resources/semantic/semantic.min.js" type="text/javascript"></script>
     <style>
+        html {
+            /*position: relative;*/
+            min-height: 100%;
+            /*height: unset;*/
+        }
+
         #homelogin {
             background: url(resources/images/fujibg.jpg) center top no-repeat;
             background-size: cover;
@@ -48,6 +49,8 @@
             /* width: 200px; */
             /* height: 200px; */
             /* border: 1px solid black; */
+            border-radius: 10px;
+            padding: 1vh;
         }
 
         @media only screen and (min-width: 1200px) {
@@ -57,10 +60,19 @@
                 margin-right: auto !important;
             }
         }
+
+        tr.even {
+            background-color: #fffaf1;
+        }
+
+        tr:hover {
+            /*cursor: pointer;*/
+            background-color: #b4eeff;
+        }
     </style>
 </head>
 
-<body id="homelogin">
+<body>
 <div class="ui huge top fixed blue menu">
 
     <img src="resources/images/logodark.png" style="max-height: 5vh; margin-left: 8vw;"/>
@@ -102,14 +114,14 @@
 
 
     <div class="right menu">
-        <div class="item ui pointing dropdown link">
-            <i class="envelope outline icon"></i>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-                <a class="item">Thong bao 1</a>
-                <a class="item">Thong bao 2</a>
-            </div>
-        </div>
+        <%--        <div class="item ui pointing dropdown link">--%>
+        <%--            <i class="envelope outline icon"></i>--%>
+        <%--            <i class="dropdown icon"></i>--%>
+        <%--            <div class="menu">--%>
+        <%--                <a class="item">Thong bao 1</a>--%>
+        <%--                <a class="item">Thong bao 2</a>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
         <div class="item ui pointing dropdown link">
 						<span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
                             ${curaccount.username}</span>
@@ -117,27 +129,17 @@
             <div class="menu">
                 <a href="logout" class="item">Đăng xuất</a>
 
-                <div class="item">
-                    <i class="dropdown left icon"></i>
-                    <span class="text">Menu</span>
-                    <div class="menu">
-                        <div class="item">1</div>
-                        <div class="item">2</div>
-                    </div>
-                </div>
+                <%--                <div class="item">--%>
+                <%--                    <i class="dropdown left icon"></i>--%>
+                <%--                    <span class="text">Menu</span>--%>
+                <%--                    <div class="menu">--%>
+                <%--                        <div class="item">1</div>--%>
+                <%--                        <div class="item">2</div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
         </div>
-        <script>
-            $('.ui.dropdown')
-                .dropdown();
-        </script>
     </div>
 </div>
-
-<p></p>
-<p></p>
-
-
 </body>
-
 </html>

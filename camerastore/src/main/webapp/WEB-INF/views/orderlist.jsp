@@ -15,11 +15,13 @@
         }
 
         tr.even {
-            background-color: #c77474;
+            background-color: #fffaf1;
         }
 
         tr:hover {
-            mouse: pointer;
+            cursor: pointer;
+            background-color: #b4eeff;
+
         }
     </style>
 </head>
@@ -85,29 +87,8 @@
     </div>
 </div>
 <jsp:include page="footer.jsp"/>
-<link rel="stylesheet" type="text/css" href="resources/datatables/DataTables-1.11.5/css/jquery.dataTables.min.css"/>
-<link rel="stylesheet" type="text/css" href="resources/datatables/Buttons-2.2.2/css/buttons.dataTables.min.css"/>
-<link rel="stylesheet" type="text/css" href="resources/datatables/Scroller-2.0.5/css/scroller.dataTables.min.css"/>
+<jsp:include page="datatable.jsp"/>
 
-<script type="text/javascript" src="resources/datatables/JSZip-2.5.0/jszip.min.js"></script>
-<script type="text/javascript" src="resources/datatables/pdfmake-0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="resources/datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="resources/datatables/DataTables-1.11.5/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="resources/datatables/Buttons-2.2.2/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="resources/datatables/Buttons-2.2.2/js/buttons.colVis.min.js"></script>
-<script type="text/javascript" src="resources/datatables/Buttons-2.2.2/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="resources/datatables/Buttons-2.2.2/js/buttons.print.min.js"></script>
-<script type="text/javascript" src="resources/datatables/Scroller-2.0.5/js/dataTables.scroller.min.js"></script>
-<script>
-    // $('#mytable').DataTable();
-    var table = $('#mytable').DataTable({
-        lengthChange: false,
-        buttons: ['colvis']
-    });
-    // table.buttons().container().appendTo(
-    //     $('.sixteen.wide.column', table.table()
-    //         .container()));
-</script>
 </body>
 
 </html>

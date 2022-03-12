@@ -88,6 +88,13 @@ public class OrderController {
 
     @PostMapping("addorder")
     public String addOrder(@RequestParam("payonlinecb") String payonlinecb, @ModelAttribute("order") Order order, RedirectAttributes re) {
+        Account curAccount = session.get("curaccount");
+        List<CartItem> cartItems = cartItemDAO.findAllByAccount_Id(curAccount.getId());
+        if (cartItems.size() < 1) {
+            re.addFlashAttribute("message", "Giỏ hàng trống, hãy thêm sản phẩm!");
+            return "redirect:/index";
+        }
+
         order.setAddress(order.getAddress().trim());
         order.setFullname(order.getFullname().trim());
         order.setPhone(order.getPhone().trim());
@@ -107,14 +114,12 @@ public class OrderController {
             errormsg += " | Email không đúng định dạng";
         }
         if (errormsg.isEmpty()) {
-            Account curAccount = session.get("curaccount");
             order.setAccount(curAccount);
             order.setConfirmed(false);
             order.setDone(false);
             order.setPaid(false);
             order.setPayonline(payonlinecb.equals("1"));
             orderDAO.save(order);
-            List<CartItem> cartItems = cartItemDAO.findAllByAccount_Id(curAccount.getId());
             List<OrderDetail> orderDetails = new ArrayList<>();
             for (CartItem i : cartItems) {
                 OrderDetail tmp = new OrderDetail();
