@@ -46,7 +46,7 @@
 <!-- cards -->
 <%--<jsp:include page="filter.jsp"/>--%>
 <div class="ui container">
-    <div class="ui two column grid segment"style="height: 85vh">
+    <div class="ui two column grid segment" style="height: 85vh">
         <div class="eight wide column">
             <%--            style="height: 80vh"--%>
             <div class="ui segment">
@@ -130,18 +130,18 @@
                 <div class="actions">
                     <%--        <div class="total">--%>
                     <div class="description">
-                        <div>
+                        <div class="total-value">
                             <div class="Subtotal">Tổng</div>
-                        </div>
-                        <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
-                                                                  maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ
+                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
+                                                                      maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="eight wide column ui segment" style="height: max-content">
+        <div class="eight wide column" style="height: max-content">
             <form:form class="ui large form"
                        action="order/${action}order" modelAttribute="order" method="post">
                 <div class="ui segment" style="font-size: inherit">

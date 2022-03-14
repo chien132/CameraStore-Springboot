@@ -7,6 +7,7 @@ import com.chien.camerastore.model.Account;
 import com.chien.camerastore.model.Brand;
 import com.chien.camerastore.model.Category;
 import com.chien.camerastore.service.SessionService;
+import com.chien.camerastore.service.Utils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -30,8 +31,6 @@ import java.util.regex.Pattern;
 @Transactional
 @Controller
 public class AccountController {
-    @Autowired
-    private SessionFactory factory;
     @Autowired
     private SessionService session;
     @Autowired
@@ -74,7 +73,7 @@ public class AccountController {
 
         if (account.getUsername().isEmpty()) {
             errors.rejectValue("username", "account", "Hãy nhập username !");
-        } else if (account.getUsername().contains(" ") || account.getUsername().contains("'")) {
+        } else if (!Utils.isValidUsername(account.getUsername())) {
             errors.rejectValue("username", "account", "Username không được chứa ký tự đặc biệt !");
         }
         if (account.getPassword().isEmpty()) {
@@ -124,28 +123,32 @@ public class AccountController {
 
     @PostMapping("register")
     public String register(Model model, @ModelAttribute("account") Account account, BindingResult errors) {
+        account.setUsername(account.getUsername().trim());
+        account.setPassword(account.getPassword().trim());
+        account.setEmail(account.getEmail().trim());
+        account.setPhone(account.getPhone().trim());
+        account.setFullname(account.getFullname().trim());
         if (account.getUsername().trim().isEmpty()) {
             errors.rejectValue("username", "account", "Hãy nhập username !");
-        } else {
-            Pattern VALID_USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]+$",
-                    Pattern.CASE_INSENSITIVE);
-            Matcher matcher = VALID_USERNAME_REGEX.matcher(account.getUsername());
-            if (!matcher.find()) {
-                errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
-            }
+        } else if (account.getUsername().length() > 100) {
+            errors.rejectValue("username", "account", "Username quá dài !");
+        } else if (!Utils.isValidUsername(account.getUsername())) {
+            errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
         }
         if (account.getPassword().trim().isEmpty()) {
             errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");
+        } else if (account.getPassword().length() > 100) {
+            errors.rejectValue("password", "account", "Mật khẩu quá dài !");
         } else if (account.getPassword().trim().contains(" ") || account.getPassword().contains("'")) {
             errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
         }
-        if (!account.getEmail().isEmpty()) {
-            Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                    Pattern.CASE_INSENSITIVE);
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(account.getEmail());
-            if (!matcher.find()) {
-                errors.rejectValue("email", "account", "Email không đúng định dạng !");
-            }
+        if (!account.getEmail().isEmpty() && !Utils.isValidEmail(account.getEmail())) {
+            errors.rejectValue("email", "account", "Email không đúng định dạng !");
+        } else if (account.getEmail().length() > 100) {
+            errors.rejectValue("email", "account", "Email quá dài !");
+        }
+        if (!account.getPhone().isEmpty() && !Utils.isValidPhoneNumber(account.getPhone())) {
+            errors.rejectValue("email", "account", "Số điện thoại không đúng định dạng !");
         }
         if (!errors.hasErrors()) {
             account.setPhoto("resources/images/avatar/user-default.png");

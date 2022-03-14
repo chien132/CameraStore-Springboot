@@ -32,6 +32,7 @@ public class Order {
     private boolean paid;
     @NotNull
     private boolean confirmed;
+    private String rejectreason;
     @NotNull
     private boolean done;
 
@@ -48,6 +49,14 @@ public class Order {
             value += i.getAmount() * i.getPrice();
         }
         return value;
+    }
+
+    public int getTotalAmount() {
+        int size = 0;
+        for (OrderDetail i : orderDetails) {
+            size += i.getAmount();
+        }
+        return size;
     }
 
 }

@@ -7,10 +7,7 @@ import com.chien.camerastore.service.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
@@ -122,7 +119,11 @@ public class OrderController {
             orderDAO.save(order);
             List<OrderDetail> orderDetails = new ArrayList<>();
             for (CartItem i : cartItems) {
+                OrderDetailId tmpid = new OrderDetailId();
+                tmpid.setOrder_id(order.getId());
+                tmpid.setProduct_id(i.getProduct().getId());
                 OrderDetail tmp = new OrderDetail();
+                tmp.setId(tmpid);
                 tmp.setOrder(order);
                 tmp.setAmount(i.getAmount());
                 tmp.setProduct(i.getProduct());
@@ -143,5 +144,11 @@ public class OrderController {
     @RequestMapping("viewall")
     public String viewAllOrder() {
         return "orderlist";
+    }
+
+    @RequestMapping("view/{id}")
+    public String viewOrder(Model model, @PathVariable("id") int id) {
+        model.addAttribute("order", orderDAO.getById(id));
+        return "orderdetail";
     }
 }

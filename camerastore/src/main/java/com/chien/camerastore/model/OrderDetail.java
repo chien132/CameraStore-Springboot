@@ -11,18 +11,21 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "OrderDetail")
 public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    //    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
+    private OrderDetailId id;
+
     @NotNull(message = "Số lượng không được bỏ trống!")
     private int amount;
     @NotNull
     private long price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Order order;
+
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
 }
