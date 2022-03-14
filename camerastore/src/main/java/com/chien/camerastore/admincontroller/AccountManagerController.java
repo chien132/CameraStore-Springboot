@@ -18,8 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Controller
@@ -55,7 +58,7 @@ public class AccountManagerController {
 
     @PostMapping("add")
     public String addAccount(ModelMap model, @ModelAttribute("account") Account account, BindingResult errors, RedirectAttributes re,
-                             HttpServletRequest request, @RequestParam("photoinput") MultipartFile photo) throws IOException {
+                             HttpServletRequest request, @RequestParam("photoinput") MultipartFile photo) throws IOException, NoSuchAlgorithmException {
         account.setAdmin(request.getParameter("admincb") != null);
         account.setAdmin(request.getParameter("admincb") != null);
         account.setUsername(account.getUsername().trim());
@@ -80,6 +83,13 @@ public class AccountManagerController {
             errors.rejectValue("phone", "account", "Số điện thoại không hợp lệ !");
         }
         if (!errors.hasErrors()) {
+            String inputPassword = account.getPassword();
+
+            //Ma hoa mat khau bang SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(account.getPassword().getBytes());
+            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
+
             Account dbAccount = accountDAO.findByUsername(account.getUsername());
             if (dbAccount == null) {
                 try {
@@ -106,6 +116,7 @@ public class AccountManagerController {
                     return "redirect:/admin/account/add";
                 }
             } else {
+                account.setPassword(inputPassword);
                 errors.rejectValue("username", "account", "Tên đăng nhập này đã tồn tại !");
             }
 
@@ -123,7 +134,7 @@ public class AccountManagerController {
 
     @PostMapping("edit")
     public String editAccount(ModelMap model, @ModelAttribute("account") Account account, BindingResult errors, RedirectAttributes re,
-                              HttpServletRequest request, @RequestParam("photoinput") MultipartFile photo) throws IOException {
+                              HttpServletRequest request, @RequestParam("photoinput") MultipartFile photo) throws IOException, NoSuchAlgorithmException {
         account.setAdmin(request.getParameter("admincb") != null);
         account.setUsername(account.getUsername().trim());
         account.setPassword(account.getPassword().trim());
@@ -147,6 +158,12 @@ public class AccountManagerController {
             errors.rejectValue("phone", "account", "Số điện thoại không hợp lệ !");
         }
         if (!errors.hasErrors()) {
+
+            //Ma hoa mat khau bang SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(account.getPassword().getBytes());
+            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
+
             Account dbAccount = accountDAO.findByUsername(account.getUsername());
 //            account.setId(dbAccount.getId());
             if (dbAccount != null) {

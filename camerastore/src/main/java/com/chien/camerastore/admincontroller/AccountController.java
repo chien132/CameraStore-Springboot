@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +70,7 @@ public class AccountController {
     }
 
     @PostMapping("login")
-    public String login(Model model, @ModelAttribute("account") Account account, BindingResult errors) {
+    public String login(Model model, @ModelAttribute("account") Account account, BindingResult errors) throws NoSuchAlgorithmException {
         account.setUsername(account.getUsername().trim());
         account.setPassword(account.getPassword().trim());
 
@@ -82,6 +85,12 @@ public class AccountController {
             errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
         }
         if (!errors.hasErrors()) {
+            String inputPassword = account.getPassword();
+            //Ma hoa mat khau bang SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(account.getPassword().getBytes());
+            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
+            // System.out.println(account.getPassword());
 
             Account dBAccount = accountDAO.login(account.getUsername(), account.getPassword());
             if (dBAccount != null) {
@@ -99,7 +108,7 @@ public class AccountController {
                     return "redirect:/index";
                 }
             } else {
-
+                account.setPassword(inputPassword);
                 errors.rejectValue("password", "account", "Tài khoản không đúng !");
                 return "loginform";
             }
@@ -122,7 +131,7 @@ public class AccountController {
     }
 
     @PostMapping("register")
-    public String register(Model model, @ModelAttribute("account") Account account, BindingResult errors) {
+    public String register(Model model, @ModelAttribute("account") Account account, BindingResult errors) throws NoSuchAlgorithmException {
         account.setUsername(account.getUsername().trim());
         account.setPassword(account.getPassword().trim());
         account.setEmail(account.getEmail().trim());
@@ -151,6 +160,13 @@ public class AccountController {
             errors.rejectValue("email", "account", "Số điện thoại không đúng định dạng !");
         }
         if (!errors.hasErrors()) {
+            String inputPassword = account.getPassword();
+
+            //Ma hoa mat khau bang SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(account.getPassword().getBytes());
+            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
+
             account.setPhoto("resources/images/avatar/user-default.png");
             Account dbAccount = accountDAO.findByUsername(account.getUsername());
             if (dbAccount == null) {
@@ -165,6 +181,7 @@ public class AccountController {
                     return "redirect:/register";
                 }
             } else {
+                account.setPassword(inputPassword);
                 errors.rejectValue("username", "account", "Tên đăng nhập này đã tồn tại !");
             }
 

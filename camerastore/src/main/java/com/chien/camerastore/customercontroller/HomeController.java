@@ -109,9 +109,9 @@ public class HomeController {
                         @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,
                         @RequestParam(name = "category", required = false, defaultValue = "none") String category,
                         @RequestParam(name = "brand", required = false, defaultValue = "none") String brand) {
-        System.out.println(brand);
-        System.out.println(category);
-        System.out.println(sort);
+//        System.out.println(brand);
+//        System.out.println(category);
+//        System.out.println(sort);
         Sort sortable = null;
         if (sort.equals("ASC")) {
             sortable = Sort.by("id").ascending();
