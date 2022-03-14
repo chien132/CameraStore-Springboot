@@ -1,4 +1,4 @@
-package example.ckfinder.config;
+package com.chien.camerastore.ckfinder.config;
 
 import com.cksource.ckfinder.config.Config;
 

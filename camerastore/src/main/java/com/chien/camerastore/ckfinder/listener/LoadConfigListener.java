@@ -1,4 +1,4 @@
-package example.ckfinder.listener;
+package com.chien.camerastore.ckfinder.listener;
 
 import com.cksource.ckfinder.config.Config;
 import com.cksource.ckfinder.event.LoadConfigEvent;

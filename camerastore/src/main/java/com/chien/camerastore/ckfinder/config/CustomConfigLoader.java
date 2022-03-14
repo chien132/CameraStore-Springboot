@@ -1,4 +1,4 @@
-package example.ckfinder.config;
+package com.chien.camerastore.ckfinder.config;
 
 import com.cksource.ckfinder.config.Config;
 import com.cksource.ckfinder.config.loader.ConfigLoader;
@@ -15,8 +15,8 @@ public class CustomConfigLoader implements ConfigLoader {
     @Override
     public Config loadConfig() throws Exception {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        Path configPath = Paths.get(System.getProperty("user.dir"), "ckfinder.yml");
-
+        //Here is the path of ckinder.yml of your own project, mine is under resources
+        Path configPath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources", "ckfinder.yml");
         return mapper.readValue(Files.newInputStream(configPath), CustomConfig.class);
     }
 }

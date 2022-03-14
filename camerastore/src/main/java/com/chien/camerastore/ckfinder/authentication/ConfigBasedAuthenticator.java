@@ -1,7 +1,7 @@
-package example.ckfinder.authentication;
+package com.chien.camerastore.ckfinder.authentication;
 
 import com.cksource.ckfinder.authentication.Authenticator;
-import example.ckfinder.config.CustomConfig;
+import com.chien.camerastore.ckfinder.config.CustomConfig;
 import org.springframework.context.ApplicationContext;
 
 import javax.inject.Inject;

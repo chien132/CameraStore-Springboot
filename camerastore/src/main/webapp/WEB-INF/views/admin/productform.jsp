@@ -144,11 +144,22 @@
     </div>
 </div>
 <script src="resources/ckeditor/ckeditor.js"></script>
+<script src="resources/ckeditor/ckfinder.js"></script>
 
 <script>
-    let editor;
+    let editor=
     ClassicEditor
-        .create(document.querySelector('#destextarea'))
+        .create(document.querySelector('#destextarea'), {
+            plugins: [CKFinder],
+
+            ckfinder: {
+                uploadUrl: '/ckfinder/connector?command=QuickUpload&type=Images&responseType=json',
+                options: {
+                    resourceType: 'Images'
+                }
+            },
+            toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        })
         .catch(error => {
             console.error(error);
         });
