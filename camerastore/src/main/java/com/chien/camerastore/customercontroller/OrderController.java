@@ -137,8 +137,9 @@ public class OrderController {
             re.addFlashAttribute("message", "Đặt hàng thành công!");
         } else {
             re.addFlashAttribute("message", "Đặt hàng thất bại: " + errormsg);
+            return "redirect:/cart/view";
         }
-        return "redirect:/index";
+        return "redirect:/order/viewall";
     }
 
     @RequestMapping("viewall")
@@ -147,8 +148,36 @@ public class OrderController {
     }
 
     @RequestMapping("view/{id}")
-    public String viewOrder(Model model, @PathVariable("id") int id) {
-        model.addAttribute("order", orderDAO.getById(id));
+    public String viewOrder(Model model, @PathVariable("id") int id, RedirectAttributes re) {
+        if (orderDAO.findAllById(id).size() < 1) {
+            re.addFlashAttribute("message", "Đơn hàng không tồn tại!!??");
+            return "redirect:/order/viewall";
+        }
+        Order order = orderDAO.getById(id);
+        Account curAccount = session.get("curaccount");
+        if (curAccount.getId() != order.getAccount().getId()) {
+            re.addFlashAttribute("message", "Bạn không có quyền xem đơn hàng này!");
+            return "redirect:/order/viewall";
+        }
+        model.addAttribute("order", order);
         return "orderdetail";
+    }
+
+    @RequestMapping("confirm/{id}")
+    public String confirmOrder(@PathVariable("id") int id, RedirectAttributes re) {
+        if (orderDAO.findAllById(id).size() < 1) {
+            re.addFlashAttribute("message", "Đơn hàng không tồn tại!");
+            return "redirect:/admin/order/viewall";
+        }
+        Order order = orderDAO.getById(id);
+        Account curAccount = session.get("curaccount");
+        if (curAccount.getId() != order.getAccount().getId()) {
+            re.addFlashAttribute("message", "Đơn hàng này không phải của bạn!");
+            return "redirect:/admin/order/viewall";
+        }
+        order.setDone(true);
+        orderDAO.save(order);
+        re.addFlashAttribute("message", "Đã hoàn thành đơn hàng!");
+        return "redirect:/order/view/" + id;
     }
 }

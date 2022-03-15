@@ -57,7 +57,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         }
         if (error.length() > 0) {
             session.set("security-uri", uri);
-            System.out.println(uri);
+//            System.out.println(uri);
             response.sendRedirect("/login?error=" + error); //?error=" + error);
             return false;
         }

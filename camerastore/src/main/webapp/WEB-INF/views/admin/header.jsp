@@ -66,7 +66,7 @@
         }
 
         tr:hover {
-            /*cursor: pointer;*/
+            transition-duration: 300ms;
             background-color: #b4eeff;
         }
     </style>
@@ -103,14 +103,15 @@
             <a id="addbrandlink" class="item" href="/admin/catebrand/addbrand">Thêm hãng sản xuất</a>
         </div>
     </div>
-    <div class="ui simple dropdown item">
-        Đơn hàng
-        <i class="dropdown icon"></i>
-        <div class="menu">
-            <a class="item" href="/admin/order/view">Danh sách</a>
-            <a class="item" href="/admin/order/add">Thêm mới</a>
-        </div>
-    </div>
+    <a href="admin/order/viewall" class="item">Đơn hàng</a>
+    <%--    <div class="ui simple dropdown item">--%>
+    <%--        Đơn hàng--%>
+    <%--        <i class="dropdown icon"></i>--%>
+    <%--        <div class="menu">--%>
+    <%--            <a class="item" href="/admin/order/viewall">Danh sách</a>--%>
+    <%--            <a class="item" href="/admin/order/add">Thêm mới</a>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
 
 
     <div class="right menu">
@@ -123,8 +124,8 @@
         <%--            </div>--%>
         <%--        </div>--%>
         <div class="item ui pointing dropdown link">
-						<span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
-                            ${curaccount.username}</span>
+                <span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
+                    ${curaccount.username}</span>
             <i class="dropdown icon"></i>
             <div class="menu">
                 <a href="logout" class="item">Đăng xuất</a>
@@ -142,4 +143,5 @@
     </div>
 </div>
 </body>
+
 </html>

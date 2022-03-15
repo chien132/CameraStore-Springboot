@@ -108,14 +108,14 @@
                         <a href="order/viewall" class="item">Đơn hàng</a>
                         <a href="logout" class="item">Đăng xuất</a>
 
-                        <div class="item">
-                            <i class="dropdown left icon"></i>
-                            <span class="text">Menu</span>
-                            <div class="menu">
-                                <div class="item">1</div>
-                                <div class="item">2</div>
-                            </div>
-                        </div>
+<%--                        <div class="item">--%>
+<%--                            <i class="dropdown left icon"></i>--%>
+<%--                            <span class="text">Menu</span>--%>
+<%--                            <div class="menu">--%>
+<%--                                <div class="item">1</div>--%>
+<%--                                <div class="item">2</div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </div>
                 </div>
             </c:when>

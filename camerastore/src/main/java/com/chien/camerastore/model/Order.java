@@ -59,4 +59,34 @@ public class Order {
         return size;
     }
 
+    public String getStatus() {
+        if (rejectreason != null) {
+            if (!rejectreason.isEmpty()) {
+                return "denied";
+            }
+        }
+        if (!confirmed) {
+            return "waiting";
+        } else if (!done) {
+            return "delivering";
+        } else {
+            return "done";
+        }
+    }
+
+    public String getStatusText() {
+        if (rejectreason != null) {
+            if (!rejectreason.isEmpty()) {
+                return "Đã từ chối: " + rejectreason;
+            }
+        }
+        if (!confirmed) {
+            return "Chờ xác nhận";
+        } else if (!done) {
+            return "Đang giao hàng";
+        } else {
+            return "Đã hoàn tất";
+        }
+    }
+
 }
