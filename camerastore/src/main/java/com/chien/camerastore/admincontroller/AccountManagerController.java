@@ -99,7 +99,7 @@ public class AccountManagerController {
                         re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                     } else {
                         try {
-                            String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename());
+                            String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename().replaceAll("\\s", ""));
                             String uploadDir = "src/main/webapp/resources/images/avatar/";
                             FileUploadService.saveFile(uploadDir, filename, photo);
                             account.setPhoto("resources/images/avatar/" + filename);
@@ -174,7 +174,7 @@ public class AccountManagerController {
                         re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                     } else {
                         try {
-                            String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename());
+                            String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename().replaceAll("\\s", ""));
                             String uploadDir = "src/main/webapp/resources/images/avatar/";
                             FileUploadService.saveFile(uploadDir, filename, photo);
                             account.setPhoto("resources/images/avatar/" + filename);

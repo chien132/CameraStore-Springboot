@@ -82,25 +82,27 @@
         Tài khoản
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/account/view">Danh sách</a>
-            <a class="item" href="/admin/account/add">Thêm mới</a>
+            <a class="item" href="/admin/account/view"><i class="list blue alternate outline icon"></i>Danh sách</a>
+            <a class="item" href="/admin/account/add"><i class="plus green square outline icon"></i>Thêm mới</a>
         </div>
     </div>
     <div class="ui simple dropdown item">
         Sản phẩm
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/product/view">Danh sách</a>
-            <a class="item" href="/admin/product/add">Thêm mới</a>
+            <a class="item" href="/admin/product/view"><i class="list blue alternate outline icon"></i>Danh sách</a>
+            <a class="item" href="/admin/product/add"><i class="plus green square outline icon"></i>Thêm mới</a>
         </div>
     </div>
     <div class="ui simple dropdown item">
         Phân loại & Hãng sản xuất
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/catebrand/view">Danh sách</a>
-            <a id="addcatelink" class="item" href="/admin/catebrand/addcate">Thêm phân loại</a>
-            <a id="addbrandlink" class="item" href="/admin/catebrand/addbrand">Thêm hãng sản xuất</a>
+            <a class="item" href="/admin/catebrand/view"><i class="list blue alternate outline icon"></i>Danh sách</a>
+            <a id="addcatelink" class="item" href="/admin/catebrand/addcate"><i
+                    class="plus green square outline icon"></i>Thêm phân loại</a>
+            <a id="addbrandlink" class="item" href="/admin/catebrand/addbrand"><i
+                    class="plus green square outline icon"></i>Thêm hãng sản xuất</a>
         </div>
     </div>
     <a href="admin/order/viewall" class="item">Đơn hàng</a>

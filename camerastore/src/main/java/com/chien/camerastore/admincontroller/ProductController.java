@@ -42,12 +42,12 @@ public class ProductController {
 
     @ModelAttribute("brands")
     public List<Brand> brands() {
-        return brandDAO.findAll();
+        return brandDAO.findAllByOrderByNameAsc();
     }
 
     @ModelAttribute("categories")
     public List<Category> categories() {
-        return categoryDAO.findAll();
+        return categoryDAO.findAllByOrderByNameAsc();
     }
 
     @RequestMapping("view")
@@ -83,7 +83,7 @@ public class ProductController {
                     re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                 } else {
                     try {
-                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename());
+                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename()).replaceAll("\\s", "");
                         String uploadDir = "src/main/webapp/resources/images/product/";
                         FileUploadService.saveFile(uploadDir, filename, photo);
                         product.setImage("resources/images/product/" + filename);
@@ -132,7 +132,7 @@ public class ProductController {
                     re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                 } else {
                     try {
-                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename());
+                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename()).replaceAll("\\s", "");
                         String uploadDir = "src/main/webapp/resources/images/product/";
                         FileUploadService.saveFile(uploadDir, filename, photo);
                         product.setImage("resources/images/product/" + filename);

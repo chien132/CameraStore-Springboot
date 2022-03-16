@@ -16,7 +16,7 @@
 
     <%--    <script src="resources/semantic/jquery-3.1.1.min.js"--%>
     <%--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
-<%--    <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>--%>
+    <%--    <link rel="stylesheet" type="text/css" href="resources/datatables/datatables.min.css"/>--%>
     <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css"/>
     <style>
         html {
@@ -24,6 +24,7 @@
             min-height: 100%;
             /*height: unset;*/
         }
+
         #homelogin {
             background: url(resources/images/fujibg.jpg) center top no-repeat;
             background-size: cover;
@@ -43,6 +44,11 @@
                 margin-right: auto !important;
             }
         }
+
+        img.magnifier:hover {
+            transform: scale(2.0);
+            transition-duration: 300ms;
+        }
     </style>
 </head>
 
@@ -57,7 +63,7 @@
         <i class="dropdown icon"></i>
         <div class="menu">
             <c:forEach var="cate" items="${categories}">
-                <a class="item" href="category/${cate.id}">${cate.name}</a>
+                <a class="item" href="index?category=${cate.id}">${cate.name}</a>
             </c:forEach>
         </div>
     </div>
@@ -66,7 +72,7 @@
         <i class="dropdown icon"></i>
         <div class="menu">
             <c:forEach var="brand" items="${brands}">
-                <a class="item" href="brand/${brand.id}">${brand.name}</a>
+                <a class="item" href="index?brand=${brand.id}">${brand.name}</a>
             </c:forEach>
         </div>
     </div>
@@ -88,14 +94,9 @@
                 <a href="register" class="item">Đăng ký</a>
             </c:when>
             <c:when test="${curaccount!=null}">
-                <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="opencart icon"> </i>Giỏ hàng
+                <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="shopping cart icon"> </i>Giỏ
+                    hàng
                     <div class="ui green label"> ${cartcount}</div>
-                        <%--                    <div class="menu">--%>
-                        <%--                        <c:forEach items="${cartitems}" var="i">--%>
-                        <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
-                        <%--                                                 src="${i.product.image}">${i.amount}x ${i.product.name}</a>--%>
-                        <%--                        </c:forEach>--%>
-                        <%--                    </div>--%>
                 </div>
 
                 <div class="item ui pointing dropdown link">
@@ -108,14 +109,14 @@
                         <a href="order/viewall" class="item">Đơn hàng</a>
                         <a href="logout" class="item">Đăng xuất</a>
 
-<%--                        <div class="item">--%>
-<%--                            <i class="dropdown left icon"></i>--%>
-<%--                            <span class="text">Menu</span>--%>
-<%--                            <div class="menu">--%>
-<%--                                <div class="item">1</div>--%>
-<%--                                <div class="item">2</div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
+                            <%--                        <div class="item">--%>
+                            <%--                            <i class="dropdown left icon"></i>--%>
+                            <%--                            <span class="text">Menu</span>--%>
+                            <%--                            <div class="menu">--%>
+                            <%--                                <div class="item">1</div>--%>
+                            <%--                                <div class="item">2</div>--%>
+                            <%--                            </div>--%>
+                            <%--                        </div>--%>
                     </div>
                 </div>
             </c:when>

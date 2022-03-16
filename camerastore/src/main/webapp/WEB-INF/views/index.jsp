@@ -86,7 +86,7 @@
 <%--                            <div class="description"> ${p.description} </div>--%>
                         </div>
                         <div class="extra content">
-                            <a href="/cart/additem/${p.id}/1?ret=index" class="ui right floated teal tag label">
+                            <a href="/cart/additem/${p.id}/1?ret=index" class="ui right floated teal tag label"><i class="cart plus icon"></i>
                                 <f:formatNumber maxFractionDigits="0" type="currency" currencySymbol=""
                                                 value="${p.price*(100-p.discount)/100}"/> ₫ </a>
                         </div>

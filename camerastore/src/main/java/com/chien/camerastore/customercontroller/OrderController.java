@@ -35,12 +35,12 @@ public class OrderController {
 
     @ModelAttribute("categories")
     public List<Category> categories() {
-        return categoryDAO.findAll();
+        return categoryDAO.findAllByOrderByNameAsc();
     }
 
     @ModelAttribute("brands")
     public List<Brand> brands() {
-        return brandDAO.findAll();
+        return brandDAO.findAllByOrderByNameAsc();
     }
 
     @ModelAttribute("orders")
