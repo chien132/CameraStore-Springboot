@@ -55,7 +55,7 @@
                     <div class="items">${cartcount} mặt hàng</div>
                     <a style="font-size: 1.3rem;color: #e83f3f" class="mycustoma" href="/cart/deleteall"> Xóa tất cả</a>
                 </div>
-                <div style="overflow:scroll;height:62vh;padding-right:1vw;">
+                <div style="overflow:scroll;height:62vh;padding-right:1vw;overflow-x: hidden">
                     <c:forEach items="${cartitems}" var="i">
                         <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
                         <%--                                                 src="${i.product.image}">${i.amount}x ${i.product.name}</a>--%>

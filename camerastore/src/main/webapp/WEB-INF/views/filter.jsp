@@ -71,20 +71,20 @@
                     <h2>Sắp xếp</h2>
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="sort" id="sort1" value="ASC" checked="true">
-                            <label for="sort1">Giá tăng dần</label>
+                            <input type="radio" name="sort" id="priceASC" value="priceASC" checked="true">
+                            <label for="priceASC">Giá tăng dần</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="sort" id="sort2" value="DESC">
-                            <label for="sort2">Giá giảm dần</label>
+                            <input type="radio" name="sort" id="priceDESC" value="priceDESC">
+                            <label for="priceDESC">Giá giảm dần</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="sort" id="sort3" value="ASC">
-                            <label for="sort3">Giảm giá nhiều</label>
+                            <input type="radio" name="sort" id="discountDESC" value="discountDESC">
+                            <label for="discountDESC">Giảm giá nhiều</label>
                         </div>
                     </div>
                 </div>
@@ -93,11 +93,13 @@
             <button class="fluid ui primary left labeled icon button">
                 <i class="right arrow icon"></i>Lọc
             </button>
+            <input name="page" id="pagenum" value="0"/>
         </form>
-        <h3>Trang</h3>
-        <div class="ui pagination menu">
+        <%--        <h3>Trang</h3>--%>
+        <div class="ui pagination menu"
+             style="position: absolute; bottom: 0;left: 50%; transform: translate(-50%, 50%);">
             <a class="active item">
-                1
+                ${products.number}
             </a>
             <div class="disabled item">
                 ...
@@ -114,5 +116,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="resources/semantic/jquery-3.6.0.min.js"></script>
+<script>
+    function changePage (){
 
+    }
+    $(document).ready(function () {
+        $("#cate${category}").prop("checked", true);
+        $("#brand${brand}").prop("checked", true);
+        $("#${sort}").prop("checked", true);
+        $("#pagenum").prop("value", ${page});
+    })
+</script>
 </html>

@@ -106,18 +106,22 @@ public class HomeController {
     @RequestMapping("index")
     public String index(Model model, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                         @RequestParam(name = "size", required = false, defaultValue = "12") Integer size,
-                        @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,
+                        @RequestParam(name = "sort", required = false, defaultValue = "default") String sort,
                         @RequestParam(name = "category", required = false, defaultValue = "none") String category,
                         @RequestParam(name = "brand", required = false, defaultValue = "none") String brand) {
-//        System.out.println(brand);
-//        System.out.println(category);
-//        System.out.println(sort);
+        System.out.println(brand);
+        System.out.println(category);
+        System.out.println(sort);
+        System.out.println(page);
         Sort sortable = null;
-        if (sort.equals("ASC")) {
-            sortable = Sort.by("id").ascending();
-        }
-        if (sort.equals("DESC")) {
+        if (sort.equals("default")) {
             sortable = Sort.by("id").descending();
+        } else if (sort.equals("priceASC")) {
+            sortable = Sort.by("price").ascending();
+        } else if (sort.equals("priceDESC")) {
+            sortable = Sort.by("price").descending();
+        } else if (sort.equals("discountDESC")) {
+            sortable = Sort.by("discount").descending();
         }
         Pageable pageable = PageRequest.of(page, size, sortable);
         Page<Product> productPage;
@@ -136,6 +140,9 @@ public class HomeController {
         }
         model.addAttribute("products", productPage);
         model.addAttribute("sort", sort);
+        model.addAttribute("category", category);
+        model.addAttribute("brand", brand);
+        model.addAttribute("size", size);
 
         return "index";
     }
