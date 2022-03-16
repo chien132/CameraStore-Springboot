@@ -104,7 +104,10 @@ public class CartController {
             re.addFlashAttribute("message", "Sản phẩm không tồn tại");
             return "redirect:/" + ret;
         }
-        if (product.getQuantity() < amount) {
+        if (product.getQuantity() == 0) {
+            re.addFlashAttribute("message", String.format("%s đã hết hàng", product.getName()));
+            return "redirect:/" + ret;
+        } else if (product.getQuantity() < amount) {
             re.addFlashAttribute("message", String.format("%s chỉ còn lại %d sản phẩm", product.getName(), product.getQuantity()));
             return "redirect:/" + ret;
         }
@@ -132,6 +135,10 @@ public class CartController {
                     cartItemDAO.delete(olditem);
                 }
             } else if (olditems.size() == 0) {
+                if (amount < 0) {
+                    re.addFlashAttribute("message", "Vui lòng không chỉnh sửa lung tung!");
+                    return "redirect:/" + ret;
+                }
                 CartItem cartItem = new CartItem();
                 cartItem.setId(cartItemId);
                 cartItem.setAccount(curAccount);

@@ -40,8 +40,9 @@
 <body id="homelogin">
 <jsp:include page="header.jsp"/>
 <style>
-    .ui.cards>.card {
-        margin-left: 1vw; !important;
+    .ui.cards > .card {
+        margin-left: 1vw;
+    !important;
     }
 </style>
 <div class="spacer"></div>
@@ -76,19 +77,25 @@
                                 <div class="ui orange right ribbon label">-${p.discount}%</div>
                             </c:if>
                             <img style="max-height: 20vh;object-fit: cover" src=${p.image}/>
-<%--                            scale-down--%>
+                                <%--                            scale-down--%>
                         </div>
                         <div class="content">
                             <a class="header">${p.name}</a>
                             <div class="description">
-                                <a href="index?cate=${p.category.id}" class="date">${p.category.name} </a> <a href="index?brand=${p.brand.id}">${p.brand.name}</a>
+                                <a href="index?cate=${p.category.id}" class="date">${p.category.name} </a> <a
+                                    href="index?brand=${p.brand.id}">${p.brand.name}</a>
                             </div>
-<%--                            <div class="description"> ${p.description} </div>--%>
+                                <%--                            <div class="description"> ${p.description} </div>--%>
                         </div>
                         <div class="extra content">
-                            <a href="/cart/additem/${p.id}/1?ret=index" class="ui right floated teal tag label"><i class="cart plus icon"></i>
+                            <c:if test="${p.quantity>0}"><a href="/cart/additem/${p.id}/1?ret=index"
+                                                            class="ui right floated teal tag label"><i
+                                    class="cart plus icon"></i>
                                 <f:formatNumber maxFractionDigits="0" type="currency" currencySymbol=""
-                                                value="${p.price*(100-p.discount)/100}"/> ₫ </a>
+                                                value="${p.price*(100-p.discount)/100}"/> ₫ </a></c:if>
+                            <c:if test="${p.quantity==0}">
+                                <div class="ui right floated grey tag label">Hết hàng</div>
+                            </c:if>
                         </div>
                     </div>
                     <%--                    </div>--%>

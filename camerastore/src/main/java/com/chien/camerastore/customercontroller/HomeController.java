@@ -104,46 +104,55 @@ public class HomeController {
     }
 
     @RequestMapping("index")
-    public String index(Model model, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                        @RequestParam(name = "size", required = false, defaultValue = "12") Integer size,
+    public String index(Model model, RedirectAttributes re, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                        @RequestParam(name = "search", required = false, defaultValue = "-666") String search,
+                        @RequestParam(name = "size", required = false, defaultValue = "8") Integer size,
                         @RequestParam(name = "sort", required = false, defaultValue = "default") String sort,
                         @RequestParam(name = "category", required = false, defaultValue = "none") String category,
                         @RequestParam(name = "brand", required = false, defaultValue = "none") String brand) {
-        System.out.println(brand);
-        System.out.println(category);
-        System.out.println(sort);
-        System.out.println(page);
-        Sort sortable = null;
-        if (sort.equals("default")) {
-            sortable = Sort.by("id").descending();
-        } else if (sort.equals("priceASC")) {
-            sortable = Sort.by("price").ascending();
-        } else if (sort.equals("priceDESC")) {
-            sortable = Sort.by("price").descending();
-        } else if (sort.equals("discountDESC")) {
-            sortable = Sort.by("discount").descending();
-        }
-        Pageable pageable = PageRequest.of(page, size, sortable);
+//        System.out.println("\n" + brand);
+//        System.out.println(category);
+//        System.out.println(sort);
+//        System.out.println(page);
+//        System.out.println(search);
+
         Page<Product> productPage;
-        if (!brand.equals("none") && category.equals("none")) {
-            productPage = productDAO.findByBrandId(Integer.parseInt(brand), pageable);
-            model.addAttribute("brand", brand);
-        } else if (brand.equals("none") && !category.equals("none")) {
-            productPage = productDAO.findByCategoryId(Integer.parseInt(category), pageable);
-            model.addAttribute("category", category);
-        } else if (!brand.equals("none") && !category.equals("none")) {
-            productPage = productDAO.findByBrandIdAndCategoryId(Integer.parseInt(brand), Integer.parseInt(category), pageable);
-            model.addAttribute("brand", brand);
-            model.addAttribute("category", category);
+        search = search.trim();
+        if (!search.equals("-666") && !search.isBlank()) {
+            Pageable pageable = PageRequest.of(page, size);
+            productPage = productDAO.findByNameLike(search, pageable);
         } else {
-            productPage = productDAO.findProducts(pageable);
+            Sort sortable = null;
+            if (sort.equals("default")) {
+                sortable = Sort.by("id").descending();
+            } else if (sort.equals("priceASC")) {
+                sortable = Sort.by("price").ascending();
+            } else if (sort.equals("priceDESC")) {
+                sortable = Sort.by("price").descending();
+            } else if (sort.equals("discountDESC")) {
+                sortable = Sort.by("discount").descending();
+            }
+            Pageable pageable = PageRequest.of(page, size, sortable);
+            if (!brand.equals("none") && category.equals("none")) {
+                productPage = productDAO.findByBrandId(Integer.parseInt(brand), pageable);
+            } else if (brand.equals("none") && !category.equals("none")) {
+                productPage = productDAO.findByCategoryId(Integer.parseInt(category), pageable);
+            } else if (!brand.equals("none") && !category.equals("none")) {
+                productPage = productDAO.findByBrandIdAndCategoryId(Integer.parseInt(brand), Integer.parseInt(category), pageable);
+            } else {
+                productPage = productDAO.findProducts(pageable);
+            }
+        }
+        if (productPage.getTotalElements() == 0) {
+            re.addFlashAttribute("message", "Không tìm thấy sản phẩm nào");
+            return "redirect:/index";
         }
         model.addAttribute("products", productPage);
         model.addAttribute("sort", sort);
         model.addAttribute("category", category);
         model.addAttribute("brand", brand);
         model.addAttribute("size", size);
-
+        model.addAttribute("search", search);
         return "index";
     }
 

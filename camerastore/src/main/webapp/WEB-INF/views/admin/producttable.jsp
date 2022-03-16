@@ -65,7 +65,8 @@
                 <td style="text-align: left;">${i.name}</td>
                 <td class="descriptiontd" style="text-align: left;">${i.description}</td>
                 <td style="text-align: right;"><f:formatNumber type="currency"
-                                    maxFractionDigits="0" currencySymbol="" value="${i.price}"/>₫
+                                                               maxFractionDigits="0" currencySymbol=""
+                                                               value="${i.price}"/>₫
                 </td>
                 <td><f:formatNumber type="percent" maxIntegerDigits="3" value="${i.discount/100}"/></td>
                     <%--                <td>${i.role.name}<c:if test="${i.role.id==1}"> #${i.chuTro.id}</c:if>--%>
@@ -77,9 +78,15 @@
                     <a href="admin/product/edit/${i.id}">
                         <button class="ui left attached primary button centered">Sửa</button>
                     </a>
-                    <button class="ui right attached negative button centered"
-                            onclick="showModal(${i.id},'${i.name}')">Xóa
-                    </button>
+                    <c:if test="${i.soldAmount==0&&!i.chosen}">
+                        <button class="ui right attached negative button centered"
+                                onclick="showModal(${i.id},'${i.name}')">Xóa
+                        </button>
+                    </c:if>
+                    <c:if test="${i.soldAmount>0||i.chosen}">
+                        <button class="ui right attached negative button centered" disabled="true">Xóa
+                        </button>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

@@ -101,22 +101,27 @@
                                             maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ
                                     </c:if>
                                     <c:if test="${i.product.discount!=0}">
-                                        <div style="text-decoration: line-through;margin-top: -2vh;color: gray">
-                                            <f:formatNumber
-                                                    type="currency"
-                                                    currencySymbol=""
-                                                    maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ
-                                        </div>
+<%--                                        <div style="text-decoration: line-through;margin-top: -2vh;color: gray">--%>
+<%--                                            <f:formatNumber--%>
+<%--                                                    type="currency"--%>
+<%--                                                    currencySymbol=""--%>
+<%--                                                    maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ--%>
+<%--                                        </div>--%>
                                         <div style="text-decoration: wavy;"><f:formatNumber type="currency"
                                                                                             currencySymbol=""
                                                                                             maxFractionDigits="0">${i.product.price*i.amount*(100-i.product.discount)/100}</f:formatNumber>đ
                                         </div>
                                     </c:if>
                                 </div>
-                                <div class="save"><c:if test="${i.product.discount!=0}"><u
-                                        style="color: #e32e32">-<f:formatNumber type="currency"
-                                                                                currencySymbol=""
-                                                                                maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ</u></c:if>
+                                <div class="save"><c:if test="${i.product.discount!=0}">
+                                    <div style="color: #e32e32;font-size: 1.2rem">-
+                                            <%--                                    <f:formatNumber type="currency"--%>
+                                            <%--                                                    currencySymbol=""--%>
+                                            <%--                                                    maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ--%>
+                                        <f:formatNumber type="percent"
+                                                        maxIntegerDigits="3">${i.product.discount/100}</f:formatNumber>
+                                    </div>
+                                </c:if>
                                 </div>
                                 <div class="remove"><u><a class="mycustoma" href="/cart/deleteitem/${i.id.productid}">
                                     Xóa</a></u></div>
@@ -127,17 +132,26 @@
                 </div>
 
                 <%--    <hr>--%>
-                <div class="actions">
-                    <%--        <div class="total">--%>
-                    <div class="description">
-                        <div class="total-value">
-                            <div class="Subtotal">Tổng</div>
-                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
-                                                                      maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ
-                            </div>
-                        </div>
+                <div class="ui statistic" style="width: 100%">
+                    <div class="label">
+                        Tổng
+                    </div>
+                    <div class="value">
+                        <f:formatNumber type="currency" currencySymbol=""
+                                        maxFractionDigits="0">${cartcountmoney}</f:formatNumber> vnđ
                     </div>
                 </div>
+                <%--                <div class="actions">--%>
+                <%--                    &lt;%&ndash;        <div class="total">&ndash;%&gt;--%>
+                <%--                    <div class="description">--%>
+                <%--                        <div class="total-value">--%>
+                <%--                            <div class="Subtotal">Tổng</div>--%>
+                <%--                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""--%>
+                <%--                                                                      maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
 
         </div>

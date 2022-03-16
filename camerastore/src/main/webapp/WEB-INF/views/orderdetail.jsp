@@ -71,17 +71,25 @@
                         <hr>
                     </c:forEach>
                 </div>
-
-                <div class="actions">
-                    <div class="description">
-                        <div class="total-value">
-                            <div class="Subtotal">Tổng</div>
-                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
-                                                                      maxFractionDigits="0">${order.value}</f:formatNumber>đ
-                            </div>
-                        </div>
+                <div class="ui statistic" style="width: 100%">
+                    <div class="label">
+                        Tổng
+                    </div>
+                    <div class="value">
+                        <f:formatNumber type="currency" currencySymbol=""
+                                        maxFractionDigits="0">${order.value}</f:formatNumber> vnđ
                     </div>
                 </div>
+                <%--                <div class="actions">--%>
+                <%--                    <div class="description">--%>
+                <%--                        <div class="total-value">--%>
+                <%--                            <div class="Subtotal">Tổng</div>--%>
+                <%--                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""--%>
+                <%--                                                                      maxFractionDigits="0">${order.value}</f:formatNumber>đ--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
 
         </div>
@@ -133,7 +141,8 @@
                     <c:choose>
                         <c:when test="${order.status=='delivering'}">
                             <button class="ui positive large button"
-                                    onclick="$('#confirmmodal').modal('show')"><i class="check circle icon"></i>Đã nhận được hàng
+                                    onclick="$('#confirmmodal').modal('show')"><i class="check circle icon"></i>Đã nhận
+                                được hàng
                             </button>
                         </c:when>
                     </c:choose>

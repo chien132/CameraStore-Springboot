@@ -7,7 +7,7 @@
 <head>
     <%--    <title>Shopping Cart UI</title>--%>
     <link rel="stylesheet" type="text/css" href="resources/cartui/style.css">
-<%--    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900" rel="stylesheet">--%>
+    <%--    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900" rel="stylesheet">--%>
 </head>
 
 <body>
@@ -45,21 +45,26 @@
                                                                               maxFractionDigits="0">${i.product.price}</f:formatNumber>đ
                         </c:if>
                         <c:if test="${i.product.discount!=0}">
-                            <div style="text-decoration: line-through;color: gray"><f:formatNumber type="currency"
-                                                                                                   currencySymbol=""
-                                                                                                   maxFractionDigits="0">${i.product.price}</f:formatNumber>đ
-                            </div>
+                            <%--                            <div style="text-decoration: line-through;color: gray"><f:formatNumber type="currency"--%>
+                            <%--                                                                                                   currencySymbol=""--%>
+                            <%--                                                                                                   maxFractionDigits="0">${i.product.price}</f:formatNumber>đ--%>
+                            <%--                            </div>--%>
                             <div style="text-decoration: wavy;"><f:formatNumber type="currency"
                                                                                 currencySymbol=""
-                                                                                maxFractionDigits="0">${i.product.price*(100-i.product.discount)/100}</f:formatNumber>đ
+                                                                                maxFractionDigits="0">${i.product.price*i.amount*(100-i.product.discount)/100}</f:formatNumber>đ
                             </div>
                         </c:if>
                     </div>
 
                     <div class="save">
-                        <c:if test="${i.product.discount!=0}"><u style="color: #e32e32">-<f:formatNumber type="currency"
-                                                                                                         currencySymbol=""
-                                                                                                         maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ</u>
+                        <c:if test="${i.product.discount!=0}">
+                            <div style="color: #e32e32;font-size: 1.2rem">-
+                                    <%--                                    <f:formatNumber type="currency"--%>
+                                    <%--                                                    currencySymbol=""--%>
+                                    <%--                                                    maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ--%>
+                                <f:formatNumber type="percent"
+                                                maxIntegerDigits="3">${i.product.discount/100}</f:formatNumber>
+                            </div>
                         </c:if>
                     </div>
                     <div class="remove"><u><a class="mycustoma" href="/cart/deleteitem/${i.id.productid}"> Xóa</a></u>

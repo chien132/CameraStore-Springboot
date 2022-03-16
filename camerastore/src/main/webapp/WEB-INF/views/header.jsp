@@ -77,15 +77,15 @@
         </div>
     </div>
 
-
-    <div class="ui search">
-        <div class="ui icon input">
-            <input class="prompt" type="text" placeholder="Tìm kiếm . . .">
-            <i class="search icon"></i>
+    <form action="index">
+        <div class="ui search">
+            <div class="ui icon input">
+                <input class="prompt" name="search" type="text" placeholder="Tìm kiếm . . .">
+                <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
         </div>
-        <div class="results"></div>
-    </div>
-
+    </form>
 
     <div class="right menu">
         <c:choose>

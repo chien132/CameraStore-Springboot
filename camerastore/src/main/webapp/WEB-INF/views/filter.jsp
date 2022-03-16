@@ -28,7 +28,7 @@
 </style>
 <div class="four wide column">
     <div class="ui form segment" style="position: fixed;width: 18%;height: 79%;z-index: 1">
-        <form action="index" method="post">
+        <form action="index" method="post" id="filterform">
             <div class="ui form">
                 <div class="grouped fields">
                     <h2>Phân loại</h2>
@@ -90,37 +90,56 @@
                 </div>
             </div>
             <br>
-            <button class="fluid ui primary left labeled icon button">
+            <button class="fluid ui primary left labeled icon button" onclick="changeFilter()">
                 <i class="right arrow icon"></i>Lọc
             </button>
-            <input name="page" id="pagenum" value="0"/>
+            <input name="page" id="pagenum" value="${products.number}" hidden="true"/>
+            <input name="search" id="searchinput" value="${search}" hidden="true"/>
         </form>
         <%--        <h3>Trang</h3>--%>
         <div class="ui pagination menu"
              style="position: absolute; bottom: 0;left: 50%; transform: translate(-50%, 50%);">
-            <a class="active item">
-                ${products.number}
-            </a>
-            <div class="disabled item">
-                ...
+            <c:if test="${products.number-2>=0}">
+                <a class="item" onclick="changePage(${products.number-2})">
+                        ${products.number-1}
+                </a>
+            </c:if>
+            <c:if test="${products.number-1>=0}">
+                <a class="item" onclick="changePage(${products.number-1})">
+                        ${products.number}
+                </a>
+            </c:if>
+            <div class="active item">
+                ${products.number+1}
             </div>
-            <a class="item">
-                ${products.totalPages-2}
-            </a>
-            <a class="item">
-                ${products.totalPages-1}
-            </a>
-            <a class="item">
-                ${products.totalPages}
-            </a>
+            <%--            <div class="disabled item">--%>
+            <%--                ...--%>
+            <%--            </div>--%>
+            <c:if test="${products.number+1<products.totalPages}">
+                <a class="item" onclick="changePage(${products.number+1})">
+                        ${products.number+2}
+                </a>
+            </c:if>
+            <c:if test="${products.number+2<products.totalPages}">
+                <a class="item" onclick="changePage(${products.number+2})">
+                        ${products.number+3}
+                </a>
+            </c:if>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="resources/semantic/jquery-3.6.0.min.js"></script>
 <script>
-    function changePage (){
-
+    function changePage(page) {
+        $("#pagenum").prop("value", page);
+        $('#filterform').submit();
     }
+
+    function changeFilter() {
+        $('#pagenum').prop("value", 0)
+        $('#searchinput').prop("value", "")
+    }
+
     $(document).ready(function () {
         $("#cate${category}").prop("checked", true);
         $("#brand${brand}").prop("checked", true);

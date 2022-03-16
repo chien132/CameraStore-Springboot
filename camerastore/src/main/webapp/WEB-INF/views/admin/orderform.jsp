@@ -91,17 +91,26 @@
                 </div>
 
                 <%--    <hr>--%>
-                <div class="actions">
-                    <%--        <div class="total">--%>
-                    <div class="description">
-                        <div class="total-value">
-                            <div class="Subtotal">Tổng</div>
-                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
-                                                                      maxFractionDigits="0">${order.value}</f:formatNumber>đ
-                            </div>
-                        </div>
+                <div class="ui statistic" style="width: 100%">
+                    <div class="label">
+                        Tổng
+                    </div>
+                    <div class="value">
+                        <f:formatNumber type="currency" currencySymbol=""
+                                        maxFractionDigits="0">${order.value}</f:formatNumber> vnđ
                     </div>
                 </div>
+                <%--                <div class="actions">--%>
+                <%--                    &lt;%&ndash;        <div class="total">&ndash;%&gt;--%>
+                <%--                    <div class="description">--%>
+                <%--                        <div class="total-value">--%>
+                <%--                            <div class="Subtotal">Tổng</div>--%>
+                <%--                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""--%>
+                <%--                                                                      maxFractionDigits="0">${order.value}</f:formatNumber>đ--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
         </div>
         <div class="eight wide column" style="height: max-content">
@@ -133,64 +142,64 @@
                             <h3 class="ui blue header">${order.payonline?"Chuyển khoản MoMo":"Thanh toán khi nhận hàng"}</h3>
                         </div>
                     </div>
-<%--                    <div class="field">--%>
-<%--                        <h3>Địa chỉ giao hàng:</h3>--%>
-<%--                        <div class="ui floating message">${order.address}</div>--%>
-<%--                    </div>--%>
+                    <%--                    <div class="field">--%>
+                    <%--                        <h3>Địa chỉ giao hàng:</h3>--%>
+                    <%--                        <div class="ui floating message">${order.address}</div>--%>
+                    <%--                    </div>--%>
 
-<%--                    <div class="field">--%>
-<%--                        <h3>Họ tên người nhận:</h3>--%>
-<%--                        <div class="ui floating message">${order.fullname}</div>--%>
-<%--                    </div>--%>
+                    <%--                    <div class="field">--%>
+                    <%--                        <h3>Họ tên người nhận:</h3>--%>
+                    <%--                        <div class="ui floating message">${order.fullname}</div>--%>
+                    <%--                    </div>--%>
 
-<%--                    <div class="field">--%>
-<%--                        <h3>Điện thoại liên hệ:</h3>--%>
-<%--                        <div class="ui floating message">${order.phone}</div>--%>
-<%--                    </div>--%>
+                    <%--                    <div class="field">--%>
+                    <%--                        <h3>Điện thoại liên hệ:</h3>--%>
+                    <%--                        <div class="ui floating message">${order.phone}</div>--%>
+                    <%--                    </div>--%>
 
-<%--                    <div class="field">--%>
-<%--                        <h3>Email:</h3>--%>
-<%--                        <div class="ui floating message">${order.email}</div>--%>
-<%--                    </div>--%>
-<%--                    <div class="field">--%>
-<%--                        <div class="field">--%>
-<%--                            <h3>Phương thức thanh toán:</h3>--%>
-<%--                            <div class="ui floating message">${order.payonline?"Chuyển khoản MoMo":"Thanh toán khi nhận hàng"}</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="field">--%>
-                        <div class="field">
-                            <h3>Trạng thái:</h3>
-                            <c:choose>
-                                <c:when test="${order.status=='denied'}">
-                                    <h3 class="ui red header">${order.statusText}</h3>
-                                </c:when>
-                                <c:when test="${order.status=='done'}">
-                                    <h3 class="ui green header">${order.statusText} </h3>
-                                </c:when>
-                                <c:otherwise>
-                                    <h3 class="ui yellow header">${order.statusText}</h3>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                    <%--                    <div class="field">--%>
+                    <%--                        <h3>Email:</h3>--%>
+                    <%--                        <div class="ui floating message">${order.email}</div>--%>
+                    <%--                    </div>--%>
+                    <%--                    <div class="field">--%>
+                    <%--                        <div class="field">--%>
+                    <%--                            <h3>Phương thức thanh toán:</h3>--%>
+                    <%--                            <div class="ui floating message">${order.payonline?"Chuyển khoản MoMo":"Thanh toán khi nhận hàng"}</div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
+                    <%--                    <div class="field">--%>
+                    <div class="field">
+                        <h3>Trạng thái:</h3>
+                        <c:choose>
+                            <c:when test="${order.status=='denied'}">
+                                <h3 class="ui red header">${order.statusText}</h3>
+                            </c:when>
+                            <c:when test="${order.status=='done'}">
+                                <h3 class="ui green header">${order.statusText} </h3>
+                            </c:when>
+                            <c:otherwise>
+                                <h3 class="ui yellow header">${order.statusText}</h3>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                    <c:choose>
-                        <c:when test="${order.status=='waiting'}">
-                            <button class="ui positive large button"
-                                    onclick="$('#confirmmodal').modal('show')"><i class="check circle icon"></i>Xác nhận
-                            </button>
-                            <button class="ui negative large button" id="denybtn"><i class="x icon"></i>Từ chối</button>
-                        </c:when>
-                        <c:when test="${order.status=='delivering'}">
-                            <button class="ui positive large button"
-                                    onclick="$('#completemodal').modal('show')"><i class="check circle icon"></i>Hoàn thành
-                            </button>
-                        </c:when>
-                    </c:choose>
                 </div>
+                <c:choose>
+                    <c:when test="${order.status=='waiting'}">
+                        <button class="ui positive large button"
+                                onclick="$('#confirmmodal').modal('show')"><i class="check circle icon"></i>Xác nhận
+                        </button>
+                        <button class="ui negative large button" id="denybtn"><i class="x icon"></i>Từ chối</button>
+                    </c:when>
+                    <c:when test="${order.status=='delivering'}">
+                        <button class="ui positive large button"
+                                onclick="$('#completemodal').modal('show')"><i class="check circle icon"></i>Hoàn thành
+                        </button>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="ui tiny modal" id="confirmmodal">
     <div class="header"><i class="bell outline orange icon"></i>Xác nhận</div>

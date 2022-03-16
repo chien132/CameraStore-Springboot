@@ -22,12 +22,12 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
     @Query("SELECT e FROM Product e")
     Page<Product> findProducts(Pageable pageable);
 
-    //       @Query("SELECT o FROM Product o WHERE o.name LIKE ?1")
+    @Query("SELECT o FROM Product o WHERE o.name LIKE %?1%")
     Page<Product> findByNameLike(String keywords, Pageable pageable);
 
     Page<Product> findByCategoryId(int id, Pageable pageable);
 
-    Page<Product> findByBrandId(int id,Pageable pageable);
+    Page<Product> findByBrandId(int id, Pageable pageable);
 
     Page<Product> findByBrandIdAndCategoryId(int brand, int cate, Pageable pageable);
 

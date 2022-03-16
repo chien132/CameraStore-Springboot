@@ -33,5 +33,20 @@ public class Product {
     private Brand brand;
 
     @OneToMany(mappedBy = "product")
-    List<CartItem> cartItem;
+    private List<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetail> orderDetails;
+
+    public int getSoldAmount() {
+        int count = 0;
+        for (OrderDetail i : orderDetails) {
+            count += i.getAmount();
+        }
+        return count;
+    }
+
+    public boolean isChosen() {
+        return cartItems.size() > 0;
+    }
 }
