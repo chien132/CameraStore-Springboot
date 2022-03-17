@@ -49,4 +49,16 @@ public class Product {
     public boolean isChosen() {
         return cartItems.size() > 0;
     }
+
+    public int getSoldInOrders(List<Order> orders) {
+        int count = 0;
+        for (Order o : orders) {
+            for (OrderDetail d : o.getOrderDetails()) {
+                if (d.getProduct().getId() == this.getId()) {
+                    count += d.getAmount();
+                }
+            }
+        }
+        return count;
+    }
 }

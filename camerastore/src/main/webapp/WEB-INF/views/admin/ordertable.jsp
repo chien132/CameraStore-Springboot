@@ -88,7 +88,8 @@
             <%--                    <a href="order/view/${i.id}">--%>
             <tr class="${i.status}" onclick="location.href='admin/order/view/${i.id}'">
                 <td>${i.id}</td>
-                <td>${i.createdate}</td>
+                <td><f:formatDate value="${i.createdate}"
+                                  pattern="dd/MM/yyyy" /></td>
                 <td>${i.fullname}</td>
                 <td>${i.address}</td>
                 <td>${i.email}</td>

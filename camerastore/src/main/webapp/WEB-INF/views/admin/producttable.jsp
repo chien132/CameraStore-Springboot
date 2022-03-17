@@ -45,7 +45,7 @@
         <thead style="text-align: center;">
         <tr>
             <th>ID</th>
-            <th>Ảnh</th>
+<%--            <th>Ảnh</th>--%>
             <th>Tên sản phẩm</th>
             <th>Mô tả</th>
             <th>Giá</th>
@@ -60,8 +60,8 @@
         <c:forEach var="i" items="${products}">
             <tr>
                 <td>${i.id}</td>
-                <td><img style="max-width: 3.75vh;" alt=""
-                         src=${i.image}></td>
+<%--                <td><img style="max-width: 3.75vh;" alt=""--%>
+<%--                         src=${i.image}></td>--%>
                 <td style="text-align: left;">${i.name}</td>
                 <td class="descriptiontd" style="text-align: left;">${i.description}</td>
                 <td style="text-align: right;"><f:formatNumber type="currency"

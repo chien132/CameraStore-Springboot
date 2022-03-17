@@ -77,7 +77,7 @@
 
     <img src="resources/images/logodark.png" style="max-height: 5vh; margin-left: 8vw;"/>
 
-    <a href="admin/index" class="item">Tổng quan</a>
+    <a href="admin/overview" class="item">Tổng quan</a>
     <div class="ui simple dropdown item">
         Tài khoản
         <i class="dropdown icon"></i>

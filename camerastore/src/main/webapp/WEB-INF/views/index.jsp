@@ -82,7 +82,7 @@
                         <div class="content">
                             <a class="header">${p.name}</a>
                             <div class="description">
-                                <a href="index?cate=${p.category.id}" class="date">${p.category.name} </a> <a
+                                <a href="index?category=${p.category.id}" class="date">${p.category.name} </a> <a
                                     href="index?brand=${p.brand.id}">${p.brand.name}</a>
                             </div>
                                 <%--                            <div class="description"> ${p.description} </div>--%>

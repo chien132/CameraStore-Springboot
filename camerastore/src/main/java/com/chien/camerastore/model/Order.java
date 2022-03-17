@@ -2,6 +2,7 @@ package com.chien.camerastore.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,8 @@ public class Order {
     private String address;
     @NotNull
     @Temporal(TemporalType.DATE)
+    	@DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date createdate = new Date();
     @NotNull
     private String email;

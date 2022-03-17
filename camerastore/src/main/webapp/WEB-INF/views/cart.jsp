@@ -37,7 +37,7 @@
 <div class="ui container pad-top-30 pad-bottom-30">
     <div class="center aligned segment">
         <div class="ui horizontal divider">
-            <h2 style="color: white;">Giỏ hàng</h2>
+            <h2 style="color: white;">Đặt hàng</h2>
         </div>
     </div>
 </div>
@@ -161,8 +161,7 @@
                 <div class="ui segment" style="font-size: inherit">
                     <form:input path="id" hidden="true"/> <%--Khong duoc xoa, de luu id luc save--%>
                     <div class="field">
-                        <label style="float: left;">Địa chỉ giao hàng<b
-                                style="color: red;">*</b></label>
+                        <label style="float: left;">Địa chỉ giao hàng</label>
                         <div class="ui left input">
                             <form:input path="address"
                                         type="text" placeholder="Địa chỉ" required="true"/>
@@ -216,7 +215,7 @@
                         </div>
                     </c:if>
                     <button class="ui fluid large teal submit button">
-                        <c:if test="${action=='add'}">Thanh toán</c:if>
+                        <c:if test="${action=='add'}">Đặt hàng</c:if>
                         <c:if test="${action=='edit'}">Cập nhật</c:if>
                     </button>
                 </div>

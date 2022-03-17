@@ -137,7 +137,7 @@ public class AccountManagerController {
                               HttpServletRequest request, @RequestParam("photoinput") MultipartFile photo) throws IOException, NoSuchAlgorithmException {
         account.setAdmin(request.getParameter("admincb") != null);
         account.setUsername(account.getUsername().trim());
-        account.setPassword(account.getPassword().trim());
+//        account.setPassword(account.getPassword().trim());
         account.setEmail(account.getEmail().trim());
         account.setPhone(account.getPhone().trim());
         account.setFullname(account.getFullname().trim());
@@ -146,11 +146,11 @@ public class AccountManagerController {
         } else if (!Utils.isValidUsername(account.getUsername())) {
             errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
         }
-        if (account.getPassword().isEmpty()) {
-            errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");
-        } else if (account.getPassword().contains(" ") || account.getPassword().contains("'")) {
-            errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
-        }
+//        if (account.getPassword().isEmpty()) {
+//            errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");
+//        } else if (account.getPassword().contains(" ") || account.getPassword().contains("'")) {
+//            errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
+//        }
         if (!account.getEmail().isEmpty() && !Utils.isValidEmail(account.getEmail())) {
             errors.rejectValue("email", "account", "Email không đúng định dạng !");
         }
@@ -160,9 +160,9 @@ public class AccountManagerController {
         if (!errors.hasErrors()) {
 
             //Ma hoa mat khau bang SHA-256
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] messageDigest = md.digest(account.getPassword().getBytes());
-            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            byte[] messageDigest = md.digest(account.getPassword().getBytes());
+//            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
 
             Account dbAccount = accountDAO.findByUsername(account.getUsername());
 //            account.setId(dbAccount.getId());
@@ -183,6 +183,8 @@ public class AccountManagerController {
                             return "redirect:/admin/account/edit/" + account.getId();
                         }
                     }
+                    //Khong cho sua mat khau nua
+                    account.setPassword(dbAccount.getPassword());
                     accountDAO.save(account);
                     re.addFlashAttribute("message", "Chỉnh sửa tài khoản thành công !");
                     return "redirect:/admin/account/view";

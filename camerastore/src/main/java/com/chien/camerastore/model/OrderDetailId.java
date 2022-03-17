@@ -37,6 +37,7 @@ public class OrderDetailId implements Serializable {
         this.product_id = product_id;
     }
 
+    @Override
     public boolean equals(Object o) {
 //        return super.equals(obj);
         if (this == o) return true;
