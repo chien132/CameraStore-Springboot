@@ -4,20 +4,21 @@
 <html>
 <style>
     .ui.radio.checkbox label {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         cursor: pointer;
-        color: #0d71bb;
+        color: #000000;
+        /*font-weight: 200;*/
     }
 
-    .ui.checkbox.radio label.defaultlabel {
-        color: rgb(17, 178, 17);
+    .ui.checkbox.radio.checked label {
+        color: rgb(0, 171, 0);
         /*font-weight: bold;*/
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 
     .grouped.fields h2 {
         font-weight: bolder;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 
     .ui.pagination.menu {
@@ -27,7 +28,7 @@
     }
 </style>
 <div class="four wide column">
-    <div class="ui form segment" style="position: fixed;width: 18%;height: 79%;z-index: 1">
+    <div class="ui form segment" style="position: fixed;width: 18%;height: 74%;z-index: 1">
         <form action="index" method="post" id="filterform">
             <div class="ui form">
                 <div class="grouped fields">
@@ -142,8 +143,11 @@
 
     $(document).ready(function () {
         $("#cate${category}").prop("checked", true);
+        $("#cate${category}").parent().addClass("checked");
         $("#brand${brand}").prop("checked", true);
+        $("#brand${brand}").parent().addClass("checked");
         $("#${sort}").prop("checked", true);
+        $("#${sort}").parent().addClass("checked");
         $("#pagenum").prop("value", ${page});
     })
 </script>

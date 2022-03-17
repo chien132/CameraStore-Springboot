@@ -92,7 +92,7 @@
         </form:form>
         <div class="card-footer text-center" style="margin-top: 5px">
             <div class="ui message">
-                Đã có tài khoản? <a href="login"> Đăng nhập</a>
+                Đã có tài khoản? <a href="login"><i class="sign-in icon"></i> Đăng nhập</a>
             </div>
         </div>
     </div>

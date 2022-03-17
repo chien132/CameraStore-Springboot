@@ -90,8 +90,8 @@
     <div class="right menu">
         <c:choose>
             <c:when test="${curaccount==null}">
-                <a href="login" class="item">Đăng nhập</a>
-                <a href="register" class="item">Đăng ký</a>
+                <a href="login" class="item"><i class="sign-in blue icon"></i>Đăng nhập</a>
+                <a href="register" class="item"><i class="edit green outline icon"></i>Đăng ký</a>
             </c:when>
             <c:when test="${curaccount!=null}">
                 <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="shopping cart icon"> </i>Giỏ
@@ -105,9 +105,9 @@
                     <i class="dropdown icon"></i>
                     <div class="menu">
 
-                        <a href="account/" class="item">Tài khoản</a>
-                        <a href="order/viewall" class="item">Đơn hàng</a>
-                        <a href="logout" class="item">Đăng xuất</a>
+                        <a href="account" class="item"><i class="user blue outline icon"></i>Tài khoản</a>
+                        <a href="order/viewall" class="item"><i class="list alternate outline blue icon"></i>Đơn hàng</a>
+                        <a href="logout" class="item"><i class="sign-out red icon"></i>Đăng xuất</a>
 
                             <%--                        <div class="item">--%>
                             <%--                            <i class="dropdown left icon"></i>--%>

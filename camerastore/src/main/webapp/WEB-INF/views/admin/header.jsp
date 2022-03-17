@@ -130,7 +130,8 @@
                     ${curaccount.username}</span>
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a href="logout" class="item">Đăng xuất</a>
+                <a href="/admin/account/myaccount" class="item"><i class="user blue outline icon"></i>Tài khoản</a>
+                <a href="logout" class="item"><i class="sign-out red icon"></i> Đăng xuất</a>
 
                 <%--                <div class="item">--%>
                 <%--                    <i class="dropdown left icon"></i>--%>

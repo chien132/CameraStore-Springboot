@@ -240,4 +240,127 @@ public class AccountManagerController {
         }
         return "redirect:/admin/account/view";
     }
+
+    @RequestMapping("myaccount")
+    public String viewaccount() {
+        return "admin/accountview";
+    }
+
+    @PostMapping("myaccount/editusername")
+    public String editusername(@RequestParam("name") String username, RedirectAttributes re) {
+        Account account = session.get("curaccount");
+        if (!Utils.isValidUsername(username) || username.isBlank()) {
+            re.addFlashAttribute("message", "Username không đúng định dạng!");
+        } else if (accountDAO.findByUsername(username) != null) {
+            re.addFlashAttribute("message", "Tên đăng nhập này đã được dùng, hãy chọn tên khác!");
+        } else {
+            account.setUsername(username.trim());
+            accountDAO.save(account);
+            re.addFlashAttribute("message", "Cập nhật thành công!");
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
+    @PostMapping("myaccount/editfullname")
+    public String editfullname(@RequestParam("name") String fullname, RedirectAttributes re) {
+        Account account = session.get("curaccount");
+        if (fullname.isBlank()) {
+            re.addFlashAttribute("message", "Tên không đúng định dạng!");
+        } else {
+            account.setFullname(fullname.trim());
+            accountDAO.save(account);
+            re.addFlashAttribute("message", "Cập nhật thành công!");
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
+    @PostMapping("myaccount/editphone")
+    public String editphone(@RequestParam("name") String phone, RedirectAttributes re) {
+        Account account = session.get("curaccount");
+        if (phone.isBlank() || !Utils.isValidPhoneNumber(phone)) {
+            re.addFlashAttribute("message", "Số điện thoại không đúng định dạng!");
+        } else {
+            account.setPhone(phone.trim());
+            accountDAO.save(account);
+            re.addFlashAttribute("message", "Cập nhật thành công!");
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
+    @PostMapping("myaccount/editemail")
+    public String editemail(@RequestParam("name") String email, RedirectAttributes re) {
+        Account account = session.get("curaccount");
+        if (email.isBlank() || !Utils.isValidEmail(email)) {
+            re.addFlashAttribute("message", "Email không đúng định dạng!");
+        } else {
+            account.setEmail(email.trim());
+            accountDAO.save(account);
+            re.addFlashAttribute("message", "Cập nhật thành công!");
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
+    @PostMapping("myaccount/editaddress")
+    public String editaddress(@RequestParam("name") String address, RedirectAttributes re) {
+        Account account = session.get("curaccount");
+        if (address.isBlank()) {
+            re.addFlashAttribute("message", "Địa chỉ không đúng định dạng!");
+        } else {
+            account.setAddress(address.trim());
+            accountDAO.save(account);
+            re.addFlashAttribute("message", "Cập nhật thành công!");
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
+    @PostMapping("myaccount/editpassword")
+    public String editpassword(@RequestParam("name") String password, RedirectAttributes re) throws NoSuchAlgorithmException {
+        Account account = session.get("curaccount");
+        if (password.isBlank()) {
+            re.addFlashAttribute("message", "Mật khẩu không đúng định dạng!");
+        } else {
+            //Ma hoa mat khau bang SHA-256
+            password = password.trim();
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(password.getBytes());
+            account.setPassword(DatatypeConverter.printHexBinary(messageDigest).toUpperCase());
+
+            accountDAO.save(account);
+            re.addFlashAttribute("message", "Cập nhật thành công!");
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
+    @PostMapping("myaccount/editavatar")
+    public String editpassword(@RequestParam("image") MultipartFile photo, RedirectAttributes re) {
+        Account account = session.get("curaccount");
+        if (photo.getOriginalFilename().isEmpty()) {
+            re.addFlashAttribute("message", "Hãy chọn một ảnh!");
+        } else if (!(photo.getContentType().contains("jpeg") || photo.getContentType().contains("png"))) {
+            re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
+        } else {
+            try {
+                String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename().replaceAll("\\s", ""));
+                String uploadDir = "src/main/webapp/resources/images/avatar/";
+                FileUploadService.saveFile(uploadDir, filename, photo);
+                if (!account.getPhoto().equals("resources/images/avatar/user-default.png")) {
+                    File image = new File(
+                            context.getRealPath(account.getPhoto()));
+                    if (image.delete()) {
+                        System.out.println("Deleted the file: " + image.getName());
+                    } else {
+                        System.out.println("Failed to delete the file.");
+                    }
+                }
+                account.setPhoto("resources/images/avatar/" + filename);
+                accountDAO.save(account);
+                re.addFlashAttribute("message", "Cập nhật thành công!");
+            } catch (Exception e) {
+                re.addFlashAttribute("message", "Save file error: " + e);
+                return "redirect:/admin/account/edit/" + account.getId();
+            }
+        }
+        return "redirect:/admin/account/myaccount";
+    }
+
 }

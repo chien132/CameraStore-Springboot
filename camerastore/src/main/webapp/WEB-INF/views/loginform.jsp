@@ -65,7 +65,7 @@
 
         <div class="ui message">
             Bạn chưa có tài khoản?
-            <a href="register"> Đăng ký</a>
+            <a href="register"><i class="edit outline icon"></i> Đăng ký</a>
         </div>
     </div>
 </div>
