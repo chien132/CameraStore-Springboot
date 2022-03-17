@@ -177,6 +177,15 @@ public class AccountManagerController {
                             String filename = StringUtils.cleanPath(account.getId() + photo.getOriginalFilename().replaceAll("\\s", ""));
                             String uploadDir = "src/main/webapp/resources/images/avatar/";
                             FileUploadService.saveFile(uploadDir, filename, photo);
+                            if (!dbAccount.getPhoto().equals("resources/images/avatar/user-default.png")) {
+                                File image = new File(
+                                        context.getRealPath(dbAccount.getPhoto()));
+                                if (image.delete()) {
+                                    System.out.println("Deleted the file: " + image.getName());
+                                } else {
+                                    System.out.println("Failed to delete the file.");
+                                }
+                            }
                             account.setPhoto("resources/images/avatar/" + filename);
                         } catch (Exception e) {
                             re.addFlashAttribute("message", "Save file error: " + e);

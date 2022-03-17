@@ -53,9 +53,11 @@ public class Product {
     public int getSoldInOrders(List<Order> orders) {
         int count = 0;
         for (Order o : orders) {
-            for (OrderDetail d : o.getOrderDetails()) {
-                if (d.getProduct().getId() == this.getId()) {
-                    count += d.getAmount();
+            if (o.getStatus().equals("delivering") || o.getStatus().equals("done")) {
+                for (OrderDetail d : o.getOrderDetails()) {
+                    if (d.getProduct().getId() == this.getId()) {
+                        count += d.getAmount();
+                    }
                 }
             }
         }

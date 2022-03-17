@@ -97,7 +97,7 @@ public class AccountController {
                 session.set("curaccount", dBAccount);
                 String uri = session.get("security-uri");
                 if (dBAccount.isAdmin() && uri == null) {
-                    return "redirect:/admin/index";
+                    return "redirect:/admin/overview";
                 } else if (dBAccount.isAdmin() && uri != null) {
                     session.remove("security-uri");
                     return "redirect:" + uri;
