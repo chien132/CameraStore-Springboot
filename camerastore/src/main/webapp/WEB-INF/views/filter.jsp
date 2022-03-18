@@ -28,7 +28,7 @@
     }
 </style>
 <div class="four wide column">
-    <div class="ui form segment" style="position: fixed;width: 18%;height: 74%;z-index: 1">
+    <div class="ui form segment" style="position: fixed;width: 18%;height: 78%;z-index: 1">
         <form action="index" method="post" id="filterform">
             <div class="ui form">
                 <div class="grouped fields">
@@ -90,6 +90,16 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <label style="position: inherit;left: 1px;bottom: 1px">Số lượng mỗi trang</label>
+                <select name="size">
+                    <option id="size4" value="4">4</option>
+                    <option id="size8" value="8">8</option>
+                    <option id="size12" value="12">12</option>
+                    <option id="size16" value="16">16</option>
+                    <option id="size20" value="20">20</option>
+                </select>
+            </div>
             <br>
             <button class="fluid ui primary left labeled icon button" onclick="changeFilter()">
                 <i class="right arrow icon"></i>Lọc
@@ -149,6 +159,7 @@
         $("#${sort}").prop("checked", true);
         $("#${sort}").parent().addClass("checked");
         $("#pagenum").prop("value", ${page});
+        $("#size${size}").prop("selected", "true");
     })
 </script>
 </html>

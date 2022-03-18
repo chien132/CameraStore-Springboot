@@ -7,19 +7,12 @@
 
 <head>
     <meta charset="utf-8"/>
-    <!-- <title>Đăng nhập</title> -->
-    <%--  <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css" />--%>
-    <%--  <script src="resources/semantic/jquery-3.6.0.min.js"--%>
-    <%--    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
-    <%--  <script src="resources/semantic/semantic.min.js"></script>--%>
+    <title>Sản phẩm</title>
     <style>
         .bg_rgba {
             background-color: rgba(150, 150, 150, 0.5);
             background-blend-mode: lighten;
             border-radius: 15px;
-            /* width: 200px; */
-            /* height: 200px; */
-            /* border: 1px solid black; */
         }
 
         .ui.right.floated.teal.tag.label,
@@ -56,10 +49,8 @@
     </div>
 </div>
 
-<div class="spacer"></div>
+<%--<div class="spacer"></div>--%>
 
-<!-- cards -->
-<%--<jsp:include page="filter.jsp"/>--%>
 <div class="ui container ">
 
     <jsp:include page="filter.jsp"/>
@@ -70,17 +61,17 @@
             <div class="ui link cards">
                 <!-- <div class="row"> -->
                 <c:forEach var="p" items="${products.content}">
-                    <%--                    <div class="column">--%>
                     <div class="ui card">
                         <div class="image">
                             <c:if test="${p.discount!=0}">
                                 <div class="ui orange right ribbon label">-${p.discount}%</div>
                             </c:if>
-                            <img style="max-height: 20vh;object-fit: cover" src=${p.image}/>
+                            <img onclick="location.href='product/${p.id}'" style="max-height: 20vh;object-fit: cover"
+                                 src=${p.image}/>
                                 <%--                            scale-down--%>
                         </div>
                         <div class="content">
-                            <a class="header">${p.name}</a>
+                            <a href="product/${p.id}" class="header">${p.name}</a>
                             <div class="description">
                                 <a href="index?category=${p.category.id}" class="date">${p.category.name} </a> <a
                                     href="index?brand=${p.brand.id}">${p.brand.name}</a>
@@ -98,11 +89,8 @@
                             </c:if>
                         </div>
                     </div>
-                    <%--                    </div>--%>
                 </c:forEach>
-
             </div>
-
         </div>
     </div>
 </div>

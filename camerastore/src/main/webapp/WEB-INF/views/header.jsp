@@ -38,8 +38,8 @@
         }
 
         @media only screen and (min-width: 1200px) {
-            .ui.container {
-                width: 90%;
+            .ui.container, .ui.grid.container {
+                width: 90% !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
             }

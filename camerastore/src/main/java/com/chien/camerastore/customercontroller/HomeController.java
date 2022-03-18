@@ -13,10 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -275,5 +272,11 @@ public class HomeController {
             }
         }
         return "redirect:/account";
+    }
+
+    @RequestMapping("product/{id}")
+    public String productdetail(Model model, @PathVariable("id") int id) {
+        model.addAttribute("product", productDAO.findById(id));
+        return "productdetail";
     }
 }
