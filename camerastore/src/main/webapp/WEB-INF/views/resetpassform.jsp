@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>Đăng nhập</title>
+    <title>Đặt lại mật khẩu</title>
     <style>
         body > .grid {
             height: 100%;
@@ -30,69 +30,63 @@
 <jsp:include page="header.jsp"/>
 <div class="ui middle aligned center aligned grid">
     <div class="column ui form">
-        <form:form action="login" modelAttribute="account">
+        <form:form action="resetpassword" modelAttribute="account">
             <div class="ui stacked secondary segment">
                 <h2 class="ui image header">
-                    <div class="content">Đăng nhập</div>
+                    <div class="content">Đặt lại mật khẩu</div>
+                    <form:input type="number" path="id" hidden="true"/>
                 </h2>
                 <div class="field">
                     <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <form:input type="text" path="username" placeholder="Enter username"/>
-                    </div>
-                    <i class="error">
-                        <form:errors path="username"></form:errors>
-                    </i>
-                </div>
-                <div class="field">
-                    <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <form:input path="password" value="${account.password}" type="password"
-                                    placeholder="Enter password"/>
+                        <form:input id="pass1" type="password" path="password" value="" placeholder="Nhập mật khẩu"/>
                     </div>
                     <i class="error">
                         <form:errors path="password"></form:errors>
                     </i>
                 </div>
-                <button class="ui fluid large teal submit button">Đăng nhập</button>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input id="pass2" name="passwordconfirm" type="password"
+                               placeholder="Xác nhận mật khẩu"/>
+                    </div>
+
+                </div>
+                <button id="submitbtn" class="ui fluid large teal submit button">Đặt lạt mật khẩu</button>
             </div>
 
             <div class="ui error message"></div>
         </form:form>
+    </div>
+</div>
 
-        <div class="ui large message">
-            Bạn chưa có tài khoản?
-            <a href="register"><i class="edit outline icon"></i> Đăng ký</a>
-        </div>
-        <button onclick="$('#passwordmodal').modal('show')" style="background-color: #ffffcd"
-                class="ui fluid large button">Quên mật khẩu?
-        </button>
-    </div>
-</div>
-<div class="ui tiny modal" id="passwordmodal">
-    <div class="header">Nhập username của bạn:</div>
-    <div class="content">
-        <form action="/requestpassword" method="post">
-            <div class="ui form field"><input class="form-control" type="text" name="username"
-                                              required="true">
-            </div>
-            <button style="margin: 1vw;margin-right: 0px" class="right floated ui approve blue large button"> Gửi email
-                xác nhận
-            </button>
-        </form>
-    </div>
-</div>
 <jsp:include page="footer.jsp"/>
 <script>
     $(document).ready(function () {
+        $('#pass1').val("")
+        $('#submitbtn').click(function (e) {
+            if ($('#pass1').val() !== $('#pass2').val()) {
+                event.preventDefault();
+                // alert('Mật khẩu không trùng khớp')
+                $('.ui.form .error').html('Mật khẩu không trùng khớp')
+            }
+        });
+
+
         $(".ui.form").form({
             fields: {
-                username: {
-                    identifier: "username",
+                passwordconfirm: {
+                    identifier: "passwordconfirm",
                     rules: [{
                         type: "empty",
-                        prompt: "Hãy nhập username",
-                    },],
+                        prompt: "Hãy nhập mật khẩu lần 2",
+                    },
+                        {
+                            type: "length[3]",
+                            prompt: "Mật khẩu phải có ít nhất 3 ký tự",
+                        },
+                    ],
                 },
                 password: {
                     identifier: "password",

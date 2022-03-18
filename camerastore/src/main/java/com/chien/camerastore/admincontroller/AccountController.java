@@ -6,6 +6,8 @@ import com.chien.camerastore.dao.CategoryDAO;
 import com.chien.camerastore.model.Account;
 import com.chien.camerastore.model.Brand;
 import com.chien.camerastore.model.Category;
+import com.chien.camerastore.service.EmailService;
+import com.chien.camerastore.service.MyConstants;
 import com.chien.camerastore.service.SessionService;
 import com.chien.camerastore.service.Utils;
 import org.hibernate.Session;
@@ -13,14 +15,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
@@ -44,6 +49,10 @@ public class AccountController {
     private CategoryDAO categoryDAO;
     @Autowired
     private BrandDAO brandDAO;
+    @Autowired
+    private EmailService emailService;
+//    @Autowired
+//    public JavaMailSender emailSender;
 
     @ModelAttribute("categories")
     public List<Category> categories() {
@@ -189,4 +198,87 @@ public class AccountController {
         return "registerform";
     }
 
+//    @RequestMapping("/sendmail")
+//    public String sendSimpleEmail() {
+//
+//        // Create a Simple MailMessage.
+//        SimpleMailMessage message = new SimpleMailMessage();
+//
+//        message.setTo(MyConstants.FRIEND_EMAIL);
+//        message.setSubject("Test Simple Email");
+//        message.setText("Hello, Im testing Simple Email");
+//
+//        // Send Message!
+//        this.emailSender.send(message);
+//        System.out.println("Email sent!");
+//        return "redirect:/";
+//    }
+
+    @PostMapping("requestpassword")
+    public String sendHtmlEmail(@RequestParam("username") String username, RedirectAttributes re) throws NoSuchAlgorithmException {
+        username = username.trim();
+        Account account = accountDAO.findByUsername(username);
+        if (username.isBlank()) {
+            re.addFlashAttribute("message", "Hãy nhập username!");
+        } else if (account == null) {
+            re.addFlashAttribute("message", "Username " + username + " không tồn tại!");
+        } else if (account.getEmail() == null) {
+            re.addFlashAttribute("message", "Tài khoản " + username + " chưa cập nhật email!");
+        } else {
+            String inputStr = account.getUsername() + account.getPassword();
+            //tao chuoi ngau nhien tu account va password bang SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(inputStr.getBytes());
+            String outputStr = DatatypeConverter.printHexBinary(messageDigest).toUpperCase();
+            account.setPasswordreset(outputStr);
+            accountDAO.save(account);
+            String htmlMsg = "<h2>CameraStore xin chào! </h2>"
+                    + "<p>Bạn vừa yêu cầu đặt lại mật khẩu cho tài khoản " + account.getUsername() + "</p>"
+                    + "<a href=http://localhost:8080/resetpassword?code=" + outputStr + ">Vui lòng click vào liên kết này</a> để đặt lại mật khẩu mới!";
+
+            String subject = "CameraStore - Đặt lại mật khẩu";
+            String result = emailService.sentHTMLEmail(account.getEmail(), subject, htmlMsg);
+            if (result.equals("OK")) {
+                re.addFlashAttribute("message", "Đã gửi email xác nhận đến " + account.getEmail());
+            } else {
+                re.addFlashAttribute("message", "Đã xảy ra lỗi!");
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping(value = "resetpassword", params = {"code"})
+    public String getresetpassword(@PathParam("code") String code, RedirectAttributes re, Model model) {
+        Account account = accountDAO.findByPasswordreset(code);
+        if (account == null) {
+            re.addFlashAttribute("message", "Liên kết đã hết hiệu lực!");
+            return "redirect:/login";
+        } else {
+            model.addAttribute("account", account);
+            return "resetpassform";
+        }
+    }
+
+    @PostMapping("resetpassword")
+    public String postresetpassword(@ModelAttribute("account") Account account, @RequestParam("passwordconfirm") String passwordconfirm, RedirectAttributes re, Model model) throws NoSuchAlgorithmException {
+        if (account.getPassword().isBlank() || passwordconfirm.isBlank()) {
+            model.addAttribute("account", account);
+            model.addAttribute("message", "Mật khẩu không được trống!");
+            return "resetpassform";
+        } else if (!account.getPassword().equals(passwordconfirm)) {
+            model.addAttribute("account", account);
+            model.addAttribute("message", "Mật khẩu không trùng khớp!");
+            return "resetpassform";
+        } else {
+            Account dbAccount = accountDAO.findById(account.getId());
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(account.getPassword().getBytes());
+            String outputStr = DatatypeConverter.printHexBinary(messageDigest).toUpperCase();
+            dbAccount.setPasswordreset(null);
+            dbAccount.setPassword(outputStr);
+            accountDAO.save(dbAccount);
+            re.addFlashAttribute("message", "Đặt lại mật khẩu thành công!");
+            return "redirect:/login";
+        }
+    }
 }
