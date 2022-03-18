@@ -28,6 +28,12 @@
 
 <body id="homelogin">
 <jsp:include page="header.jsp"/>
+<div id="loaderdimmer" class="ui dimmer">
+    <div class="ui massive text loader">Đang kiểm tra</div>
+</div>
+<p></p>
+<p></p>
+<p></p>
 <div class="ui middle aligned center aligned grid">
     <div class="column ui form">
         <form:form action="login" modelAttribute="account">
@@ -84,6 +90,10 @@
 </div>
 <jsp:include page="footer.jsp"/>
 <script>
+    $('#passwordmodal form').submit(function (e) {
+        $('#loaderdimmer').addClass("active");
+        $('#passwordmodal').modal('hide');
+    })
     $(document).ready(function () {
         $(".ui.form").form({
             fields: {

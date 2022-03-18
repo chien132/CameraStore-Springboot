@@ -42,7 +42,12 @@
     </div>
 </div>
 
-
+<div id="loaderdimmer" class="ui dimmer">
+    <div class="ui massive text loader">Đang đặt hàng</div>
+</div>
+<p></p>
+<p></p>
+<p></p>
 <!-- cards -->
 <%--<jsp:include page="filter.jsp"/>--%>
 <div class="ui container">
@@ -101,12 +106,12 @@
                                             maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ
                                     </c:if>
                                     <c:if test="${i.product.discount!=0}">
-<%--                                        <div style="text-decoration: line-through;margin-top: -2vh;color: gray">--%>
-<%--                                            <f:formatNumber--%>
-<%--                                                    type="currency"--%>
-<%--                                                    currencySymbol=""--%>
-<%--                                                    maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ--%>
-<%--                                        </div>--%>
+                                        <%--                                        <div style="text-decoration: line-through;margin-top: -2vh;color: gray">--%>
+                                        <%--                                            <f:formatNumber--%>
+                                        <%--                                                    type="currency"--%>
+                                        <%--                                                    currencySymbol=""--%>
+                                        <%--                                                    maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ--%>
+                                        <%--                                        </div>--%>
                                         <div style="text-decoration: wavy;"><f:formatNumber type="currency"
                                                                                             currencySymbol=""
                                                                                             maxFractionDigits="0">${i.product.price*i.amount*(100-i.product.discount)/100}</f:formatNumber>đ
@@ -214,7 +219,7 @@
                             </div>
                         </div>
                     </c:if>
-                    <button class="ui fluid large teal submit button">
+                    <button id="ordersubmitbtn" class="ui fluid large teal submit button">
                         <c:if test="${action=='add'}">Đặt hàng</c:if>
                         <c:if test="${action=='edit'}">Cập nhật</c:if>
                     </button>
@@ -226,4 +231,9 @@
 <jsp:include page="footer.jsp"/>
 </body>
 
+<script>
+    $('#ordersubmitbtn').click(function (e) {
+        $('#loaderdimmer').addClass("active");
+    })
+</script>
 </html>

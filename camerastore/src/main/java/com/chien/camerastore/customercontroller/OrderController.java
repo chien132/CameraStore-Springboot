@@ -2,6 +2,7 @@ package com.chien.camerastore.customercontroller;
 
 import com.chien.camerastore.dao.*;
 import com.chien.camerastore.model.*;
+import com.chien.camerastore.service.EmailService;
 import com.chien.camerastore.service.SessionService;
 import com.chien.camerastore.service.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class OrderController {
     private OrderDetailDAO orderDetailDAO;
     @Autowired
     private CartItemDAO cartItemDAO;
+    @Autowired
+    EmailService emailService;
 
     @ModelAttribute("categories")
     public List<Category> categories() {
@@ -134,6 +137,7 @@ public class OrderController {
             order.setOrderDetails(orderDetails);
             orderDAO.save(order);
             cartItemDAO.deleteAllByAccount_Id(curAccount.getId());
+            emailService.sentOrderEmail(order);
             re.addFlashAttribute("message", "Đặt hàng thành công!");
         } else {
             re.addFlashAttribute("message", "Đặt hàng thất bại: " + errormsg);

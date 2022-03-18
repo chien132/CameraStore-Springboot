@@ -1,5 +1,7 @@
 package com.chien.camerastore.service;
 
+import com.chien.camerastore.model.Order;
+import com.chien.camerastore.model.OrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -29,5 +31,24 @@ public class EmailService {
         }
         this.emailSender.send(message);
         return "OK";
+    }
+
+    public String sentOrderEmail(Order order) {
+        String htmlMsg = "<h2>CameraStore xin chào! </h2>"
+                + "<p>Chúng tôi đã nhận được <a href=http://localhost:8080/order/view/" + order.getId()
+                + ">đơn đặt hàng</a> của bạn, nhân viên cửa hàng sẽ sớm kiểm tra và xác nhận đơn hàng, dưới đây là thông tin đơn hàng</p>"
+                + MyConstants.ORDER_TABLE_HEADER;
+        for (OrderDetail o : order.getOrderDetails()) {
+            htmlMsg += "<tr>\n" +
+                    "      <td>" + o.getProduct().getName() + "</td>\n" +
+                    "      <td>" + o.getPrice() + "</td>\n" +
+                    "      <td>" + o.getAmount() + "</td>\n" +
+                    "      <td>" + o.getAmount() * o.getPrice() + "</td>\n" +
+                    "    </tr>";
+        }
+        htmlMsg += MyConstants.ORDER_TABLE_FOOTER;
+
+        String subject = "CameraStore - Đã nhận đơn hàng #" + order.getId();
+        return this.sentHTMLEmail(order.getAccount().getEmail(), subject, htmlMsg);
     }
 }
