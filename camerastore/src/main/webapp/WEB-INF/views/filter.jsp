@@ -33,38 +33,50 @@
             <div class="ui form">
                 <div class="grouped fields">
                     <h2>Phân loại</h2>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="category" id="tatcacate" value="none" checked="true">
-                            <label class="defaultlabel" for="tatcacate">Tất cả</label>
-                        </div>
-                    </div>
-                    <c:forEach var="i" items="${categories}">
-                        <div class="field">
-                            <div class="ui radio checkbox">
-                                <input type="radio" name="category" id="cate${i.id}" value="${i.id}">
-                                <label for="cate${i.id}">${i.name}</label>
-                            </div>
-                        </div>
-                    </c:forEach>
+                    <select class="ui fluid search dropdown" name="category">
+                        <option value="none" selected>Tất cả</option>
+                        <c:forEach var="i" items="${categories}">
+                            <option id="cate${i.id}" value="${i.id}">${i.name}</option>
+                        </c:forEach>
+                    </select>
+                    <%--                    <div class="field">--%>
+                    <%--                        <div class="ui radio checkbox">--%>
+                    <%--                            <input type="radio" name="category" id="tatcacate" value="none" checked="true">--%>
+                    <%--                            <label class="defaultlabel" for="tatcacate">Tất cả</label>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
+                    <%--                    <c:forEach var="i" items="${categories}">--%>
+                    <%--                        <div class="field">--%>
+                    <%--                            <div class="ui radio checkbox">--%>
+                    <%--                                <input type="radio" name="category" id="cate${i.id}" value="${i.id}">--%>
+                    <%--                                <label for="cate${i.id}">${i.name}</label>--%>
+                    <%--                            </div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </c:forEach>--%>
                 </div>
 
                 <div class="grouped fields">
                     <h2>Hãng sản xuất</h2>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="brand" id="tatcabrand" value="none" checked="true">
-                            <label class="defaultlabel" for="tatcabrand">Tất cả</label>
-                        </div>
-                    </div>
-                    <c:forEach var="i" items="${brands}">
-                        <div class="field">
-                            <div class="ui radio checkbox">
-                                <input type="radio" name="brand" id="brand${i.id}" value="${i.id}">
-                                <label for="brand${i.id}">${i.name}</label>
-                            </div>
-                        </div>
-                    </c:forEach>
+                    <select class="ui fluid search dropdown" name="brand">
+                        <option value="none" selected>Tất cả</option>
+                        <c:forEach var="i" items="${brands}">
+                            <option id="brand${i.id}" value="${i.id}">${i.name}</option>
+                        </c:forEach>
+                    </select>
+                    <%--                    <div class="field">--%>
+                    <%--                        <div class="ui radio checkbox">--%>
+                    <%--                            <input type="radio" name="brand" id="tatcabrand" value="none" checked="true">--%>
+                    <%--                            <label class="defaultlabel" for="tatcabrand">Tất cả</label>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
+                    <%--                    <c:forEach var="i" items="${brands}">--%>
+                    <%--                        <div class="field">--%>
+                    <%--                            <div class="ui radio checkbox">--%>
+                    <%--                                <input type="radio" name="brand" id="brand${i.id}" value="${i.id}">--%>
+                    <%--                                <label for="brand${i.id}">${i.name}</label>--%>
+                    <%--                            </div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </c:forEach>--%>
 
                 </div>
 
@@ -89,16 +101,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <label style="position: inherit;left: 1px;bottom: 1px">Số lượng mỗi trang</label>
-                <select name="size">
-                    <option id="size4" value="4">4</option>
-                    <option id="size8" value="8">8</option>
-                    <option id="size12" value="12">12</option>
-                    <option id="size16" value="16">16</option>
-                    <option id="size20" value="20">20</option>
-                </select>
+
+                <div class="grouped fields">
+                    <h2>Số lượng mỗi trang</h2>
+                    <select class="ui fluid dropdown" name="size">
+                        <option id="size4" value="4">4</option>
+                        <option id="size8" value="8">8</option>
+                        <option id="size12" value="12">12</option>
+                        <option id="size16" value="16">16</option>
+                        <option id="size20" value="20">20</option>
+                    </select>
+                </div>
             </div>
             <br>
             <button class="fluid ui primary left labeled icon button" onclick="changeFilter()">
@@ -152,10 +165,12 @@
     }
 
     $(document).ready(function () {
-        $("#cate${category}").prop("checked", true);
-        $("#cate${category}").parent().addClass("checked");
-        $("#brand${brand}").prop("checked", true);
-        $("#brand${brand}").parent().addClass("checked");
+        <%--$("#cate${category}").prop("checked", true);--%>
+        <%--$("#cate${category}").parent().addClass("checked");--%>
+        <%--$("#brand${brand}").prop("checked", true);--%>
+        <%--$("#brand${brand}").parent().addClass("checked");--%>
+        $("#cate${category}").prop("selected", true);
+        $("#brand${brand}").prop("selected", true);
         $("#${sort}").prop("checked", true);
         $("#${sort}").parent().addClass("checked");
         $("#pagenum").prop("value", ${page});
