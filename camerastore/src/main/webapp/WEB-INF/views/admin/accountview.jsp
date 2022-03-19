@@ -46,7 +46,7 @@
 <div class="ui container" style="background-color: rgba(255,255,255,0.2);">
 
     <div class="ui grid" style="width: 100%; margin-top: 5px">
-        <div class="six wide column">s
+        <div class="six wide column">
             <img class="ui huge rounded image" onclick="$('#imagemodal').modal('show')" id="viewimage"
                  style="max-width: -webkit-fill-available; max-height: 70vh;object-fit: contain"
                  src=${curaccount.photo}/>
