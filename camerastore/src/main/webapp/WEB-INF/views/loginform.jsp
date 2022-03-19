@@ -36,7 +36,7 @@
 <p></p>
 <div class="ui middle aligned center aligned grid">
     <div class="column ui form">
-        <form:form action="login" modelAttribute="account">
+        <form:form action="login" modelAttribute="account" class="ui form">
             <div class="ui stacked secondary segment">
                 <h2 class="ui image header">
                     <div class="content">Đăng nhập</div>
