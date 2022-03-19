@@ -75,17 +75,21 @@
                         </div>
                     </div>
 
-<%--                    <div class="field">--%>
-<%--                        <label style="float: left;">Mật khẩu<b--%>
-<%--                                style="color: red;">*</b></label>--%>
-<%--                        <div class="ui left input">--%>
-<%--                            <form:input path="password" value="${account.password}"--%>
-<%--                                        type="password" placeholder="Mật khẩu" required="true" disabled="true"--%>
-<%--                                        hidden="true"/>--%>
-<%--                            <form:errors style="color: red;font-size: 15px;"--%>
-<%--                                         path="password"/>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
+                    <c:if test="${action=='add'}">
+                        <div class="field">
+                            <label style="float: left;">Mật khẩu<b
+                                    style="color: red;">*</b></label>
+                            <div class="ui left input">
+                                <form:input path="password" value="${account.password}"
+                                            type="password" placeholder="Mật khẩu" required="true"/>
+                                    <%--                                            disabled="true"--%>
+                                    <%--                                            hidden="true"--%>
+
+                                <form:errors style="color: red;font-size: 15px;"
+                                             path="password"/>
+                            </div>
+                        </div>
+                    </c:if>
 
                     <div class="field">
                         <label style="float: left;">Họ tên </label>

@@ -132,12 +132,13 @@ public class ProductController {
                     re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                 } else {
                     try {
+                        Product dbProduct = productDAO.findById(product.getId());
                         String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename()).replaceAll("\\s", "");
                         String uploadDir = "src/main/webapp/resources/images/product/";
                         FileUploadService.saveFile(uploadDir, filename, photo);
-                        if (!product.getImage().equals("resources/images/avatar/user-default.png")) {
+                        if (!dbProduct.getImage().equals("resources/images/avatar/user-default.png")) {
                             File image = new File(
-                                    context.getRealPath(product.getImage()));
+                                    context.getRealPath(dbProduct.getImage()));
                             if (image.delete()) {
                                 System.out.println("Deleted the file: " + image.getName());
                             } else {
