@@ -45,7 +45,7 @@
             <tr>
                 <th>ID</th>
                 <%--                <th>Ảnh</th>--%>
-                <th>Tên sản phẩm</th>
+                <th>Tên phân loại</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -84,7 +84,7 @@
             <tr>
                 <th>ID</th>
                 <%--                <th>Ảnh</th>--%>
-                <th>Tên sản phẩm</th>
+                <th>Tên hãng sản xuất</th>
                 <th>Thao tác</th>
             </tr>
             </thead>

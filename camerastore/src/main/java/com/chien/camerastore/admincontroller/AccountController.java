@@ -73,7 +73,7 @@ public class AccountController {
     @GetMapping(value = "login", params = {"error"})
     public String loginFromAuthencation(@PathParam("error") String error, Model model) {
         model.addAttribute("account", new Account());
-        model.addAttribute("message", error);
+//        model.addAttribute("message", error);
         System.out.println(error);
         return "loginform";
     }

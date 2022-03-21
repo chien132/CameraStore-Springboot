@@ -194,6 +194,7 @@ public class AccountManagerController {
                     }
                     //Khong cho sua mat khau nua
                     account.setPassword(dbAccount.getPassword());
+                    account.setAdmin(dbAccount.isAdmin());
                     accountDAO.save(account);
                     re.addFlashAttribute("message", "Chỉnh sửa tài khoản thành công !");
                     return "redirect:/admin/account/view";
