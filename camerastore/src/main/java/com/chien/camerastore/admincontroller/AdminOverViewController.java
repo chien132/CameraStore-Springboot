@@ -69,20 +69,21 @@ public class AdminOverViewController {
                     products.add(j.getProduct());
                 }
             }
-
-            if (i.getRejectreason() != null) {
-                if (!i.getRejectreason().isEmpty()) {
+            switch (i.getStatus()) {
+                case "denied":
                     denied++;
-                }
-            }
-            if (!i.isConfirmed()) {
-                waiting++;
-            } else if (!i.isDone()) {
-                delivering++;
-                deliveringValue += i.getValue();
-            } else {
-                done++;
-                doneValue += i.getValue();
+                    break;
+                case "waiting":
+                    waiting++;
+                    break;
+                case "delivering":
+                    delivering++;
+                    deliveringValue += i.getValue();
+                    break;
+                case "done":
+                    done++;
+                    doneValue += i.getValue();
+                    break;
             }
         }
         Collections.sort(products, new Comparator<Product>() {
