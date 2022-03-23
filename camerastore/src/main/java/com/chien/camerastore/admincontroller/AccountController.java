@@ -148,25 +148,28 @@ public class AccountController {
         account.setFullname(account.getFullname().trim());
         if (account.getUsername().trim().isEmpty()) {
             errors.rejectValue("username", "account", "Hãy nhập username !");
-        } else if (account.getUsername().length() > 100) {
-            errors.rejectValue("username", "account", "Username quá dài !");
+        } else if (account.getUsername().length() > 80) {
+            errors.rejectValue("username", "account", "Username không quá 80 kí tự!");
         } else if (!Utils.isValidUsername(account.getUsername())) {
             errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
         }
         if (account.getPassword().trim().isEmpty()) {
             errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");
-        } else if (account.getPassword().length() > 100) {
-            errors.rejectValue("password", "account", "Mật khẩu quá dài !");
+        } else if (account.getPassword().length() > 80) {
+            errors.rejectValue("password", "account", "Mật khẩu không quá 80 kí tự!");
         } else if (account.getPassword().trim().contains(" ") || account.getPassword().contains("'")) {
             errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
         }
         if (!account.getEmail().isEmpty() && !Utils.isValidEmail(account.getEmail())) {
             errors.rejectValue("email", "account", "Email không đúng định dạng !");
-        } else if (account.getEmail().length() > 100) {
-            errors.rejectValue("email", "account", "Email quá dài !");
+        } else if (account.getEmail().length() > 80) {
+            errors.rejectValue("email", "account", "Email không quá 80 kí tự!");
         }
         if (!account.getPhone().isEmpty() && !Utils.isValidPhoneNumber(account.getPhone())) {
             errors.rejectValue("email", "account", "Số điện thoại không đúng định dạng !");
+        }
+        if (!account.getFullname().isEmpty() && account.getFullname().length()>50) {
+            errors.rejectValue("fullname", "account", "Họ tên không quá 50 kí tự!");
         }
         if (!errors.hasErrors()) {
             String inputPassword = account.getPassword();
