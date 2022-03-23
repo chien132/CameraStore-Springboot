@@ -68,19 +68,34 @@ public class AccountManagerController {
         account.setFullname(account.getFullname().trim());
         if (account.getUsername().isEmpty()) {
             errors.rejectValue("username", "account", "Hãy nhập username !");
+        } else if (account.getUsername().length() > 80) {
+            errors.rejectValue("username", "account", "Username không quá 80 kí tự !");
         } else if (!Utils.isValidUsername(account.getUsername())) {
             errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
         }
         if (account.getPassword().isEmpty()) {
             errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");
+        } else if (account.getPassword().length() > 80) {
+            errors.rejectValue("password", "account", "Mật khẩu không quá 80 kí tự !");
         } else if (account.getPassword().contains(" ") || account.getPassword().contains("'")) {
             errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
         }
-        if (!account.getEmail().isEmpty() && !Utils.isValidEmail(account.getEmail())) {
-            errors.rejectValue("email", "account", "Email không đúng định dạng !");
+        if (!account.getEmail().isEmpty()) {
+            if (account.getEmail().length() > 80) {
+                errors.rejectValue("email", "account", "Email không quá 80 kí tự!");
+            }
+            if (!Utils.isValidEmail(account.getEmail())) {
+                errors.rejectValue("email", "account", "Email không đúng định dạng !");
+            }
         }
         if (!account.getPhone().isEmpty() && !Utils.isValidPhoneNumber(account.getPhone())) {
             errors.rejectValue("phone", "account", "Số điện thoại không hợp lệ !");
+        }
+        if (!account.getAddress().isEmpty() && account.getAddress().length() > 1000) {
+            errors.rejectValue("address", "account", "Địa chỉ không quá 1000 kí tự!");
+        }
+        if (!account.getFullname().isEmpty() && account.getFullname().length() > 50) {
+            errors.rejectValue("fullname", "account", "Họ tên không quá 50 kí tự!");
         }
         if (!errors.hasErrors()) {
             String inputPassword = account.getPassword();
@@ -143,19 +158,34 @@ public class AccountManagerController {
         account.setFullname(account.getFullname().trim());
         if (account.getUsername().isEmpty()) {
             errors.rejectValue("username", "account", "Hãy nhập username !");
+        } else if (account.getUsername().length() > 80) {
+            errors.rejectValue("username", "account", "Username không quá 80 kí tự !");
         } else if (!Utils.isValidUsername(account.getUsername())) {
             errors.rejectValue("username", "account", "Username chỉ được chứa chữ cái và số !");
         }
 //        if (account.getPassword().isEmpty()) {
 //            errors.rejectValue("password", "account", "Hãy nhập mật khẩu !");
+//        } else if (account.getPassword().length() > 80) {
+//            errors.rejectValue("password", "account", "Mật khẩu không quá 80 kí tự !");
 //        } else if (account.getPassword().contains(" ") || account.getPassword().contains("'")) {
 //            errors.rejectValue("password", "account", "Mật khẩu không được chứa ký tự đặc biệt !");
 //        }
-        if (!account.getEmail().isEmpty() && !Utils.isValidEmail(account.getEmail())) {
-            errors.rejectValue("email", "account", "Email không đúng định dạng !");
+        if (!account.getEmail().isEmpty()) {
+            if (account.getEmail().length() > 80) {
+                errors.rejectValue("email", "account", "Email không quá 80 kí tự!");
+            }
+            if (!Utils.isValidEmail(account.getEmail())) {
+                errors.rejectValue("email", "account", "Email không đúng định dạng !");
+            }
         }
         if (!account.getPhone().isEmpty() && !Utils.isValidPhoneNumber(account.getPhone())) {
             errors.rejectValue("phone", "account", "Số điện thoại không hợp lệ !");
+        }
+        if (!account.getAddress().isEmpty() && account.getAddress().length() > 1000) {
+            errors.rejectValue("address", "account", "Địa chỉ không quá 1000 kí tự!");
+        }
+        if (!account.getFullname().isEmpty() && account.getFullname().length() > 50) {
+            errors.rejectValue("fullname", "account", "Họ tên không quá 50 kí tự!");
         }
         if (!errors.hasErrors()) {
 

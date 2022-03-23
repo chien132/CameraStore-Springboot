@@ -113,9 +113,19 @@
                         <label style="float: left;">Email </label>
                         <div class="ui left input">
                             <form:input path="email" value="${account.email}" type="email"
-                                        placeholder="Email address"/>
+                                        placeholder="Email"/>
                             <form:errors style="color: red;font-size: 15px;"
                                          path="email"/>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label style="float: left;">Địa chỉ </label>
+                        <div class="ui left input">
+                            <form:input path="address" value="${account.address}" type="text"
+                                        placeholder="Địa chỉ"/>
+                            <form:errors style="color: red;font-size: 15px;"
+                                         path="address"/>
                         </div>
                     </div>
 
