@@ -34,12 +34,12 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account")
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "account")
+//    @OneToMany(mappedBy = "account")
 //    @JoinColumns({
 //            @JoinColumn(name = "account_id",referencedColumnName = "id"),
 //            @JoinColumn(name = "product_id",referencedColumnName = "id")
 //    })
-    List<CartItem> cartItem;
+//    private List<CartItem> cartItem;
 
     public int getOrderSize() {
         int size = 0;

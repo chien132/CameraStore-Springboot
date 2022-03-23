@@ -2,6 +2,7 @@ package com.chien.camerastore.customercontroller;
 
 import com.chien.camerastore.dao.*;
 import com.chien.camerastore.model.*;
+import com.chien.camerastore.service.CartServiceinterface;
 import com.chien.camerastore.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -30,8 +31,10 @@ public class CartController {
     private BrandDAO brandDAO;
     @Autowired
     private ProductDAO productDAO;
+    //    @Autowired
+//    private CartItemDAO cartItemDAO;
     @Autowired
-    private CartItemDAO cartItemDAO;
+    private CartServiceinterface cartService;
 
     @ModelAttribute("categories")
     public List<Category> categories() {
@@ -44,44 +47,39 @@ public class CartController {
     }
 
     @ModelAttribute("cartitems")
-    public List<CartItem> cartItems() {
-        Account curAccount = session.get("curaccount");
-        if (curAccount != null)
-            return cartItemDAO.findAllByAccount_Id(curAccount.getId());
-        else return Collections.emptyList();
+    public Collection<CartItem> cartItems() {
+//        Account curAccount = session.get("curaccount");
+//        if (curAccount != null)
+            return cartService.getCartItems();
+//        else return Collections.emptyList();
     }
 
     @ModelAttribute("cartcount")
     public int cartCount() {
-        Account curAccount = session.get("curaccount");
         int size = 0;
-        if (curAccount != null) {
-            List<CartItem> list = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-            for (CartItem i : list) {
-                size += i.getAmount();
-            }
+        Collection<CartItem> list = cartService.getCartItems();
+        for (CartItem i : list) {
+            size += i.getAmount();
         }
         return size;
     }
 
     @ModelAttribute("cartcountmoney")
-    public int cartCountMoney() {
-        Account curAccount = session.get("curaccount");
-        int money = 0;
-        if (curAccount != null) {
-            List<CartItem> list = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-            for (CartItem i : list) {
-                money += i.getAmount() * i.getProduct().getPrice() * (100 - i.getProduct().getDiscount()) / 100;
-            }
-        }
-        return money;
+    public double cartCountMoney() {
+//        int money = 0;
+//        Collection<CartItem> list = cartService.getCartItems();
+//        for (CartItem i : list) {
+//            money += i.getAmount() * i.getProduct().getPrice() * (100 - i.getProduct().getDiscount()) / 100;
+//        }
+//        return money;
+        return cartService.getValue();
     }
 
 
     @RequestMapping("view")
     public String viewCart(Model model, RedirectAttributes re) {
         Account curAccount = session.get("curaccount");
-        if (cartItemDAO.findAllByAccount_Id(curAccount.getId()).isEmpty()) {
+        if (cartService.getCount() == 0) {
             re.addFlashAttribute("message", "Giỏ hàng trống, hãy thêm sản phẩm!");
             return "redirect:/index";
         }
@@ -98,7 +96,7 @@ public class CartController {
 
     @RequestMapping(value = "additem/{id}/{amount}", params = {"ret"})
     public String addItem(Model model, @PathVariable("id") int id, @PathVariable("amount") int amount, @PathParam("ret") String ret, RedirectAttributes re) {
-        Account curAccount = session.get("curaccount");
+//        Account curAccount = session.get("curaccount");
         Product product = productDAO.findById(id);
         if (product == null) {
             re.addFlashAttribute("message", "Sản phẩm không tồn tại");
@@ -111,18 +109,17 @@ public class CartController {
             re.addFlashAttribute("message", String.format("%s chỉ còn lại %d sản phẩm", product.getName(), product.getQuantity()));
             return "redirect:/" + ret;
         }
-        CartItemId cartItemId = new CartItemId(curAccount.getId(), product.getId());
         try {
-            List<CartItem> olditems = cartItemDAO.findAllById(cartItemId);
-            if (olditems.size() == 1) {
-                CartItem olditem = olditems.get(0);
+            CartItem olditem = cartService.findById(product.getId());
+            if (olditem != null) {
                 if (product.getQuantity() < amount + olditem.getAmount()) {
                     re.addFlashAttribute("message", String.format("%s chỉ còn lại %d sản phẩm", product.getName(), product.getQuantity()));
                     return "redirect:/" + ret;
                 }
                 olditem.setAmount(olditem.getAmount() + amount);
                 if (olditem.getAmount() > 0) {
-                    cartItemDAO.save(olditem);
+//                    cartItemDAO.save(olditem);
+                    cartService.update(olditem.getId(), olditem.getAmount());
 //                    if (amount > 0) {
                     if (!ret.equals("cart/view")) {
                         re.addFlashAttribute("dontshowmessage", "cart");
@@ -132,19 +129,19 @@ public class CartController {
                     re.addFlashAttribute("message", String.format("Đã thêm %d %s vào giỏ hàng", amount, product.getName()));
 //                    }
                 } else {
-                    cartItemDAO.delete(olditem);
+                    cartService.remove(olditem.getId());
                 }
-            } else if (olditems.size() == 0) {
+            } else if (olditem == null) {
                 if (amount < 0) {
                     re.addFlashAttribute("message", "Vui lòng không chỉnh sửa lung tung!");
                     return "redirect:/" + ret;
                 }
                 CartItem cartItem = new CartItem();
-                cartItem.setId(cartItemId);
-                cartItem.setAccount(curAccount);
+                cartItem.setId(product.getId());
                 cartItem.setProduct(product);
                 cartItem.setAmount(amount);
-                cartItemDAO.save(cartItem);
+//                cartItemDAO.save(cartItem);
+                cartService.add(cartItem,cartItem.getAmount());
                 re.addFlashAttribute("message", String.format("Đã thêm %d %s vào giỏ hàng", amount, product.getName()));
             }
 
@@ -156,15 +153,17 @@ public class CartController {
 
     @RequestMapping(value = "deleteitem/{id}", params = {"ret"})
     public String deleteItem(@PathVariable("id") int pid, @PathParam("ret") String ret) {
-        Account curAccount = session.get("curaccount");
-        cartItemDAO.deleteById(new CartItemId(curAccount.getId(), pid));
+//        Account curAccount = session.get("curaccount");
+//        cartItemDAO.deleteById(new CartItemId(curAccount.getId(), pid));
+        cartService.remove(pid);
         return "redirect:/" + ret;
     }
 
     @RequestMapping(value = "deleteall", params = {"ret"})
     public String deleteall(@PathParam("ret") String ret) {
-        Account curAccount = session.get("curaccount");
-        cartItemDAO.deleteAllByAccount_Id(curAccount.getId());
+//        Account curAccount = session.get("curaccount");
+//        cartItemDAO.deleteAllByAccount_Id(curAccount.getId());
+        cartService.clear();
         return "redirect:/" + ret;
     }
 }

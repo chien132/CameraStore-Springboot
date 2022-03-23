@@ -6,35 +6,19 @@ import com.chien.camerastore.dao.CategoryDAO;
 import com.chien.camerastore.model.Account;
 import com.chien.camerastore.model.Brand;
 import com.chien.camerastore.model.Category;
-import com.chien.camerastore.service.EmailService;
-import com.chien.camerastore.service.MyConstants;
-import com.chien.camerastore.service.SessionService;
-import com.chien.camerastore.service.Utils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import com.chien.camerastore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Transactional
 @Controller
@@ -42,7 +26,7 @@ public class AccountController {
     @Autowired
     private SessionService session;
     @Autowired
-    private ServletContext context;
+    private CartServiceinterface cartService;
     @Autowired
     private AccountDAO accountDAO;
     @Autowired
@@ -51,8 +35,6 @@ public class AccountController {
     private BrandDAO brandDAO;
     @Autowired
     private EmailService emailService;
-//    @Autowired
-//    public JavaMailSender emailSender;
 
     @ModelAttribute("categories")
     public List<Category> categories() {
@@ -73,7 +55,7 @@ public class AccountController {
     @GetMapping(value = "login", params = {"error"})
     public String loginFromAuthencation(@PathParam("error") String error, Model model) {
         model.addAttribute("account", new Account());
-//        model.addAttribute("message", error);
+        model.addAttribute("error", error);
         System.out.println(error);
         return "loginform";
     }
@@ -130,6 +112,7 @@ public class AccountController {
         Account account = session.get("curaccount");
         session.remove("curaccount");
         if (session.get("security-uri") != null) session.remove("security-uri");
+        cartService.clear();
         return "redirect:/index";
     }
 

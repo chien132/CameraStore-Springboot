@@ -2,9 +2,7 @@ package com.chien.camerastore.customercontroller;
 
 import com.chien.camerastore.dao.*;
 import com.chien.camerastore.model.*;
-import com.chien.camerastore.service.EmailService;
-import com.chien.camerastore.service.SessionService;
-import com.chien.camerastore.service.Utils;
+import com.chien.camerastore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -32,7 +30,7 @@ public class OrderController {
     @Autowired
     private OrderDetailDAO orderDetailDAO;
     @Autowired
-    private CartItemDAO cartItemDAO;
+    private CartServiceinterface cartService;
     @Autowired
     EmailService emailService;
 
@@ -53,44 +51,39 @@ public class OrderController {
     }
 
     @ModelAttribute("cartitems")
-    public List<CartItem> cartItems() {
-        Account curAccount = session.get("curaccount");
-        if (curAccount != null)
-            return cartItemDAO.findAllByAccount_Id(curAccount.getId());
-        else return Collections.emptyList();
+    public Collection<CartItem> cartItems() {
+//        Account curAccount = session.get("curaccount");
+//        if (curAccount != null)
+            return cartService.getCartItems();
+//        else return Collections.emptyList();
     }
 
     @ModelAttribute("cartcount")
     public int cartCount() {
-        Account curAccount = session.get("curaccount");
         int size = 0;
-        if (curAccount != null) {
-            List<CartItem> list = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-            for (CartItem i : list) {
-                size += i.getAmount();
-            }
+        Collection<CartItem> list = cartService.getCartItems();
+        for (CartItem i : list) {
+            size += i.getAmount();
         }
         return size;
     }
 
     @ModelAttribute("cartcountmoney")
-    public int cartCountMoney() {
-        Account curAccount = session.get("curaccount");
-        int money = 0;
-        if (curAccount != null) {
-            List<CartItem> list = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-            for (CartItem i : list) {
-                money += i.getAmount() * i.getProduct().getPrice() * (100 - i.getProduct().getDiscount()) / 100;
-            }
-        }
-        return money;
+    public double cartCountMoney() {
+//        int money = 0;
+//        Collection<CartItem> list = cartService.getCartItems();
+//        for (CartItem i : list) {
+//            money += i.getAmount() * i.getProduct().getPrice() * (100 - i.getProduct().getDiscount()) / 100;
+//        }
+//        return money;
+        return cartService.getValue();
     }
 
     @PostMapping("addorder")
     public String addOrder(@RequestParam("payonlinecb") String payonlinecb, @ModelAttribute("order") Order order, RedirectAttributes re) {
         Account curAccount = session.get("curaccount");
-        List<CartItem> cartItems = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-        if (cartItems.size() < 1) {
+        Collection<CartItem> cartItems = cartService.getCartItems();
+        if (cartService.getCount() < 1) {
             re.addFlashAttribute("message", "Giỏ hàng trống, hãy thêm sản phẩm!");
             return "redirect:/index";
         }
@@ -136,7 +129,7 @@ public class OrderController {
             }
             order.setOrderDetails(orderDetails);
             orderDAO.save(order);
-            cartItemDAO.deleteAllByAccount_Id(curAccount.getId());
+            cartService.clear();
             emailService.sentOrderEmail(order);
             re.addFlashAttribute("message", "Đặt hàng thành công!");
         } else {

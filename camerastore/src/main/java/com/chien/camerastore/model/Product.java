@@ -32,8 +32,8 @@ public class Product {
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "product")
-    private List<CartItem> cartItems;
+//    @OneToMany(mappedBy = "product")
+//    private List<CartItem> cartItems;
 
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails;
@@ -46,9 +46,9 @@ public class Product {
         return count;
     }
 
-    public boolean isChosen() {
-        return cartItems.size() > 0;
-    }
+//    public boolean isChosen() {
+//        return cartItems.size() > 0;
+//    }
 
     public int getSoldInOrders(List<Order> orders) {
         int count = 0;

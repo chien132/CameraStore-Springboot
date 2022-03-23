@@ -2,9 +2,7 @@ package com.chien.camerastore.customercontroller;
 
 import com.chien.camerastore.dao.*;
 import com.chien.camerastore.model.*;
-import com.chien.camerastore.service.FileUploadService;
-import com.chien.camerastore.service.SessionService;
-import com.chien.camerastore.service.Utils;
+import com.chien.camerastore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +21,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -41,8 +39,10 @@ public class HomeController {
     private BrandDAO brandDAO;
     @Autowired
     private ProductDAO productDAO;
+    //    @Autowired
+//    private CartItemDAO cartItemDAO;
     @Autowired
-    private CartItemDAO cartItemDAO;
+    private CartServiceinterface cartService;
 
     @ModelAttribute("categories")
     public List<Category> categories() {
@@ -60,37 +60,32 @@ public class HomeController {
 //    }
 
     @ModelAttribute("cartitems")
-    public List<CartItem> cartItems() {
-        Account curAccount = session.get("curaccount");
-        if (curAccount != null)
-            return cartItemDAO.findAllByAccount_Id(curAccount.getId());
-        else return Collections.emptyList();
+    public Collection<CartItem> cartItems() {
+//        Account curAccount = session.get("curaccount");
+//        if (curAccount != null)
+        return cartService.getCartItems();
+//        else return Collections.emptyList();
     }
 
     @ModelAttribute("cartcount")
     public int cartCount() {
-        Account curAccount = session.get("curaccount");
         int size = 0;
-        if (curAccount != null) {
-            List<CartItem> list = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-            for (CartItem i : list) {
-                size += i.getAmount();
-            }
+        Collection<CartItem> list = cartService.getCartItems();
+        for (CartItem i : list) {
+            size += i.getAmount();
         }
         return size;
     }
 
     @ModelAttribute("cartcountmoney")
-    public int cartCountMoney() {
-        Account curAccount = session.get("curaccount");
-        int money = 0;
-        if (curAccount != null) {
-            List<CartItem> list = cartItemDAO.findAllByAccount_Id(curAccount.getId());
-            for (CartItem i : list) {
-                money += i.getAmount() * i.getProduct().getPrice() * (100 - i.getProduct().getDiscount()) / 100;
-            }
-        }
-        return money;
+    public double cartCountMoney() {
+//        int money = 0;
+//        Collection<CartItem> list = cartService.getCartItems();
+//        for (CartItem i : list) {
+//            money += i.getAmount() * i.getProduct().getPrice() * (100 - i.getProduct().getDiscount()) / 100;
+//        }
+//        return money;
+        return cartService.getValue();
     }
 
     @RequestMapping("")

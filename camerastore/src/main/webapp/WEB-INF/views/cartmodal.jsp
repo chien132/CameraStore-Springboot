@@ -67,7 +67,7 @@
                             </div>
                         </c:if>
                     </div>
-                    <div class="remove"><u><a class="mycustoma" href="/cart/deleteitem/${i.id.productid}"> Xóa</a></u>
+                    <div class="remove"><u><a class="mycustoma" href="/cart/deleteitem/${i.product.id}"> Xóa</a></u>
                     </div>
                 </div>
             </div>
