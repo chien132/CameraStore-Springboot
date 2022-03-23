@@ -78,12 +78,14 @@
                     <a href="admin/product/edit/${i.id}">
                         <button class="ui left attached primary button centered">Sửa</button>
                     </a>
-                    <c:if test="${i.soldAmount==0&&!i.chosen}">
+                    <c:if test="${i.soldAmount==0}">
+<%--                        &&!i.chosen--%>
                         <button class="ui right attached negative button centered"
                                 onclick="showModal(${i.id},'${i.name}')">Xóa
                         </button>
                     </c:if>
-                    <c:if test="${i.soldAmount>0||i.chosen}">
+                    <c:if test="${i.soldAmount>0}">
+<%--                        ||i.chosen--%>
                         <button class="ui right attached negative button centered" disabled="true">Xóa
                         </button>
                     </c:if>
