@@ -162,7 +162,7 @@
         </div>
         <div class="eight wide column" style="height: max-content">
             <form:form class="ui large form"
-                       action="order/${action}order" modelAttribute="order" method="post">
+                       action="order/${action}order" modelAttribute="order" method="post" id="ordersubmitform">
                 <div class="ui segment" style="font-size: inherit">
                     <form:input path="id" hidden="true"/> <%--Khong duoc xoa, de luu id luc save--%>
                     <div class="field">
@@ -232,7 +232,7 @@
 </body>
 
 <script>
-    $('#ordersubmitbtn').click(function (e) {
+    $('#ordersubmitform').submit(function (e) {
         $('#loaderdimmer').addClass("active");
     })
 </script>

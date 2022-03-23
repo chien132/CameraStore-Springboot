@@ -54,6 +54,8 @@ public class AdminInterceptor implements HandlerInterceptor {
 //            System.out.println(error);
 //            session.set("security-uri", uri);
 //            response.sendRedirect("/login?error=" + error);
+        } else if (account.isAdmin() && uri.startsWith("/order")) {
+            error = "Admin khong duoc dat hang";
         }
         if (error.length() > 0) {
             session.set("security-uri", uri);

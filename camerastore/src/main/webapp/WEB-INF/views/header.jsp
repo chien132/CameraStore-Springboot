@@ -90,14 +90,22 @@
     <div class="right menu">
         <c:choose>
             <c:when test="${curaccount==null}">
+                <c:if test="${cartcount>0}">
+                    <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="shopping cart icon"> </i>Giỏ
+                        hàng
+                        <div class="ui green label"> ${cartcount}</div>
+                    </div>
+                </c:if>
                 <a href="login" class="item"><i class="sign-in blue icon"></i>Đăng nhập</a>
                 <a href="register" class="item"><i class="edit green outline icon"></i>Đăng ký</a>
             </c:when>
             <c:when test="${curaccount!=null}">
-                <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="shopping cart icon"> </i>Giỏ
-                    hàng
-                    <div class="ui green label"> ${cartcount}</div>
-                </div>
+                <c:if test="${cartcount>0}">
+                    <div class="item link" onclick="$('#cartmodal').modal('show')"><i class="shopping cart icon"> </i>Giỏ
+                        hàng
+                        <div class="ui green label"> ${cartcount}</div>
+                    </div>
+                </c:if>
 
                 <div class="item ui pointing dropdown link">
 						<span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
