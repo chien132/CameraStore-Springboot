@@ -11,8 +11,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "OrderDetail")
 public class OrderDetail {
-    //    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
     private OrderDetailId id;
 

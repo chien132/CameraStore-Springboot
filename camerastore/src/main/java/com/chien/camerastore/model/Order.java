@@ -2,6 +2,7 @@ package com.chien.camerastore.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,8 @@ public class Order {
     private String address;
     @NotNull
     @Temporal(TemporalType.DATE)
+    	@DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date createdate = new Date();
     @NotNull
     private String email;
@@ -57,6 +60,36 @@ public class Order {
             size += i.getAmount();
         }
         return size;
+    }
+
+    public String getStatus() {
+        if (rejectreason != null) {
+            if (!rejectreason.isEmpty()) {
+                return "denied";
+            }
+        }
+        if (!confirmed) {
+            return "waiting";
+        } else if (!done) {
+            return "delivering";
+        } else {
+            return "done";
+        }
+    }
+
+    public String getStatusText() {
+        if (rejectreason != null) {
+            if (!rejectreason.isEmpty()) {
+                return "Đã từ chối: " + rejectreason;
+            }
+        }
+        if (!confirmed) {
+            return "Chờ xác nhận";
+        } else if (!done) {
+            return "Đang giao hàng";
+        } else {
+            return "Đã hoàn tất";
+        }
     }
 
 }

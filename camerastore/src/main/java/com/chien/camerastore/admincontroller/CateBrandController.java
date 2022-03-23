@@ -23,12 +23,12 @@ public class CateBrandController {
 
     @ModelAttribute("brands")
     public List<Brand> brands() {
-        return brandDAO.findAll();
+        return brandDAO.findAllByOrderByNameAsc();
     }
 
     @ModelAttribute("categories")
     public List<Category> categories() {
-        return categoryDAO.findAll();
+        return categoryDAO.findAllByOrderByNameAsc();
     }
 
     @RequestMapping("view")
@@ -50,6 +50,20 @@ public class CateBrandController {
         return "redirect:/admin/catebrand/view";
     }
 
+    @PostMapping("editcate/{id}")
+    public String editcate(@PathVariable("id") int id, @RequestParam("name") String name, RedirectAttributes re) {
+        name = name.trim();
+        if (name.isEmpty()) {
+            re.addFlashAttribute("message", "Tên không được trống!");
+            return "redirect:/admin/catebrand/view";
+        }
+        Category category = categoryDAO.getById(id);
+        category.setName(name);
+        categoryDAO.save(category);
+        re.addFlashAttribute("message", "Đã cập nhật phân loại: " + name);
+        return "redirect:/admin/catebrand/view";
+    }
+
     @PostMapping("addbrand")
     public String addbrand(@RequestParam("name") String name, RedirectAttributes re) {
         name = name.trim();
@@ -61,6 +75,20 @@ public class CateBrandController {
         brand.setName(name);
         brandDAO.save(brand);
         re.addFlashAttribute("message", "Thêm thành công hãng sản xuất: " + name);
+        return "redirect:/admin/catebrand/view";
+    }
+
+    @PostMapping("editbrand/{id}")
+    public String editbrand(@PathVariable("id") int id, @RequestParam("name") String name, RedirectAttributes re) {
+        name = name.trim();
+        if (name.isEmpty()) {
+            re.addFlashAttribute("message", "Tên không được trống!");
+            return "redirect:/admin/catebrand/view";
+        }
+        Brand brand = brandDAO.getById(id);
+        brand.setName(name);
+        brandDAO.save(brand);
+        re.addFlashAttribute("message", "Đã cập nhật hãng sản xuất: " + name);
         return "redirect:/admin/catebrand/view";
     }
 

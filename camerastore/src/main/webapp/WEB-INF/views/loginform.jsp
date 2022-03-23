@@ -7,20 +7,17 @@
 <head>
     <meta charset="utf-8"/>
     <title>Đăng nhập</title>
-    <%--  <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css" />--%>
-    <%--  <script src="https://code.jquery.com/jquery-3.1.1.min.js"--%>
-    <%--    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
-    <%--  <script src="resources/semantic/semantic.min.js"></script>--%>
     <style>
         body > .grid {
             height: 100%;
         }
 
         .column {
-            max-width: 450px;
+            max-width: 25% !important;
         }
 
         .error {
+            font-size: 1rem;
             color: red;
             text-align: left;
             width: 100%;
@@ -31,9 +28,15 @@
 
 <body id="homelogin">
 <jsp:include page="header.jsp"/>
+<div id="loaderdimmer" class="ui dimmer">
+    <div class="ui massive text loader">Đang kiểm tra</div>
+</div>
+<p></p>
+<p></p>
+<p></p>
 <div class="ui middle aligned center aligned grid">
-    <div class="column">
-        <form:form action="login" modelAttribute="account" class="ui large form">
+    <div class="column ui form">
+        <form:form action="login" modelAttribute="account" class="ui form">
             <div class="ui stacked secondary segment">
                 <h2 class="ui image header">
                     <div class="content">Đăng nhập</div>
@@ -63,40 +66,60 @@
             <div class="ui error message"></div>
         </form:form>
 
-        <div class="ui message">
+        <div class="ui large message">
             Bạn chưa có tài khoản?
-            <a href="register"> Đăng ký</a>
+            <a href="register"><i class="edit outline icon"></i> Đăng ký</a>
         </div>
+        <button onclick="$('#passwordmodal').modal('show')" style="background-color: #ffffcd"
+                class="ui fluid large button">Quên mật khẩu?
+        </button>
     </div>
 </div>
-<%--<script>--%>
-<%--    $(document).ready(function () {--%>
-<%--        $(".ui.form").form({--%>
-<%--            fields: {--%>
-<%--                email: {--%>
-<%--                    identifier: "username",--%>
-<%--                    rules: [{--%>
-<%--                        type: "empty",--%>
-<%--                        prompt: "Hãy nhập username",--%>
-<%--                    },],--%>
-<%--                },--%>
-<%--                password: {--%>
-<%--                    identifier: "password",--%>
-<%--                    rules: [{--%>
-<%--                        type: "empty",--%>
-<%--                        prompt: "Hãy nhập mật khẩu",--%>
-<%--                    },--%>
-<%--                        {--%>
-<%--                            type: "length[3]",--%>
-<%--                            prompt: "Mật khẩu phải có ít nhất 3 ký tự",--%>
-<%--                        },--%>
-<%--                    ],--%>
-<%--                },--%>
-<%--            },--%>
-<%--        });--%>
-<%--    });--%>
-<%--</script>--%>
-<%--<jsp:include page="footer.jsp"/>--%>
+<div class="ui tiny modal" id="passwordmodal">
+    <div class="header">Nhập username của bạn:</div>
+    <div class="content">
+        <form action="/requestpassword" method="post">
+            <div class="ui form field"><input class="form-control" type="text" name="username"
+                                              required="true">
+            </div>
+            <button style="margin: 1vw;margin-right: 0px" class="right floated ui approve blue large button"> Gửi email
+                xác nhận
+            </button>
+        </form>
+    </div>
+</div>
+<jsp:include page="footer.jsp"/>
+<script>
+    $('#passwordmodal form').submit(function (e) {
+        $('#loaderdimmer').addClass("active");
+        $('#passwordmodal').modal('hide');
+    })
+    $(document).ready(function () {
+        $(".ui.form").form({
+            fields: {
+                username: {
+                    identifier: "username",
+                    rules: [{
+                        type: "empty",
+                        prompt: "Hãy nhập username",
+                    },],
+                },
+                password: {
+                    identifier: "password",
+                    rules: [{
+                        type: "empty",
+                        prompt: "Hãy nhập mật khẩu",
+                    },
+                        {
+                            type: "length[3]",
+                            prompt: "Mật khẩu phải có ít nhất 3 ký tự",
+                        },
+                    ],
+                },
+            },
+        });
+    });
+</script>
 </body>
 
 </html>

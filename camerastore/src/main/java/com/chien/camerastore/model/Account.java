@@ -29,6 +29,7 @@ public class Account implements Serializable {
     private String address;
     @NotNull
     private boolean admin;
+    private String passwordreset;
 
     @OneToMany(mappedBy = "account")
     private List<Order> orders;

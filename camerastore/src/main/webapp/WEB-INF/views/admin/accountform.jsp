@@ -75,17 +75,21 @@
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label style="float: left;">Mật khẩu<b
-                                style="color: red;">*</b></label>
-                        <div class="ui left input">
-                            <!-- 	<i class="lock icon"></i> -->
-                            <form:input path="password" value="${account.password}"
-                                        type="password" placeholder="Mật khẩu" required="true"/>
-                            <form:errors style="color: red;font-size: 15px;"
-                                         path="password"/>
+                    <c:if test="${action=='add'}">
+                        <div class="field">
+                            <label style="float: left;">Mật khẩu<b
+                                    style="color: red;">*</b></label>
+                            <div class="ui left input">
+                                <form:input path="password" value="${account.password}"
+                                            type="password" placeholder="Mật khẩu" required="true"/>
+                                    <%--                                            disabled="true"--%>
+                                    <%--                                            hidden="true"--%>
+
+                                <form:errors style="color: red;font-size: 15px;"
+                                             path="password"/>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
 
                     <div class="field">
                         <label style="float: left;">Họ tên </label>
@@ -109,9 +113,19 @@
                         <label style="float: left;">Email </label>
                         <div class="ui left input">
                             <form:input path="email" value="${account.email}" type="email"
-                                        placeholder="Email address"/>
+                                        placeholder="Email"/>
                             <form:errors style="color: red;font-size: 15px;"
                                          path="email"/>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label style="float: left;">Địa chỉ </label>
+                        <div class="ui left input">
+                            <form:input path="address" value="${account.address}" type="text"
+                                        placeholder="Địa chỉ"/>
+                            <form:errors style="color: red;font-size: 15px;"
+                                         path="address"/>
                         </div>
                     </div>
 

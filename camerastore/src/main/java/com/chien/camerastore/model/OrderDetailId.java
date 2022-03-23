@@ -1,9 +1,11 @@
 package com.chien.camerastore.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class OrderDetailId implements Serializable {
     @Column(name = "order_id")
     private int order_id;
@@ -35,6 +37,7 @@ public class OrderDetailId implements Serializable {
         this.product_id = product_id;
     }
 
+    @Override
     public boolean equals(Object o) {
 //        return super.equals(obj);
         if (this == o) return true;

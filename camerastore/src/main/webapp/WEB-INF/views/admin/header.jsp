@@ -66,7 +66,7 @@
         }
 
         tr:hover {
-            /*cursor: pointer;*/
+            transition-duration: 300ms;
             background-color: #b4eeff;
         }
     </style>
@@ -77,40 +77,45 @@
 
     <img src="resources/images/logodark.png" style="max-height: 5vh; margin-left: 8vw;"/>
 
-    <a href="admin/index" class="item">Tổng quan</a>
+    <a href="admin/overview" class="item">Tổng quan</a>
     <div class="ui simple dropdown item">
         Tài khoản
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/account/view">Danh sách</a>
-            <a class="item" href="/admin/account/add">Thêm mới</a>
+            <a class="item" href="/admin/account/view"><i class="list blue alternate outline icon"></i>Danh sách</a>
+            <a class="item" href="/admin/account/add"><i class="plus green square outline icon"></i>Thêm mới</a>
         </div>
     </div>
     <div class="ui simple dropdown item">
         Sản phẩm
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/product/view">Danh sách</a>
-            <a class="item" href="/admin/product/add">Thêm mới</a>
+            <a class="item" href="/admin/product/view"><i class="list blue alternate outline icon"></i>Danh sách</a>
+            <a class="item" href="/admin/product/add"><i class="plus green square outline icon"></i>Thêm mới</a>
         </div>
     </div>
     <div class="ui simple dropdown item">
         Phân loại & Hãng sản xuất
         <i class="dropdown icon"></i>
         <div class="menu">
-            <a class="item" href="/admin/catebrand/view">Danh sách</a>
-            <a id="addcatelink" class="item" href="/admin/catebrand/addcate">Thêm phân loại</a>
-            <a id="addbrandlink" class="item" href="/admin/catebrand/addbrand">Thêm hãng sản xuất</a>
+            <a class="item" href="/admin/catebrand/view"><i class="list blue alternate outline icon"></i>Danh sách</a>
+            <a id="addcatelink" class="item" href="/admin/catebrand/view"><i
+                    class="plus green square outline icon"></i>Thêm phân loại</a>
+            <%--            href="/admin/catebrand/addcate"--%>
+            <a id="addbrandlink" class="item" href="/admin/catebrand/view"><i
+                    class="plus green square outline icon"></i>Thêm hãng sản xuất</a>
+            <%--            href="/admin/catebrand/addbrand"--%>
         </div>
     </div>
-    <div class="ui simple dropdown item">
-        Đơn hàng
-        <i class="dropdown icon"></i>
-        <div class="menu">
-            <a class="item" href="/admin/order/view">Danh sách</a>
-            <a class="item" href="/admin/order/add">Thêm mới</a>
-        </div>
-    </div>
+    <a href="admin/order/viewall" class="item">Đơn hàng</a>
+    <%--    <div class="ui simple dropdown item">--%>
+    <%--        Đơn hàng--%>
+    <%--        <i class="dropdown icon"></i>--%>
+    <%--        <div class="menu">--%>
+    <%--            <a class="item" href="/admin/order/viewall">Danh sách</a>--%>
+    <%--            <a class="item" href="/admin/order/add">Thêm mới</a>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
 
 
     <div class="right menu">
@@ -123,11 +128,12 @@
         <%--            </div>--%>
         <%--        </div>--%>
         <div class="item ui pointing dropdown link">
-						<span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
-                            ${curaccount.username}</span>
+                <span class="text"><img style="max-width: 1.5vw" src=${curaccount.photo}/>
+                    ${curaccount.username}</span>
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a href="logout" class="item">Đăng xuất</a>
+                <a href="/admin/account/myaccount" class="item"><i class="user blue outline icon"></i>Tài khoản</a>
+                <a href="logout" class="item"><i class="sign-out red icon"></i> Đăng xuất</a>
 
                 <%--                <div class="item">--%>
                 <%--                    <i class="dropdown left icon"></i>--%>
@@ -142,4 +148,5 @@
     </div>
 </div>
 </body>
+
 </html>

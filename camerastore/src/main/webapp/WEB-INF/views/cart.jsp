@@ -37,12 +37,17 @@
 <div class="ui container pad-top-30 pad-bottom-30">
     <div class="center aligned segment">
         <div class="ui horizontal divider">
-            <h2 style="color: white;">Giỏ hàng</h2>
+            <h2 style="color: white;">Đặt hàng</h2>
         </div>
     </div>
 </div>
 
-
+<div id="loaderdimmer" class="ui dimmer">
+    <div class="ui massive text loader">Đang đặt hàng</div>
+</div>
+<p></p>
+<p></p>
+<p></p>
 <!-- cards -->
 <%--<jsp:include page="filter.jsp"/>--%>
 <div class="ui container">
@@ -55,7 +60,7 @@
                     <div class="items">${cartcount} mặt hàng</div>
                     <a style="font-size: 1.3rem;color: #e83f3f" class="mycustoma" href="/cart/deleteall"> Xóa tất cả</a>
                 </div>
-                <div style="overflow:scroll;height:62vh;padding-right:1vw;">
+                <div style="overflow:scroll;height:62vh;padding-right:1vw;overflow-x: hidden">
                     <c:forEach items="${cartitems}" var="i">
                         <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
                         <%--                                                 src="${i.product.image}">${i.amount}x ${i.product.name}</a>--%>
@@ -101,22 +106,27 @@
                                             maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ
                                     </c:if>
                                     <c:if test="${i.product.discount!=0}">
-                                        <div style="text-decoration: line-through;margin-top: -2vh;color: gray">
-                                            <f:formatNumber
-                                                    type="currency"
-                                                    currencySymbol=""
-                                                    maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ
-                                        </div>
+                                        <%--                                        <div style="text-decoration: line-through;margin-top: -2vh;color: gray">--%>
+                                        <%--                                            <f:formatNumber--%>
+                                        <%--                                                    type="currency"--%>
+                                        <%--                                                    currencySymbol=""--%>
+                                        <%--                                                    maxFractionDigits="0">${i.product.price*i.amount}</f:formatNumber>đ--%>
+                                        <%--                                        </div>--%>
                                         <div style="text-decoration: wavy;"><f:formatNumber type="currency"
                                                                                             currencySymbol=""
                                                                                             maxFractionDigits="0">${i.product.price*i.amount*(100-i.product.discount)/100}</f:formatNumber>đ
                                         </div>
                                     </c:if>
                                 </div>
-                                <div class="save"><c:if test="${i.product.discount!=0}"><u
-                                        style="color: #e32e32">-<f:formatNumber type="currency"
-                                                                                currencySymbol=""
-                                                                                maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ</u></c:if>
+                                <div class="save"><c:if test="${i.product.discount!=0}">
+                                    <div style="color: #e32e32;font-size: 1.2rem">-
+                                            <%--                                    <f:formatNumber type="currency"--%>
+                                            <%--                                                    currencySymbol=""--%>
+                                            <%--                                                    maxFractionDigits="0">${i.product.price*(i.product.discount)/100}</f:formatNumber>đ--%>
+                                        <f:formatNumber type="percent"
+                                                        maxIntegerDigits="3">${i.product.discount/100}</f:formatNumber>
+                                    </div>
+                                </c:if>
                                 </div>
                                 <div class="remove"><u><a class="mycustoma" href="/cart/deleteitem/${i.id.productid}">
                                     Xóa</a></u></div>
@@ -127,28 +137,36 @@
                 </div>
 
                 <%--    <hr>--%>
-                <div class="actions">
-                    <%--        <div class="total">--%>
-                    <div class="description">
-                        <div class="total-value">
-                            <div class="Subtotal">Tổng</div>
-                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
-                                                                      maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ
-                            </div>
-                        </div>
+                <div class="ui statistic" style="width: 100%">
+                    <div class="label">
+                        Tổng
+                    </div>
+                    <div class="value">
+                        <f:formatNumber type="currency" currencySymbol=""
+                                        maxFractionDigits="0">${cartcountmoney}</f:formatNumber> vnđ
                     </div>
                 </div>
+                <%--                <div class="actions">--%>
+                <%--                    &lt;%&ndash;        <div class="total">&ndash;%&gt;--%>
+                <%--                    <div class="description">--%>
+                <%--                        <div class="total-value">--%>
+                <%--                            <div class="Subtotal">Tổng</div>--%>
+                <%--                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""--%>
+                <%--                                                                      maxFractionDigits="0">${cartcountmoney}</f:formatNumber>đ--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
 
         </div>
         <div class="eight wide column" style="height: max-content">
             <form:form class="ui large form"
-                       action="order/${action}order" modelAttribute="order" method="post">
+                       action="order/${action}order" modelAttribute="order" method="post" id="ordersubmitform">
                 <div class="ui segment" style="font-size: inherit">
                     <form:input path="id" hidden="true"/> <%--Khong duoc xoa, de luu id luc save--%>
                     <div class="field">
-                        <label style="float: left;">Địa chỉ giao hàng<b
-                                style="color: red;">*</b></label>
+                        <label style="float: left;">Địa chỉ giao hàng</label>
                         <div class="ui left input">
                             <form:input path="address"
                                         type="text" placeholder="Địa chỉ" required="true"/>
@@ -201,8 +219,8 @@
                             </div>
                         </div>
                     </c:if>
-                    <button class="ui fluid large teal submit button">
-                        <c:if test="${action=='add'}">Thanh toán</c:if>
+                    <button id="ordersubmitbtn" class="ui fluid large teal submit button">
+                        <c:if test="${action=='add'}">Đặt hàng</c:if>
                         <c:if test="${action=='edit'}">Cập nhật</c:if>
                     </button>
                 </div>
@@ -213,4 +231,9 @@
 <jsp:include page="footer.jsp"/>
 </body>
 
+<script>
+    $('#ordersubmitform').submit(function (e) {
+        $('#loaderdimmer').addClass("active");
+    })
+</script>
 </html>

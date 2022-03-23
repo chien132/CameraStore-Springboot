@@ -7,33 +7,21 @@
 
 <head>
     <meta charset="utf-8"/>
-    <!-- <title>Đăng nhập</title> -->
-    <%--  <link rel="stylesheet" type="text/css" href="resources/semantic/semantic.min.css" />--%>
-    <%--  <script src="resources/semantic/jquery-3.6.0.min.js"--%>
-    <%--    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
-    <%--  <script src="resources/semantic/semantic.min.js"></script>--%>
-    <style>
-        .bg_rgba {
-            background-color: rgba(150, 150, 150, 0.5);
-            background-blend-mode: lighten;
-            /* width: 200px; */
-            /* height: 200px; */
-            /* border: 1px solid black; */
-        }
-
-        .ui.right.floated.teal.tag.label, .ui.orange.right.ribbon.label {
-            font-size: 1.1rem;
-        }
-
-
-    </style>
 </head>
 
 <body id="homelogin">
 <jsp:include page="header.jsp"/>
+<style>
+    @media only screen and (min-width: 1200px) {
+        .ui.container {
+            width: 95%;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+    }
+</style>
 <div class="spacer"></div>
 
-<!-- header -->
 <div class="ui container pad-top-30 pad-bottom-30">
     <div class="center aligned segment">
         <div class="ui horizontal divider">
@@ -42,22 +30,17 @@
     </div>
 </div>
 
-
-<!-- cards -->
-<%--<jsp:include page="filter.jsp"/>--%>
 <div class="ui container">
     <div class="ui two column grid segment">
         <div class="eight wide column">
             <%--            style="height: 80vh"--%>
             <div class="ui segment">
                 <div class="Header">
-                    <h1>Giỏ hàng</h1>
+                    <h1>Chi tiết đơn hàng</h1>
                     <div class="items">${order.totalAmount} mặt hàng</div>
                 </div>
                 <div style="overflow:scroll;height:62vh;padding-right:1vw;">
                     <c:forEach items="${order.orderDetails}" var="i">
-                        <%--                            <a class="item"><img style="max-width: 2vh;object-fit: scale-down"--%>
-                        <%--                                                 src="${i.product.image}">${i.amount}x ${i.product.name}</a>--%>
                         <div class="Cart-Items2">
                             <div class="image-box">
                                 <img src="${i.product.image}" style="height:50px"/>
@@ -72,7 +55,7 @@
                                 </h3>
                             </div>
                             <div class="counter">
-                                <div class="count">${i.amount}</div>
+                                <div class="count">x${i.amount}</div>
                             </div>
                             <div class="prices">
                                 <div class="amount">
@@ -88,24 +71,30 @@
                         <hr>
                     </c:forEach>
                 </div>
-
-                <%--    <hr>--%>
-                <div class="actions">
-                    <%--        <div class="total">--%>
-                    <div class="description">
-                        <div class="total-value">
-                            <div class="Subtotal">Tổng</div>
-                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""
-                                                                      maxFractionDigits="0">${order.value}</f:formatNumber>đ
-                            </div>
-                        </div>
+                <div class="ui statistic" style="width: 100%">
+                    <div class="label">
+                        Tổng
+                    </div>
+                    <div class="value">
+                        <f:formatNumber type="currency" currencySymbol=""
+                                        maxFractionDigits="0">${order.value}</f:formatNumber> vnđ
                     </div>
                 </div>
+                <%--                <div class="actions">--%>
+                <%--                    <div class="description">--%>
+                <%--                        <div class="total-value">--%>
+                <%--                            <div class="Subtotal">Tổng</div>--%>
+                <%--                            <div class="total-amount"><f:formatNumber type="currency" currencySymbol=""--%>
+                <%--                                                                      maxFractionDigits="0">${order.value}</f:formatNumber>đ--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
 
         </div>
         <div class="eight wide column" style="height: max-content">
-            <form:form class="ui large form" modelAttribute="order">
+            <div class="ui large form">
                 <div class="ui segment" style="font-size: inherit">
                     <form:input path="id" hidden="true"/> <%--Khong duoc xoa, de luu id luc save--%>
                     <div class="field">
@@ -136,16 +125,42 @@
                     <div class="field">
                         <div class="field">
                             <h3><i>Trạng thái:</i></h3>
-                            <h3 class="ui blue header">${order.confirmed?"Đã xác nhận":"Đang chờ xác nhận"}</h3>
-                            <c:if test="${order.confirmed}">
-                                <h3 class="ui blue header">${order.done?"Đã giao hàng":"Đang giao hàng"}</h3>
-
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${order.status=='denied'}">
+                                    <h3 class="ui red header">${order.statusText}</h3>
+                                </c:when>
+                                <c:when test="${order.status=='done'}">
+                                    <h3 class="ui green header">${order.statusText} </h3>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3 class="ui yellow header">${order.statusText}</h3>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
+                    <c:choose>
+                        <c:when test="${order.status=='delivering'}">
+                            <button class="ui positive large button"
+                                    onclick="$('#confirmmodal').modal('show')"><i class="check circle icon"></i>Đã nhận
+                                được hàng
+                            </button>
+                        </c:when>
+                    </c:choose>
                 </div>
-            </form:form>
+            </div>
         </div>
+    </div>
+</div>
+<div class="ui tiny modal" id="confirmmodal">
+    <div class="header"><i class="bell outline orange icon"></i>Xác nhận</div>
+    <div class="content">
+        <h3>Bạn đã nhận được đơn hàng này?</h3>
+    </div>
+    <div class="actions">
+        <a href="order/confirm/${order.id}">
+            <div class="ui approve large green button"><i class="check circle icon"></i>Xác nhận</div>
+        </a>
+        <%--        <div class="ui cancel blue button">Hủy</div>--%>
     </div>
 </div>
 <jsp:include page="footer.jsp"/>

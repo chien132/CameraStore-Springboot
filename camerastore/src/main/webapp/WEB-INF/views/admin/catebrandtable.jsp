@@ -45,7 +45,7 @@
             <tr>
                 <th>ID</th>
                 <%--                <th>Ảnh</th>--%>
-                <th>Tên sản phẩm</th>
+                <th>Tên phân loại</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -57,9 +57,11 @@
                     <td>${i.name}</td>
 
                     <td>
-                        <a href="admin/catebrand/editcate/${i.id}">
-                            <button class="ui left attached primary button centered">Sửa</button>
-                        </a>
+                            <%--                        <a href="admin/catebrand/editcate/${i.id}">--%>
+                        <button class="ui left attached primary button centered"
+                                onclick="editCate(${i.id},'${i.name}')">Sửa
+                        </button>
+                            <%--                        </a>--%>
                         <c:if test="${i.products.size()==0}">
                             <button class="ui right attached negative button centered"
                                     onclick="showModal(${i.id},'${i.name}','cate')">Xóa
@@ -82,7 +84,7 @@
             <tr>
                 <th>ID</th>
                 <%--                <th>Ảnh</th>--%>
-                <th>Tên sản phẩm</th>
+                <th>Tên hãng sản xuất</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -94,9 +96,11 @@
                     <td>${i.name}</td>
 
                     <td>
-                        <a href="admin/catebrand/editbrand/${i.id}">
-                            <button class="ui left attached primary button centered">Sửa</button>
-                        </a>
+                            <%--                        <a href="admin/catebrand/editbrand/${i.id}">--%>
+                        <button class="ui left attached primary button centered"
+                                onclick="editBrand(${i.id},'${i.name}')">Sửa
+                        </button>
+                            <%--                        </a>--%>
                         <c:if test="${i.products.size()==0}">
                             <button class="ui right attached negative button centered"
                                     onclick="showModal(${i.id},'${i.name}','brand')">Xóa
@@ -133,7 +137,8 @@
     <div id="addmodalhheader" class="header"></div>
     <div class="content">
         <form id="addform" action="" method="post">
-            <div class="ui form field"><input class="form-control" type="text" name="name" required="true">
+            <div class="ui form field"><input id="nameInput" class="form-control" type="text" name="name"
+                                              required="true">
             </div>
             <button id="submitbtn" class="right floated ui approve green inverted button"><i
                     class="save outline icon"></i> Lưu
@@ -145,14 +150,30 @@
     <%--        </button>--%>
     <%--    </div>--%>
 </div>
-
+<jsp:include page="footer.jsp"/>
 <script type="text/javascript">
     function showModal(id, name, type) {
-        $('#usernamep').html('Bạn có chắc chắn xóa sản phẩm "' + name + '"')
+        $('#usernamep').html('Bạn có chắc chắn xóa "' + name + '"')
         // $('#delbtn').onclick = document.location.href('admin/account/delete/' + id);
         document.getElementById('delbtn').setAttribute("href", 'admin/catebrand/delete' + type + '/' + id);
         $('#deleteconfirm').modal('show')
         //    .modal('setting', 'transition', 20)
+    }
+
+    function editBrand(id, name) {
+        event.preventDefault();
+        $('#addmodalhheader').html("Nhập tên hãng sản xuất")
+        $('#nameInput').val(name)
+        document.getElementById('addform').setAttribute("action", 'admin/catebrand/editbrand/' + id);
+        $('#addmodal').modal("show")
+    }
+
+    function editCate(id, name) {
+        event.preventDefault();
+        $('#addmodalhheader').html("Nhập tên phân loại")
+        $('#nameInput').val(name)
+        document.getElementById('addform').setAttribute("action", 'admin/catebrand/editcate/' + id);
+        $('#addmodal').modal("show")
     }
 
     $(document).ready(function () {
@@ -161,23 +182,20 @@
             $('#addmodalhheader').html("Nhập tên phân loại")
             document.getElementById('addform').setAttribute("action", 'admin/catebrand/addcate');
             $('#addmodal').modal("show")
-
-
         })
+
         $('#addbrandlink').on('click', function () {
             event.preventDefault();
             $('#addmodalhheader').html("Nhập tên hãng sản xuất")
             document.getElementById('addform').setAttribute("action", 'admin/catebrand/addbrand');
             $('#addmodal').modal("show")
         })
-
     })
 
     // $('#mybrandtable').DataTable();
     // $('#mycatetable').DataTable();
 
 </script>
-<jsp:include page="footer.jsp"/>
 <%--<jsp:include page="../datatable.jsp"/>--%>
 </body>
 </html>

@@ -103,7 +103,7 @@
 
 
                         <div class="four wide field">
-                            <label style="float: left;">Giảm giá </label>
+                            <label style="float: left;">% Giảm giá </label>
                             <div class="ui left input">
                                 <form:input path="discount" type="number" min="0" max="100" placeholder="Giảm giá"
                                             required="true"/>

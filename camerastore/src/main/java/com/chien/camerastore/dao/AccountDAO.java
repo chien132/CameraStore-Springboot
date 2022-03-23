@@ -7,11 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
 
 @Transactional
-public interface AccountDAO extends JpaRepository<Account,Integer> {
+public interface AccountDAO extends JpaRepository<Account, Integer> {
     Account deleteById(int id);
+
     Account findById(int id);
+
     Account findByEmail(String email);
+
     Account findByUsername(String username);
+
+    Account findByPasswordreset(String passwordreset);
 
     @Query(value = "SELECT * FROM Account WHERE username = ?1 and password= ?2", nativeQuery = true)
     Account login(String username, String password);

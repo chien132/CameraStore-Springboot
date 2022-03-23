@@ -14,14 +14,30 @@
             background-blend-mode: lighten;
         }
 
-        tr.even {
-            background-color: #fffaf1;
+        tr {
+            font-size: 1.15rem;
+            cursor: pointer;
+        }
+
+        tr.done {
+            background-color: rgba(152, 251, 152, 0.5);
+        }
+
+        tr.delivering {
+            background-color: rgba(255, 255, 224, 0.5);
+        }
+
+        tr.waiting {
+            background-color: rgba(255, 222, 173, 0.5);
+        }
+
+        tr.denied {
+            background-color: rgba(255, 182, 193, 0.5);
         }
 
         tr:hover {
-            cursor: pointer;
+            transition-duration: 300ms;
             background-color: #b4eeff;
-
         }
     </style>
 </head>
@@ -66,7 +82,7 @@
                 <tbody style="text-align: center;">
                 <c:forEach var="i" items="${orders}">
                     <%--                    <a href="order/view/${i.id}">--%>
-                    <tr onclick="location.href='order/view/${i.id}'">
+                    <tr class="${i.status}" onclick="location.href='order/view/${i.id}'">
                         <td>${i.id}</td>
                         <td>${i.createdate}</td>
                         <td>${i.fullname}</td>
@@ -77,7 +93,7 @@
                                             type="currency">${i.value}</f:formatNumber>đ
                         </td>
                         <td>${i.payonline?"Thanh toán MoMo":"Thanh toán khi nhận hàng"}</td>
-                        <td>${i.done?"Đã hoàn thành":"Đang xử lí"}</td>
+                        <td>${i.statusText}</td>
                     </tr>
                     <%--                    </a>--%>
                 </c:forEach>

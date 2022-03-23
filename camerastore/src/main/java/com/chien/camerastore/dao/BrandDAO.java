@@ -4,10 +4,15 @@ import com.chien.camerastore.model.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 public interface BrandDAO extends JpaRepository<Brand, Integer> {
     Brand findById(int id);
+
     Brand findByNameLike(String name);
+
+    List<Brand> findAllByOrderByNameAsc();
+
 //    Brand deleteById(int id);
 }

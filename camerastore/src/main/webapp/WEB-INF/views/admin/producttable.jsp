@@ -14,12 +14,11 @@
     <jsp:include page="header.jsp"/>
     <style>
         td.descriptiontd {
-            /*text-align: left;*/
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* number of lines to show */
-            line-clamp: 2;
+            -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1;
             -webkit-box-orient: vertical;
         }
     </style>
@@ -46,7 +45,7 @@
         <thead style="text-align: center;">
         <tr>
             <th>ID</th>
-            <th>Ảnh</th>
+<%--            <th>Ảnh</th>--%>
             <th>Tên sản phẩm</th>
             <th>Mô tả</th>
             <th>Giá</th>
@@ -57,18 +56,19 @@
             <th>Thao tác</th>
         </tr>
         </thead>
-        <tbody style="text-align: center;">
+        <tbody style="text-align: center;font-size: 1.1rem">
         <c:forEach var="i" items="${products}">
             <tr>
                 <td>${i.id}</td>
-                <td><img style="max-width: 3.75vh;" alt=""
-                         src=${i.image}></td>
-                <td>${i.name}</td>
-                <td class="descriptiontd">${i.description}</td>
-                <td><f:formatNumber type="currency"
-                                    maxFractionDigits="0" currencySymbol="" value="${i.price}"/>₫
+<%--                <td><img style="max-width: 3.75vh;" alt=""--%>
+<%--                         src=${i.image}></td>--%>
+                <td style="text-align: left;">${i.name}</td>
+                <td class="descriptiontd" style="text-align: left;">${i.description}</td>
+                <td style="text-align: right;"><f:formatNumber type="currency"
+                                                               maxFractionDigits="0" currencySymbol=""
+                                                               value="${i.price}"/>₫
                 </td>
-                <td>${i.discount}</td>
+                <td><f:formatNumber type="percent" maxIntegerDigits="3" value="${i.discount/100}"/></td>
                     <%--                <td>${i.role.name}<c:if test="${i.role.id==1}"> #${i.chuTro.id}</c:if>--%>
                     <%--                    <c:if test="${i.role.id==2}"> #${i.khachThue.id}</c:if></td>--%>
                 <td>${i.category.name}</td>
@@ -78,9 +78,15 @@
                     <a href="admin/product/edit/${i.id}">
                         <button class="ui left attached primary button centered">Sửa</button>
                     </a>
-                    <button class="ui right attached negative button centered"
-                            onclick="showModal(${i.id},'${i.name}')">Xóa
-                    </button>
+                    <c:if test="${i.soldAmount==0&&!i.chosen}">
+                        <button class="ui right attached negative button centered"
+                                onclick="showModal(${i.id},'${i.name}')">Xóa
+                        </button>
+                    </c:if>
+                    <c:if test="${i.soldAmount>0||i.chosen}">
+                        <button class="ui right attached negative button centered" disabled="true">Xóa
+                        </button>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

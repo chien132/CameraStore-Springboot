@@ -22,6 +22,32 @@
             line-clamp: 2;
             -webkit-box-orient: vertical;
         }
+
+        tr {
+            font-size: 1.15rem;
+            cursor: pointer;
+        }
+
+        tr.done {
+            background-color: rgba(152, 251, 152, 0.5);
+        }
+
+        tr.delivering {
+            background-color: rgba(255, 255, 224, 0.5);
+        }
+
+        tr.waiting {
+            background-color: rgba(255, 222, 173, 0.5);
+        }
+
+        tr.denied {
+            background-color: rgba(255, 182, 193, 0.5);
+        }
+
+        tr:hover {
+            /*transition-duration: 300ms;*/
+            background-color: #b4eeff;
+        }
     </style>
 </head>
 <body id="homelogin">
@@ -54,16 +80,16 @@
             <th>Giá trị đơn</th>
             <th>Phương thức thanh toán</th>
             <th>Trạng thái</th>
-            <th>Thao tác</th>
-            <%--                        <th>Thao tác</th>--%>
+            <%--            <th>Thao tác</th>--%>
         </tr>
         </thead>
         <tbody style="text-align: center;">
         <c:forEach var="i" items="${orders}">
             <%--                    <a href="order/view/${i.id}">--%>
-            <tr onclick="">
+            <tr class="${i.status}" onclick="location.href='admin/order/view/${i.id}'">
                 <td>${i.id}</td>
-                <td>${i.createdate}</td>
+                <td><f:formatDate value="${i.createdate}"
+                                  pattern="dd/MM/yyyy" /></td>
                 <td>${i.fullname}</td>
                 <td>${i.address}</td>
                 <td>${i.email}</td>
@@ -72,15 +98,22 @@
                                     type="currency">${i.value}</f:formatNumber>đ
                 </td>
                 <td>${i.payonline?"Thanh toán MoMo":"Thanh toán khi nhận hàng"}</td>
-                <td>${i.done?"Đã hoàn thành":"Đang xử lí"}</td>
                 <td>
-<%--                    <a href="admin/product/edit/${i.id}">--%>
-                        <button class="ui left attached primary button centered">Sửa</button>
-<%--                    </a>--%>
-                    <button class="ui right attached negative button centered"
-                            onclick="showModal(${i.id}')">Xóa
-                    </button>
+                        ${i.statusText}
+                        <%--                        ${i.confirmed?"Đã xác nhận":"Chờ xác nhận"}--%>
+
+                        <%--                    <c:if test="${i.confirmed}">--%>
+                        <%--                        ${i.done?"| Đã hoàn tất":" | Đang giao hàng"}--%>
+                        <%--                    </c:if>--%>
                 </td>
+                    <%--                <td>--%>
+                    <%--                    <a href="admin/order/edit/${i.id}">--%>
+                    <%--                        <button class="ui left attached primary button centered">Sửa</button>--%>
+                    <%--                    </a>--%>
+                    <%--                    <button class="ui right attached negative button centered"--%>
+                    <%--                            onclick="showModal(${i.id}')">Xóa--%>
+                    <%--                    </button>--%>
+                    <%--                </td>--%>
             </tr>
             <%--                    </a>--%>
         </c:forEach>

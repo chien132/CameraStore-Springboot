@@ -42,12 +42,12 @@ public class ProductController {
 
     @ModelAttribute("brands")
     public List<Brand> brands() {
-        return brandDAO.findAll();
+        return brandDAO.findAllByOrderByNameAsc();
     }
 
     @ModelAttribute("categories")
     public List<Category> categories() {
-        return categoryDAO.findAll();
+        return categoryDAO.findAllByOrderByNameAsc();
     }
 
     @RequestMapping("view")
@@ -83,7 +83,7 @@ public class ProductController {
                     re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                 } else {
                     try {
-                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename());
+                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename()).replaceAll("\\s", "");
                         String uploadDir = "src/main/webapp/resources/images/product/";
                         FileUploadService.saveFile(uploadDir, filename, photo);
                         product.setImage("resources/images/product/" + filename);
@@ -132,11 +132,20 @@ public class ProductController {
                     re.addFlashAttribute("message", "File ảnh không đúng định dạng !");
                 } else {
                     try {
-                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename());
+                        Product dbProduct = productDAO.findById(product.getId());
+                        String filename = StringUtils.cleanPath(product.getId() + photo.getOriginalFilename()).replaceAll("\\s", "");
                         String uploadDir = "src/main/webapp/resources/images/product/";
                         FileUploadService.saveFile(uploadDir, filename, photo);
+                        if (!dbProduct.getImage().equals("resources/images/avatar/user-default.png")) {
+                            File image = new File(
+                                    context.getRealPath(dbProduct.getImage()));
+                            if (image.delete()) {
+                                System.out.println("Deleted the file: " + image.getName());
+                            } else {
+                                System.out.println("Failed to delete the file.");
+                            }
+                        }
                         product.setImage("resources/images/product/" + filename);
-
                     } catch (Exception e) {
                         re.addFlashAttribute("message", "Lỗi lưu ảnh: " + e);
                         return "redirect:/admin/product/add";

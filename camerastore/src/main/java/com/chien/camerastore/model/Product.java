@@ -33,5 +33,34 @@ public class Product {
     private Brand brand;
 
     @OneToMany(mappedBy = "product")
-    List<CartItem> cartItem;
+    private List<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetail> orderDetails;
+
+    public int getSoldAmount() {
+        int count = 0;
+        for (OrderDetail i : orderDetails) {
+            count += i.getAmount();
+        }
+        return count;
+    }
+
+    public boolean isChosen() {
+        return cartItems.size() > 0;
+    }
+
+    public int getSoldInOrders(List<Order> orders) {
+        int count = 0;
+        for (Order o : orders) {
+            if (o.getStatus().equals("delivering") || o.getStatus().equals("done")) {
+                for (OrderDetail d : o.getOrderDetails()) {
+                    if (d.getProduct().getId() == this.getId()) {
+                        count += d.getAmount();
+                    }
+                }
+            }
+        }
+        return count;
+    }
 }

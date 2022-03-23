@@ -58,11 +58,12 @@
                     <c:if test="${!i.admin}"> User</c:if></td>
                 <td>
                     <a href="admin/account/edit/${i.id}">
-                        <button class="ui left attached primary button centered">Sửa</button>
+                        <button class="ui  primary button centered">Sửa</button>
                     </a>
-                    <button class="ui right attached negative button centered"
-                            onclick="showModal(${i.id},'${i.username}')">Xóa
-                    </button>
+<%--                    left attached--%>
+<%--                    <button class="ui right attached negative button centered"--%>
+<%--                            onclick="showModal(${i.id},'${i.username}')">Xóa--%>
+<%--                    </button>--%>
                         <%--                    </a>--%>
                 </td>
             </tr>
