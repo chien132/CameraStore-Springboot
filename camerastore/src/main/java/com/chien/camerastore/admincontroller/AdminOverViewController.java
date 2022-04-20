@@ -113,7 +113,9 @@ public class AdminOverViewController {
         model.addAttribute("done", done);
         model.addAttribute("doneValue", doneValue);
         model.addAttribute("denied", denied);
-        model.addAttribute("from", fromstr);
+        if (!fromstr.equals("2000-01-01")) {
+            model.addAttribute("from", fromstr);
+        }
         if (!tostr.equals("3000-01-01")) {
             model.addAttribute("to", tostr);
 
