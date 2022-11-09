@@ -6,7 +6,7 @@ public class MyConstants {
     public static final String MY_EMAIL = "camerastore2022@gmail.com";
 
     // Replace password!!
-    public static final String MY_PASSWORD = "springboot";
+    public static final String MY_PASSWORD = "pbtgrjtigxegjjzz";
 
     // And receiver!
     public static final String FRIEND_EMAIL = "dangminhchien1302@gmail.com";
