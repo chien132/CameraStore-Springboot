@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
 import javax.xml.bind.DatatypeConverter;
@@ -151,7 +152,7 @@ public class AccountController {
         if (!account.getPhone().isEmpty() && !Utils.isValidPhoneNumber(account.getPhone())) {
             errors.rejectValue("email", "account", "Số điện thoại không đúng định dạng !");
         }
-        if (!account.getFullname().isEmpty() && account.getFullname().length()>50) {
+        if (!account.getFullname().isEmpty() && account.getFullname().length() > 50) {
             errors.rejectValue("fullname", "account", "Họ tên không quá 50 kí tự!");
         }
         if (!errors.hasErrors()) {
@@ -225,7 +226,8 @@ public class AccountController {
             String subject = "CameraStore - Đặt lại mật khẩu";
             String result = emailService.sentHTMLEmail(account.getEmail(), subject, htmlMsg);
             if (result.equals("OK")) {
-                re.addFlashAttribute("message", "Đã gửi email xác nhận đến " + account.getEmail());
+                re.addFlashAttribute("message", "Đã gửi email xác nhận đến "
+                        + account.getEmail().replaceAll("(^[^@]{3}|(?!^)\\G)[^@]", "$1*"));
             } else {
                 re.addFlashAttribute("message", "Đã xảy ra lỗi!");
             }

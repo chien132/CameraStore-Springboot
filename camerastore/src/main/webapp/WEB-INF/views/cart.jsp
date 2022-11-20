@@ -69,7 +69,8 @@
                                 <img src="${i.product.image}" style="height:50px"/>
                             </div>
                             <div class="about">
-                                <h3 class="title">${i.product.name}</h3>
+                                <h3 class="title" style="color: #0c85d0;cursor: pointer"
+                                    onclick="location.href='product/${i.product.id}'">${i.product.name}</h3>
                                 <h3 class="subtitle" style="color: #0e8c8c"><c:if
                                         test="${i.product.discount==0}"><f:formatNumber
                                         type="currency"

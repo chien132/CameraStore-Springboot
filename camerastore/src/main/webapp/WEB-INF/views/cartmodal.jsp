@@ -26,7 +26,8 @@
                     <img src="${i.product.image}" style="height:120px"/>
                 </div>
                 <div class="about">
-                    <h3 class="title">${i.product.name}</h3>
+                    <h3 class="title" style="color: #0c85d0;cursor: pointer"
+                        onclick="location.href='product/${i.product.id}'">${i.product.name}</h3>
                         <%--                <h3 class="subtitle">250ml</h3>--%>
                 </div>
                 <div class="counter">

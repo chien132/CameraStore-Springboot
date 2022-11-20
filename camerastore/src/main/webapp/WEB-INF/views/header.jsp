@@ -55,7 +55,7 @@
 <body>
 <div class="ui huge top fixed blue menu">
 
-    <img src="resources/images/logodark.png" style="max-height: 5vh; margin-left: 8vw;"/>
+    <img src="resources/images/logodark.png" style="max-height: 5vh; margin-left: 8vw; cursor: pointer;" onclick="location.href='index'"/>
 
     <a href="index" class="item">Trang chủ</a>
     <div class="ui simple dropdown item">

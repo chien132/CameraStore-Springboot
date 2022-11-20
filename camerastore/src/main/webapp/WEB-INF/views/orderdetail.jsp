@@ -46,7 +46,9 @@
                                 <img src="${i.product.image}" style="height:50px"/>
                             </div>
                             <div class="about">
-                                <h3 class="title">${i.product.name}</h3>
+                                <h3 style="color: #0c85d0;cursor: pointer"
+                                    onclick="location.href='product/${i.product.id}'"
+                                    class="title">${i.product.name}</h3>
                                 <h3 class="subtitle" style="color: #0e8c8c">
                                     <div style="color: #0e8c8c"><f:formatNumber type="currency" currencySymbol=""
                                                                                 maxFractionDigits="0">

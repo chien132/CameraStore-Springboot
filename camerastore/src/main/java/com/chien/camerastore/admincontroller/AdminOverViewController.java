@@ -47,12 +47,12 @@ public class AdminOverViewController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println("\n" + type);
-        System.out.println(from);
-        System.out.println(to);
+//        System.out.println("\n" + type);
+//        System.out.println(from);
+//        System.out.println(to);
 
         List<Order> orders = orderDAO.findAllByCreatedateBetween(from, to);
-        System.out.println(orders.size());
+//        System.out.println(orders.size());
         int waiting = 0;
         int delivering = 0;
         int done = 0;
@@ -100,7 +100,7 @@ public class AdminOverViewController {
         });
         for (int i = 0; i < 3; i++) {
             if (products.size() > i) {
-                System.out.println(products.get(i).getName() + products.get(i).getSoldInOrders(orders));
+//                System.out.println(products.get(i).getName() + products.get(i).getSoldInOrders(orders));
                 model.addAttribute("top" + (i + 1), products.get(i));
                 model.addAttribute("top" + (i + 1) + "num", products.get(i).getSoldInOrders(orders));
             }
